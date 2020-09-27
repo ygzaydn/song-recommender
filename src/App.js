@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
@@ -9,7 +10,7 @@ import axios from 'axios'
 import { mapDispatchToProps, mapStateToProps } from './store'
 import './App.css';
 import 'fontsource-roboto';
-import { API_KEY } from './env-variables'
+import dotenv from  'dotenv'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,9 +36,8 @@ const App = ({onRecommendSong, recommendSongState}) => {
   }
 
   const search = async () => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist=cher&track=${searchText}&api_key=${API_KEY}&format=json`)
+    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist=cher&track=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
     if (res) onRecommendSong(res);
-    
   }
 
   return (
