@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { mapDispatchToProps, mapStateToProps } from './store'
@@ -11,14 +13,20 @@ import { API_KEY } from './env-variables'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    flexGrow: 1,
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '95%',
+    },
+    paper: {
+      padding: theme.spacing(1),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
     },
   },
 }));
 
-const App = ({onRecommendSong}) => {
+const App = ({onRecommendSong, recommendSongState}) => {
   const classes = useStyles();
   const [searchText, setSearchText] = useState('');
 
@@ -28,18 +36,30 @@ const App = ({onRecommendSong}) => {
 
   const search = async () => {
     const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist=cher&track=${searchText}&api_key=${API_KEY}&format=json`)
-    onRecommendSong(res);
+    if (res) onRecommendSong(res);
+    
   }
 
   return (
+    <div>
     <form className={classes.root} noValidate autoComplete="off">
       <TextField id="standard-basic" label="Standard" onChange={setTextField}/>
-      <TextField id="filled-basic" label="Filled" variant="filled" />
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
       <Button variant="contained" color="primary" onClick={search}>
-        Primary
+        Search
       </Button>
-  </form>
+    </form>
+      <div className={classes.root}>
+      <Grid container spacing={3}>
+        {recommendSongState.map(el => {
+          return (
+            <Grid key={el.mbid} item xs={3}>
+              <Paper key={el.mbid} elevation={3} className={classes.paper}>{el.name}</Paper>
+            </Grid>
+          )
+        })}
+      </Grid>
+    </div>
+  </div>
   );
 }
 

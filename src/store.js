@@ -9,7 +9,7 @@ const GET_TRACK = 'GET_TRACK'
 const recommendSongReducer = (state = [], action) => {
     switch(action.type) {
         case RECOMMEND_SONG: {
-            return  applyRecommendSong(state, action)
+            return applyRecommendSong(state, action)
         }
         default: return state
     }
@@ -26,7 +26,7 @@ const songInfoStateReducer = (state = [], action) => {
 
 //actions
 const applyRecommendSong = (state, action) => {
-    return  {...action.similartracks}
+    return  [...action.similartracks]
 }
 
 const applyGetTrack = (state, action) => {
