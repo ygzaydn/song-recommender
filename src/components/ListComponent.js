@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     alignContent: 'center',
-    margin: '1% 5%'
+    margin: '1% 5%',
   },
   label: {
     textTransform: 'capitalize',
@@ -44,6 +44,7 @@ export const ListComponent = ({mbid, name}) => {
                     root: classes.root,
                     elevation1: classes.elevation1
                 }}
+                color="secondary"
             >
             {name}
             </Paper>

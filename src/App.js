@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, Grid } from '@material-ui/core/'
+import { TextField, Grid } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { mapDispatchToProps, mapStateToProps } from './store'
@@ -9,22 +9,16 @@ import './App.css';
 import 'fontsource-roboto';
 import dotenv from  'dotenv'
 import { ListComponent } from './components/ListComponent'
+import { StyledButton } from './components/StyledButtonComponent'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
     flexGrow: 1,
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '100%',
-    },
-  },
-  paper: {
-    padding: theme.spacing(1),
+    margin: '2px 3vw',
+    width: '100%',
     alignItems: 'center',
     alignContent: 'center',
-    color: theme.palette.text.secondary,
-    height: '50px',
-    overflow: 'hidden'
   },
 }));
 
@@ -42,25 +36,25 @@ const App = ({onRecommendSong, recommendSongState}) => {
   }
 
   return (
-    <div>
-    <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="standard-basic" label="Standard" onChange={setTextField}/>
-      <Button variant="contained" color="primary" onClick={search}>
+  <div>
+    <form  className={classes.root} noValidate autoComplete="off">
+      <TextField id="standard-basic" label="Artist Name" color="secondary" onChange={setTextField}/>
+      <StyledButton variant="contained" color="primary" onClick={search}>
         Search
-      </Button>
+      </StyledButton>
     </form>
-      <div >
-      <Grid container spacing={3}>
-        {recommendSongState.map(el => {
-          return (
-            <ListComponent 
-            mbid={el.mbid}
-            name={el.name}
-            />
-          )
-        })}
-      </Grid>
-    </div>
+      <div>
+        <Grid container spacing={3}>
+          {recommendSongState.map(el => {
+            return (
+              <ListComponent 
+              mbid={el.mbid}
+              name={el.name}
+              />
+            )
+          })}
+        </Grid>
+      </div>
   </div>
   );
 }
