@@ -16,13 +16,21 @@ const useStyles = makeStyles((theme) => ({
   label: {
     textTransform: 'capitalize',
   },
-  paper: {
+  elevation1: {
     alignItems: 'center',
     alignContent: 'center',
     color: theme.palette.text.secondary,
     height: '50px',
-    overflow: 'hidden'
-  },
+    overflow: 'hidden',
+    '&:hover':{
+        border: "2px solid #000000",
+        color: "#000000"
+        /*theme.transitions.create("all", {
+            easing: theme.transitions.easing.sharp, 
+            duration: theme.transitions.duration.leavingScreen
+        })*/
+    },
+   }
 }));
 
 export const ListComponent = ({mbid, name}) => {
@@ -31,10 +39,10 @@ export const ListComponent = ({mbid, name}) => {
         <Grid key={mbid} item xs={3}>
             <Paper 
                 key={mbid} 
-                elevation={3} 
+                elevation={1} 
                 classes={{
                     root: classes.root,
-                    paper: classes.paper
+                    elevation1: classes.elevation1
                 }}
             >
             {name}
