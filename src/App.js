@@ -44,15 +44,6 @@ const TypedJSConditional = ({background}) =>
     />
   : null;
 
-const Background = ({background,onAnimationEnd}) => {
-  if(background) {
-  return (
-    <div className="main-page main-page-animation asd" style={{position:'absolute'}} onTransitionEnd={onAnimationEnd}>
-    </div>
-  ) 
-  } else return null;
-}
-
 export const ConnectedApp = connect()(App)
 
 
