@@ -37,7 +37,7 @@ const applyGetTrack = (state, action) => {
 const doRecommendSong = (similartracks) => {
     return {
         type: RECOMMEND_SONG,
-        similartracks: similartracks.data.similartracks.track
+        similartracks: similartracks.data.similarartists.artist
     }
 }
 

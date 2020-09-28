@@ -19,11 +19,13 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: '95%',
     },
-    paper: {
-      padding: theme.spacing(1),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
+  },
+  paper: {
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    height: '50px',
+    overflow: 'hidden'
   },
 }));
 
@@ -36,7 +38,7 @@ const App = ({onRecommendSong, recommendSongState}) => {
   }
 
   const search = async () => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist=cher&track=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
     if (res) onRecommendSong(res);
   }
 
@@ -48,7 +50,7 @@ const App = ({onRecommendSong, recommendSongState}) => {
         Search
       </Button>
     </form>
-      <div className={classes.root}>
+      <div >
       <Grid container spacing={3}>
         {recommendSongState.map(el => {
           return (
