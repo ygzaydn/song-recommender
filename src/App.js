@@ -1,75 +1,59 @@
-
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Grid } from '@material-ui/core/'
+import React, {useState} from 'react';
 import { connect } from 'react-redux'
-import axios from 'axios'
-import { mapDispatchToProps, mapStateToProps } from './store'
 import './App.css';
 import 'fontsource-roboto';
-import dotenv from  'dotenv'
-import { ListComponent } from './components/ListComponent'
-import { StyledButton } from './components/StyledButtonComponent'
 import { Header } from './components/Header'
+import { ConnectedMainPage } from './components/MainPage'
+import TypedJS from './components/TypedJS-Component/TypedJS'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexGrow: 1,
-    margin: '1vh 3vw 3vh 3vw ',
-    width: '95%',
-    alignItems: 'center',
-    alignContent: 'center',
-  },
-  container: {
-    display: 'grid',
-    gridTemplateColumns: 'auto auto auto',
+const App = () => {
+
+  const [background, setBackground] = useState(true);
+  const [mainpageClass, setMainpageClass] = useState('')
+  let className =  background ? 'main-page main-page-animation' : '';
+
+  const changeBackground = () => {
+    setBackground(false);
+    //setMainpageClass('main-page main-page-animation main-page-animation-out')
+    setTimeout(() => {setMainpageClass('')},500)
   }
-}));
+  const handleTransitionEnd = () => console.log('ended')
 
-const App = ({onRecommendSong, recommendSongState}) => {
-  const classes = useStyles();
-  const [searchText, setSearchText] = useState('');
-
-  const setTextField = (event) => {
-    setSearchText(event.target.value)
-  }
-
-  const search = async () => {
-    try {
-      const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-      if (res) onRecommendSong(res);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  return (
-  <div>
-    <Header />
-    <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="standard-basic" label="Artist Name" color="secondary" onChange={setTextField}/>
-      <StyledButton variant="contained" color="primary" onClick={search}>
-        Search
-      </StyledButton>
-    </form>
-      <div>
-        <Grid className={classes.container} container spacing={3}>
-          {recommendSongState.map(el => {
-            return (
-              <ListComponent 
-              mbid={el.mbid}
-              name={el.name}
-              match={el.match}
-              />
-            )
-          })}
-        </Grid>
-      </div>
+  return ( 
+  <div className="main-page" >
+    <Background background={background} onAnimationEnd={handleTransitionEnd}/>
+    <TypedJSConditional background={background}/>
+    <Header handleClick={changeBackground} />
+    <ConnectedMainPageConditional background={background} />
   </div>
   );
 }
 
-export const ConnectedApp = connect(mapStateToProps,mapDispatchToProps)(App)
+const ConnectedMainPageConditional = ({background}) => 
+  !background 
+  ? <ConnectedMainPage />
+  : null
+
+
+const TypedJSConditional = ({background}) => 
+  background ?
+      <TypedJS
+        strings={[
+          'TIME TO EXPLORE NEW SONGS',
+          'USE THE MENU BELOW TO <br> BEGIN  YOUR JOURNEY...',
+        ]}
+    />
+  : null;
+
+const Background = ({background,onAnimationEnd}) => {
+  if(background) {
+  return (
+    <div className="main-page main-page-animation asd" style={{position:'absolute'}} onTransitionEnd={onAnimationEnd}>
+    </div>
+  ) 
+  } else return null;
+}
+
+export const ConnectedApp = connect()(App)
 
 
