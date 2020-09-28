@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -11,6 +10,7 @@ import { mapDispatchToProps, mapStateToProps } from './store'
 import './App.css';
 import 'fontsource-roboto';
 import dotenv from  'dotenv'
+import { ListComponent } from './components/ListComponent'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(1),
-    textAlign: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
     color: theme.palette.text.secondary,
     height: '50px',
     overflow: 'hidden'
@@ -54,9 +55,10 @@ const App = ({onRecommendSong, recommendSongState}) => {
       <Grid container spacing={3}>
         {recommendSongState.map(el => {
           return (
-            <Grid key={el.mbid} item xs={3}>
-              <Paper key={el.mbid} elevation={3} className={classes.paper}>{el.name}</Paper>
-            </Grid>
+            <ListComponent 
+            mbid={el.mbid}
+            name={el.name}
+            />
           )
         })}
       </Grid>
