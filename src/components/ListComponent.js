@@ -16,12 +16,11 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'capitalize',
   },
   elevation1: {
-    alignItems: 'center',
-    alignContent: 'center',
     flexDirection: 'column',
     color: theme.palette.text.secondary,
-    height: '50px',
+    maxHeight: '150px',
     overflow: 'hidden',
+    textAlign: 'center',
     '&:hover':{
         border: "2px solid #000000",
         color: "#000000"
@@ -46,7 +45,7 @@ export const ListComponent = ({mbid, name, match}) => {
                 }}
                 color="secondary"
             >
-                <Typography variant="subtitle1" display="block">
+                <Typography variant="subtitle1" display="block" wrap={false}>
                 {name}
                 </Typography>
                 <Typography variant="subtitle2" display="block">
