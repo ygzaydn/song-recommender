@@ -9,19 +9,18 @@ import TypedJS from './components/TypedJS-Component/TypedJS'
 const App = () => {
 
   const [background, setBackground] = useState(true);
-  const [mainpageClass, setMainpageClass] = useState('')
+  const [mainpageClass, setMainpageClass] = useState('main-page main-page-animation')
   let className =  background ? 'main-page main-page-animation' : '';
 
   const changeBackground = () => {
     setBackground(false);
-    //setMainpageClass('main-page main-page-animation main-page-animation-out')
-    setTimeout(() => {setMainpageClass('')},500)
   }
-  const handleTransitionEnd = () => console.log('ended')
+  const handleTransitionEnd = () => {
+    setMainpageClass('main-page main-page-animation main-page-animation-out')
+  }
 
   return ( 
-  <div className="main-page" >
-    <Background background={background} onAnimationEnd={handleTransitionEnd}/>
+  <div className={mainpageClass} onTransitionEnd={handleTransitionEnd}>
     <TypedJSConditional background={background}/>
     <Header handleClick={changeBackground} />
     <ConnectedMainPageConditional background={background} />
