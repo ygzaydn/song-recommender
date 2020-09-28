@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     alignContent: 'center',
+    margin: '1% 5%'
   },
   label: {
     textTransform: 'capitalize',

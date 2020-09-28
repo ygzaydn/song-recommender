@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     '& > *': {
       margin: theme.spacing(1),
-      width: '95%',
+      width: '100%',
     },
   },
   paper: {
