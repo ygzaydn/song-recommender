@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     alignContent: 'center',
   },
+  container: {
+    display: 'grid',
+    gridTemplateColumns: 'auto auto auto',
+  }
 }));
 
 const App = ({onRecommendSong, recommendSongState}) => {
@@ -41,14 +45,14 @@ const App = ({onRecommendSong, recommendSongState}) => {
 
   return (
   <div>
-    <form  className={classes.root} noValidate autoComplete="off">
+    <form className={classes.root} noValidate autoComplete="off">
       <TextField id="standard-basic" label="Artist Name" color="secondary" onChange={setTextField}/>
       <StyledButton variant="contained" color="primary" onClick={search}>
         Search
       </StyledButton>
     </form>
       <div>
-        <Grid className={classes.root} container spacing={3}>
+        <Grid className={classes.container} container spacing={3}>
           {recommendSongState.map(el => {
             return (
               <ListComponent 

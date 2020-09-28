@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export const ListComponent = ({mbid, name, match}) => {
     const classes = useStyles();
     return (
-        <Grid key={mbid} item xs={3}>
+        <Grid key={mbid} item xs={12}>
             <Paper 
                 key={mbid} 
                 elevation={1} 
@@ -49,7 +49,7 @@ export const ListComponent = ({mbid, name, match}) => {
                 {name}
                 </Typography>
                 <Typography variant="subtitle2" display="block">
-                Match: {match}
+                Match: {parseInt(match*10)}
                 </Typography>
             </Paper>
         </Grid>
