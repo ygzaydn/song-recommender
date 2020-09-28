@@ -10,6 +10,7 @@ import 'fontsource-roboto';
 import dotenv from  'dotenv'
 import { ListComponent } from './components/ListComponent'
 import { StyledButton } from './components/StyledButtonComponent'
+import { Header } from './components/Header'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,7 @@ const App = ({onRecommendSong, recommendSongState}) => {
 
   return (
   <div>
+    <Header />
     <form className={classes.root} noValidate autoComplete="off">
       <TextField id="standard-basic" label="Artist Name" color="secondary" onChange={setTextField}/>
       <StyledButton variant="contained" color="primary" onClick={search}>
