@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 1,
-    margin: '2px 3vw',
-    width: '100%',
+    margin: '1vh 3vw 3vh 3vw ',
+    width: '95%',
     alignItems: 'center',
     alignContent: 'center',
   },
@@ -31,8 +31,12 @@ const App = ({onRecommendSong, recommendSongState}) => {
   }
 
   const search = async () => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-    if (res) onRecommendSong(res);
+    try {
+      const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+      if (res) onRecommendSong(res);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -44,12 +48,13 @@ const App = ({onRecommendSong, recommendSongState}) => {
       </StyledButton>
     </form>
       <div>
-        <Grid container spacing={3}>
+        <Grid className={classes.root} container spacing={3}>
           {recommendSongState.map(el => {
             return (
               <ListComponent 
               mbid={el.mbid}
               name={el.name}
+              match={el.match}
               />
             )
           })}

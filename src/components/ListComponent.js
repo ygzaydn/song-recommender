@@ -1,16 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, Paper } from '@material-ui/core'
+import { Grid, Paper, Typography } from '@material-ui/core'
+import 'fontsource-roboto';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: 3,
     border: 0,
-    height: 48,
-    padding: '0 30px',
+    padding: '5%',
     display: 'flex',
-    alignItems: 'center',
-    alignContent: 'center',
+    flexWrap: 'wrap',
     margin: '1% 5%',
   },
   label: {
@@ -19,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   elevation1: {
     alignItems: 'center',
     alignContent: 'center',
+    flexDirection: 'column',
     color: theme.palette.text.secondary,
     height: '50px',
     overflow: 'hidden',
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-export const ListComponent = ({mbid, name}) => {
+export const ListComponent = ({mbid, name, match}) => {
     const classes = useStyles();
     return (
         <Grid key={mbid} item xs={3}>
@@ -46,7 +46,12 @@ export const ListComponent = ({mbid, name}) => {
                 }}
                 color="secondary"
             >
-            {name}
+                <Typography variant="subtitle1" display="block">
+                {name}
+                </Typography>
+                <Typography variant="subtitle2" display="block">
+                Match: {match}
+                </Typography>
             </Paper>
         </Grid>
     )
