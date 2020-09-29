@@ -16,14 +16,21 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetTopAlbums}) => {
+export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
   const classes = useStyles();
 
   const getArtist = async (mbid) => {
     const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
     if(res) {
     onGetArtist(res);
-    getArtistTopAlbums(mbid);
+    getArtistTopTracks(mbid);
+    }
+  }
+  const getArtistTopTracks = async (mbid) => {
+    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+    if(res) {
+     onGetTopTracks(res);
+     getArtistTopAlbums(mbid)
     }
   }
   const getArtistTopAlbums = async (mbid) => {

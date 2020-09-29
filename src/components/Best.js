@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 300
     },
     gridListTile: {
-        maxWidth:800
+        maxWidth:700
     }
   }));
 
@@ -49,7 +49,7 @@ export const Best = ({data, title}) => {
                 <GridList className={classes.gridList} cols={1}>
                     {data.map((el) => (
                         <GridListTile key={el.url} cols={1} className={classes.gridListTile}>
-                            <CardComponent name={el.name} artist={el.artist.name} url={el.url} playcount={el.playcount} img= {el.image[2]["#text"]}/>
+                            <CardComponent name={el.name} artist={el.artist.name} url={el.url} playcount={el.playcount} img={el.image[2]["#text"]}/>
                         </GridListTile>
                     ))}
                 </GridList>

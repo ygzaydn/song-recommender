@@ -5,8 +5,6 @@ import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
 import { Best } from './Best'
-import dotenv from 'dotenv'
-import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,6 +84,7 @@ const ArtistInfo = ({artistState, renderState}) => {
                             ))}
                         </GridList>
                     </Grid>
+                    <Best data={artistState.getTopTracks.track} title="Best Songs"/>
                     <Best data={artistState.getTopAlbums.album} title="Best Albums"/>
                 </Grid>
             </Paper>
