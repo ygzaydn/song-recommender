@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   ol: {
-    margin: '5%',
+    margin: '2%',
     justifyContent: 'center',
     fontSize: '3vw',
   },
@@ -22,6 +22,9 @@ export const Header = ({handleClick}) => {
         </Link>
         <Link id="header" color="inherit" href="#" onClick={handleClick}>
             Tags
+        </Link>
+        <Link id="header" color="inherit" href="#" onClick={handleClick}>
+            Geo
         </Link>
     </Breadcrumbs>
     )
