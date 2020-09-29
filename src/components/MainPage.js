@@ -24,10 +24,9 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-const MainPage = ({onRecommendArtist, artistState}) => {
+const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) => {
   const classes = useStyles();
   const [searchText, setSearchText] = useState('');
-  const [renderState, setRenderState] = useState('')
 
   const setTextField = (event) => {
     setSearchText(event.target.value)
@@ -38,7 +37,7 @@ const MainPage = ({onRecommendArtist, artistState}) => {
       const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
       if (res) {
         onRecommendArtist(res);
-        setRenderState('ArtistRecommend')
+        onStateChange('ArtistRecommend');
       }
     } catch (error) {
       console.log(error)

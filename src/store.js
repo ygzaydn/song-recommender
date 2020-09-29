@@ -6,6 +6,7 @@ const RECOMMEND_SONG = 'RECOMMEND_SONG';
 const GET_TRACK = 'GET_TRACK'
 const RECOMMEND_ARTIST = 'RECOMMEND_ARTIST'
 const GET_ARTIST = 'GET_ARTIST'
+const STATE_CHANGE = 'STATE_CHANGE'
 
 //reducers
 const recommendSongReducer = (state = [], action) => {
@@ -17,7 +18,7 @@ const recommendSongReducer = (state = [], action) => {
     }
 }
 
-const songInfoStateReducer = (state = [], action) => {
+const songInfoReducer = (state = [], action) => {
     switch(action.type) {
         case GET_TRACK: {
             return applyGetTrack(state, action)
@@ -38,6 +39,14 @@ const artistReducer = (state = [], action) => {
     }
 }
 
+const renderReducer = (state = '', action) => {
+    switch(action.type) {
+        case STATE_CHANGE: {
+            return action.id
+        }
+        default: return state
+    }
+}
 //actions
 const applyRecommendSong = (state, action) => {
     return  [...action.similartracks]
@@ -84,13 +93,21 @@ const doGetTrack = (track) => {
     }
 }
 
+const doStateChange = (id) => {
+    return {
+        type: STATE_CHANGE,
+        id
+    }
+}
+
 //store initialization
 const logger = createLogger();
 
 const rootReducer = combineReducers({
     recommendSongState: recommendSongReducer,
-    songInfoState: songInfoStateReducer,
-    artistState: artistReducer
+    songInfoState: songInfoReducer,
+    artistState: artistReducer,
+    renderState: renderReducer
 })
 export const store = createStore(rootReducer, undefined, applyMiddleware(logger));
 
@@ -99,7 +116,8 @@ export const mapStateToProps = (state) => {
     return {
         recommendSongState: state.recommendSongState,
         songInfoState: state.songInfoState,
-        artistState: state.artistState
+        artistState: state.artistState,
+        renderState: state.renderState
     }
 }
 
@@ -108,6 +126,7 @@ export const mapDispatchToProps = (dispatch) => {
         onRecommendSong: similartracks => dispatch(doRecommendSong(similartracks)),
         onGetTrack: track => dispatch(doGetTrack(track)),
         onRecommendArtist: similarartists => dispatch(doRecommendArtist(similarartists)),
-        onGetArtist: artist => dispatch(doGetArtist(artist))
+        onGetArtist: artist => dispatch(doGetArtist(artist)),
+        onStateChange: id => dispatch(doStateChange(id))
     }
 }

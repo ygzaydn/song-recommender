@@ -39,7 +39,7 @@ export const ListComponent = ({mbid, name, match, getArtist}) => {
     const classes = useStyles();
     return (
         <Grid key={mbid} item xs={12}>
-            <Paper 
+            <Paper
                 key={mbid} 
                 elevation={1} 
                 classes={{
