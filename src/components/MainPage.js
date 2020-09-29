@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Grid } from '@material-ui/core/'
+import { TextField, } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import 'fontsource-roboto';
-import dotenv from  'dotenv'
-import { ListComponent } from './ListComponent'
+import dotenv from 'dotenv'
 import { StyledButton } from './StyledButtonComponent'
+import { ConnectedRecommendArtist } from './RecommendArtist'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   const MainPage = ({onRecommendArtist, artistState}) => {
     const classes = useStyles();
     const [searchText, setSearchText] = useState('');
+    const [renderState, setRenderState] = useState('')
   
     const setTextField = (event) => {
       setSearchText(event.target.value)
@@ -35,12 +36,15 @@ const useStyles = makeStyles((theme) => ({
     const search = async () => {
       try {
         const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-        if (res) onRecommendArtist(res);
+        if (res) {
+          onRecommendArtist(res);
+          setRenderState('ArtistRecommend')
+        }
       } catch (error) {
         console.log(error)
       }
     }
-    console.log(artistState)
+
     return (
     <div>
       <form className={classes.root} noValidate autoComplete="off">
@@ -50,19 +54,9 @@ const useStyles = makeStyles((theme) => ({
         </StyledButton>
       </form>
         <div>
-          <Grid className={classes.container} container spacing={3}>
-            {artistState.getSimilar
-            ? artistState.getSimilar.map(el => {
-              return (
-                <ListComponent 
-                mbid={el.mbid}
-                name={el.name}
-                match={el.match}
-                /> 
-              )
-            }) 
+        {renderState==='ArtistRecommend'
+            ? <ConnectedRecommendArtist />
             : null }
-          </Grid>
         </div>
     </div>
     );

@@ -10,20 +10,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Header = ({handleClick}) => {
+export const Header = ({handleClick, changeSection}) => {
     const classes = useStyles();
     return (
     <Breadcrumbs  classes={{ol: classes.ol}} aria-label="breadcrumb">
-        <Link id="header" color="inherit" href="#" onClick={handleClick}>
+        <Link id="header" color="inherit" href="#" onClick={handleClick('Artist')}>
             Artists
         </Link>
-        <Link id="header" color="inherit" href="#" onClick={handleClick}>
+        <Link id="header" color="inherit" href="#" nClick={() => {handleClick(); changeSection('Track')}}>
             Tracks
         </Link>
-        <Link id="header" color="inherit" href="#" onClick={handleClick}>
+        <Link id="header" color="inherit" href="#" nClick={() => {handleClick(); changeSection('Tag')}}>
             Tags
         </Link>
-        <Link id="header" color="inherit" href="#" onClick={handleClick}>
+        <Link id="header" color="inherit" href="#" nClick={() => {handleClick(); changeSection('Geo')}}>
             Geo
         </Link>
     </Breadcrumbs>

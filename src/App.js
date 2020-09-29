@@ -11,30 +11,35 @@ const App = () => {
 
   const [background, setBackground] = useState(true);
   const [mainpageClass, setMainpageClass] = useState('main-page main-page-animation')
+  const [section, setSection] = useState('')
   
-  const changeBackground = (event) => {
+  const changeBackground = (input) => (event) => {
     if(background) setMainpageClass('main-page main-page-animation main-page-animation-out')
     setTimeout(() => {
       setBackground(false)
     }, 900);
     document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorInherit')
     event.target.className = 'MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorTextPrimary'
+    setSection(input);
   }
+
   const endAnimation = () => {
     setMainpageClass('')
   }
+
+
   return ( 
   <div className={mainpageClass} onAnimationEnd={endAnimation}>
     <TypedJSConditional background={background} />
     <Header handleClick={changeBackground} />
-    <ConnectedMainPageConditional background={background} />
+    <ConnectedMainPageConditional section={section} background={background} />
   </div>
   );
 }
 
-const ConnectedMainPageConditional = ({background}) => 
+const ConnectedMainPageConditional = ({background, section}) => 
   !background 
-  ? <ConnectedMainPage />
+  ? <ConnectedMainPage section={section}/>
   : null
 
 
@@ -47,6 +52,7 @@ const TypedJSConditional = ({background}) =>
         ]}
     />
   : null;
+
 
 export const ConnectedApp = connect()(App)
 
