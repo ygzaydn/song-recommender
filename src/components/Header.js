@@ -17,13 +17,13 @@ export const Header = ({handleClick, changeSection}) => {
         <Link id="header" color="inherit" href="#" onClick={handleClick('Artist')}>
             Artists
         </Link>
-        <Link id="header" color="inherit" href="#" nClick={() => {handleClick(); changeSection('Track')}}>
+        <Link id="header" color="inherit" href="#" onClick={() => {handleClick(); changeSection('Track')}}>
             Tracks
         </Link>
-        <Link id="header" color="inherit" href="#" nClick={() => {handleClick(); changeSection('Tag')}}>
+        <Link id="header" color="inherit" href="#" onClick={() => {handleClick(); changeSection('Tag')}}>
             Tags
         </Link>
-        <Link id="header" color="inherit" href="#" nClick={() => {handleClick(); changeSection('Geo')}}>
+        <Link id="header" color="inherit" href="#" onClick={() => {handleClick(); changeSection('Geo')}}>
             Geo
         </Link>
     </Breadcrumbs>
