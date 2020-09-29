@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Typography, Collapse } from '@material-ui/core/'
+import { Grid, Paper, Typography, Collapse, GridList, GridListTile } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
@@ -14,13 +14,19 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    maxWidth: 750,
+    maxWidth: 1000,
   },
   title: {
-    maxWidth: 750,
+    maxWidth: 'inherit',
     height: 'auto',
     textAlign: 'center'
-  }
+  },
+  bio: {
+    textAlign: 'left'
+  },
+  gridList: {
+    flexWrap: 'nowrap',
+  },
 }));
 
 const ArtistInfo = ({artistState, renderState}) => {
@@ -39,14 +45,42 @@ const ArtistInfo = ({artistState, renderState}) => {
                         </Paper>
                     </Grid>
                     <Grid item xs={12} onClick={unCollapse}>
-                        <Typography className={classes.title}>
-                            Click here for bio!
+                        <Typography variant="subtitle1" className={classes.title}>
+                            {checked ?  'Click to close bio!' : 'Click here for bio!'}
                         </Typography>
                         <Collapse in={checked} collapsedSize={150}>
-                            <Typography className={classes.title}>
+                            <Typography className={classes.bio}>
                                 {artistState.getArtist.bio.content.split('<a hr')[0]}
                             </Typography>
                         </Collapse>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Paper className={classes.title}>
+                            <Typography variant="subtitle1" className={classes.title}> Stats </Typography>
+                            <Typography variant="subtitle2" className={classes.bio}> 
+                                Listeners: {artistState.getArtist.stats.listeners} 
+                            </Typography>
+                            <Typography variant="subtitle2" className={classes.bio}> 
+                                Playcount: {artistState.getArtist.stats.playcount} 
+                            </Typography>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="subtitle2" className={classes.bio}> 
+                           Similar Artists
+                        </Typography>
+                        <GridList className={classes.gridList} cols={1}>
+                            {artistState.getArtist.similar.artist.map((el) => (
+                                <GridListTile key={el.url} cols={1}>
+                                    <Typography variant="subtitle2" className={classes.bio}> 
+                                        Name: {el.name} 
+                                    </Typography>
+                                    <Typography variant="subtitle2" className={classes.bio}> 
+                                        Url: {el.url} 
+                                    </Typography>
+                                </GridListTile>
+                            ))}
+                        </GridList>
                     </Grid>
                 </Grid>
             </Paper>

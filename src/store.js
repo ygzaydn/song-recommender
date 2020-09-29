@@ -7,6 +7,7 @@ const GET_TRACK = 'GET_TRACK'
 const RECOMMEND_ARTIST = 'RECOMMEND_ARTIST'
 const GET_ARTIST = 'GET_ARTIST'
 const STATE_CHANGE = 'STATE_CHANGE'
+const GET_TOP_ALBUMS = 'GET_TOP_ALBUMS'
 
 //reducers
 const recommendSongReducer = (state = [], action) => {
@@ -35,6 +36,9 @@ const artistReducer = (state = [], action) => {
         case GET_ARTIST: {
             return applyGetArtist(state,action)
         }
+        case GET_TOP_ALBUMS: {
+            return applyGetTopAlbums(state,action)
+        }
         default: return state
     }
 }
@@ -54,6 +58,10 @@ const applyRecommendSong = (state, action) => {
 
 const applyGetArtist = (state, action) => {
     return {...state, getArtist: {...action.artist}}
+}
+
+const applyGetTopAlbums = (state, action) => {
+    return {...state, getTopAlbums: {...action.artist}}
 }
 
 const applyGetTrack = (state, action) => {
@@ -76,6 +84,13 @@ const doGetArtist = (artist) => {
     return {
         type: GET_ARTIST,
         artist: artist.data.artist
+    }
+}
+
+const doGetTopAlbums = (artist) => {
+    return {
+        type: GET_TOP_ALBUMS,
+        artist: artist.data.topalbums
     }
 }
 
@@ -127,6 +142,7 @@ export const mapDispatchToProps = (dispatch) => {
         onGetTrack: track => dispatch(doGetTrack(track)),
         onRecommendArtist: similarartists => dispatch(doRecommendArtist(similarartists)),
         onGetArtist: artist => dispatch(doGetArtist(artist)),
-        onStateChange: id => dispatch(doStateChange(id))
+        onStateChange: id => dispatch(doStateChange(id)),
+        onGetTopAlbums: artist => dispatch(doGetTopAlbums(artist))
     }
 }

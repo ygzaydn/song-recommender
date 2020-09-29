@@ -16,15 +16,22 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export const RecommendArtist = ({artistState, onGetArtist, onStateChange}) => {
+export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetTopAlbums}) => {
   const classes = useStyles();
 
   const getArtist = async (mbid) => {
-  const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-   if(res) {
+    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+    if(res) {
     onGetArtist(res);
-    onStateChange('ArtistInfo')
+    getArtistTopAlbums(mbid);
+    }
   }
+  const getArtistTopAlbums = async (mbid) => {
+    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+    if(res) {
+     onGetTopAlbums(res);
+     onStateChange('ArtistInfo')
+    }
   }
 return (
     <div>
