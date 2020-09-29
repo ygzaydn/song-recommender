@@ -51,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
       </form>
         <div>
           <Grid className={classes.container} container spacing={3}>
-            {artistState.getSimilar?artistState.getSimilar.map(el => {
+            {artistState.getSimilar
+            ? artistState.getSimilar.map(el => {
               return (
                 <ListComponent 
                 mbid={el.mbid}
@@ -59,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
                 match={el.match}
                 /> 
               )
-            }) : null }
+            }) 
+            : null }
           </Grid>
         </div>
     </div>
