@@ -24,42 +24,42 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-  const MainPage = ({onRecommendArtist, artistState}) => {
-    const classes = useStyles();
-    const [searchText, setSearchText] = useState('');
-    const [renderState, setRenderState] = useState('')
-  
-    const setTextField = (event) => {
-      setSearchText(event.target.value)
-    }
-  
-    const search = async () => {
-      try {
-        const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-        if (res) {
-          onRecommendArtist(res);
-          setRenderState('ArtistRecommend')
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
+const MainPage = ({onRecommendArtist, artistState}) => {
+  const classes = useStyles();
+  const [searchText, setSearchText] = useState('');
+  const [renderState, setRenderState] = useState('')
 
-    return (
-    <div>
-      <form className={classes.root} noValidate autoComplete="off">
-        <TextField id="standard-basic" label="Artist Name" color="secondary" onChange={setTextField}/>
-        <StyledButton variant="contained" color="primary" onClick={search}>
-          Search
-        </StyledButton>
-      </form>
-        <div>
-        {renderState==='ArtistRecommend'
-            ? <ConnectedRecommendArtist />
-            : null }
-        </div>
-    </div>
-    );
+  const setTextField = (event) => {
+    setSearchText(event.target.value)
   }
-  
-  export const ConnectedMainPage = connect(mapStateToProps,mapDispatchToProps)(MainPage)
+
+  const search = async () => {
+    try {
+      const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+      if (res) {
+        onRecommendArtist(res);
+        setRenderState('ArtistRecommend')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return (
+  <div>
+    <form className={classes.root} noValidate autoComplete="off">
+      <TextField id="standard-basic" label="Artist Name" color="secondary" onChange={setTextField}/>
+      <StyledButton variant="contained" color="primary" onClick={search}>
+        Search
+      </StyledButton>
+    </form>
+      <div>
+      {renderState==='ArtistRecommend'
+          ? <ConnectedRecommendArtist />
+          : null }
+      </div>
+  </div>
+  );
+}
+
+export const ConnectedMainPage = connect(mapStateToProps,mapDispatchToProps)(MainPage)

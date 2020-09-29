@@ -5,8 +5,8 @@ import 'fontsource-roboto';
 import { ListComponent } from './ListComponent'
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
-
-
+import dotenv from 'dotenv'
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -16,25 +16,33 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export const RecommendArtist = ({artistState}) => {
-    const classes = useStyles();
-    return (
-        <div>
-          <Grid className={classes.container} container spacing={3}>
-            {artistState.getSimilar
-            ? artistState.getSimilar.map(el => {
-              return (
-                <ListComponent 
-                mbid={el.mbid}
-                name={el.name}
-                match={el.match}
-                /> 
-              )
-            }) 
-            : null }
-          </Grid>
-        </div>
-    )
+export const RecommendArtist = ({artistState, onGetArtist}) => {
+  const classes = useStyles();
+
+  const getArtist = async (mbid) => {
+  const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+   if(res) {
+    onGetArtist(res);
+  }
+  }
+return (
+    <div>
+      <Grid className={classes.container} container spacing={3}>
+        {artistState.getSimilar
+        ? artistState.getSimilar.map(el => {
+          return (
+            <ListComponent 
+            mbid={el.mbid}
+            name={el.name}
+            match={el.match}
+            getArtist={getArtist}
+            /> 
+          )
+        }) 
+        : null }
+      </Grid>
+    </div>
+)
 }
 
-  export const ConnectedRecommendArtist = connect(mapStateToProps,mapDispatchToProps)(RecommendArtist)
+export const ConnectedRecommendArtist = connect(mapStateToProps,mapDispatchToProps)(RecommendArtist)

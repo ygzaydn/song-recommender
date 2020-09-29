@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-export const ListComponent = ({mbid, name, match}) => {
+
+
+export const ListComponent = ({mbid, name, match, getArtist}) => {
+    
     const classes = useStyles();
     return (
         <Grid key={mbid} item xs={12}>
@@ -44,8 +47,9 @@ export const ListComponent = ({mbid, name, match}) => {
                     elevation1: classes.elevation1
                 }}
                 color="secondary"
+                onClick={() => getArtist(mbid)}
             >
-                <Typography variant="subtitle1" display="block" wrap={false}>
+                <Typography variant="subtitle1" display="block" >
                 {name}
                 </Typography>
                 <Typography variant="subtitle2" display="block">

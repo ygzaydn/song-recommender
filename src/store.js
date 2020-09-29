@@ -5,6 +5,7 @@ import { createLogger } from 'redux-logger'
 const RECOMMEND_SONG = 'RECOMMEND_SONG';
 const GET_TRACK = 'GET_TRACK'
 const RECOMMEND_ARTIST = 'RECOMMEND_ARTIST'
+const GET_ARTIST = 'GET_ARTIST'
 
 //reducers
 const recommendSongReducer = (state = [], action) => {
@@ -30,6 +31,9 @@ const artistReducer = (state = [], action) => {
         case RECOMMEND_ARTIST: {
             return applyRecommendArtist(state,action)
         }
+        case GET_ARTIST: {
+            return applyGetArtist(state,action)
+        }
         default: return state
     }
 }
@@ -37,6 +41,10 @@ const artistReducer = (state = [], action) => {
 //actions
 const applyRecommendSong = (state, action) => {
     return  [...action.similartracks]
+}
+
+const applyGetArtist = (state, action) => {
+    return {...state, getArtist: {...action.artist}}
 }
 
 const applyGetTrack = (state, action) => {
@@ -52,6 +60,13 @@ const doRecommendSong = (similartracks) => {
     return {
         type: RECOMMEND_SONG,
         similartracks: similartracks.data.similarartists.artist
+    }
+}
+
+const doGetArtist = (artist) => {
+    return {
+        type: GET_ARTIST,
+        artist: artist.data.artist
     }
 }
 
@@ -92,6 +107,7 @@ export const mapDispatchToProps = (dispatch) => {
     return {
         onRecommendSong: similartracks => dispatch(doRecommendSong(similartracks)),
         onGetTrack: track => dispatch(doGetTrack(track)),
-        onRecommendArtist: similarartists => dispatch(doRecommendArtist(similarartists))
+        onRecommendArtist: similarartists => dispatch(doRecommendArtist(similarartists)),
+        onGetArtist: artist => dispatch(doGetArtist(artist))
     }
 }
