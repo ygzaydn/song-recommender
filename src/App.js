@@ -6,22 +6,24 @@ import { Header } from './components/Header'
 import { ConnectedMainPage } from './components/MainPage'
 import TypedJS from './components/TypedJS-Component/TypedJS'
 
+
 const App = () => {
 
   const [background, setBackground] = useState(true);
   const [mainpageClass, setMainpageClass] = useState('main-page main-page-animation')
-  let className =  background ? 'main-page main-page-animation' : '';
-
+  
   const changeBackground = () => {
-    setBackground(false);
+    if(background) setMainpageClass('main-page main-page-animation main-page-animation-out')
+    setTimeout(() => {
+      setBackground(false)
+    }, 900);
   }
-  const handleTransitionEnd = () => {
-    setMainpageClass('main-page main-page-animation main-page-animation-out')
+  const endAnimation = () => {
+    setMainpageClass('')
   }
-
   return ( 
-  <div className={mainpageClass} onTransitionEnd={handleTransitionEnd}>
-    <TypedJSConditional background={background}/>
+  <div className={mainpageClass} onAnimationEnd={endAnimation}>
+    <TypedJSConditional background={background} />
     <Header handleClick={changeBackground} />
     <ConnectedMainPageConditional background={background} />
   </div>
@@ -39,7 +41,7 @@ const TypedJSConditional = ({background}) =>
       <TypedJS
         strings={[
           'TIME TO EXPLORE NEW SONGS',
-          'USE THE MENU BELOW TO <br> BEGIN  YOUR JOURNEY...',
+          'USE THE MENU BELOW TO <br> BEGIN YOUR JOURNEY...',
         ]}
     />
   : null;
