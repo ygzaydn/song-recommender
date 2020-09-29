@@ -4,17 +4,19 @@ import { Grid, Paper, Typography, Collapse, GridList, GridListTile } from '@mate
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
+import { BestAlbum } from './BestAlbums'
 import dotenv from 'dotenv'
 import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
     flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    maxWidth: 1000,
+    maxWidth: '95vw',
   },
   title: {
     maxWidth: 'inherit',
@@ -26,7 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
   gridList: {
     flexWrap: 'nowrap',
+    maxHeight: 300
   },
+
 }));
 
 const ArtistInfo = ({artistState, renderState}) => {
@@ -82,27 +86,7 @@ const ArtistInfo = ({artistState, renderState}) => {
                             ))}
                         </GridList>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="subtitle2" className={classes.bio}> 
-                           Best Albums
-                        </Typography>
-                        <GridList className={classes.gridList} cols={1}>
-                            {artistState.getTopAlbums.album.map((el) => (
-                                <GridListTile key={el.url} cols={1}>
-                                    <Typography variant="subtitle2" className={classes.bio}> 
-                                        Name: {el.name} 
-                                    </Typography>
-                                    <Typography variant="subtitle2" className={classes.bio}> 
-                                        Url: {el.url} 
-                                    </Typography>
-                                    <Typography variant="subtitle2" className={classes.bio}> 
-                                        Playcount: {el.playcount} 
-                                    </Typography>
-                                    
-                                </GridListTile>
-                            ))}
-                        </GridList>
-                    </Grid>
+                    <BestAlbum data={artistState.getTopAlbums.album} />
                 </Grid>
             </Paper>
         </div>
