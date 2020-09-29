@@ -10,11 +10,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 1,
+    background: '#E5E5E5',
   },
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    maxWidth: '95vw',
+    maxWidth: '90vw',
+    background: '#E5E5E5',
   },
   title: {
     maxWidth: 'inherit',

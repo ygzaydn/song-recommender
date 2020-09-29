@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-around',
         overflow: 'hidden',
         backgroundColor: theme.palette.background.paper,
-        marginTop: '2%'
+        marginTop: '2%',
+        background: '#E5E5E5',
     },
     paper: {
       padding: theme.spacing(2),
@@ -23,11 +24,13 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center'
     },
     bio: {
-      textAlign: 'center'
+      textAlign: 'center',
+      background: '#E5E5E5',
     },
     gridList: {
       flexWrap: 'nowrap',
       maxHeight: 300,
+      background: '#E5E5E5',
     },
     img: {
         maxWidth: 300,
