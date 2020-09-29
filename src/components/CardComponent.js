@@ -16,15 +16,18 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flex: '1 0 auto',
-    padding: '0 0.5vw'
+    padding: '0 0.5vw',
+    paddingRight: '1vw'
   },
   cover: {
     minWidth: 150,
   },
   subtitle1: {
+      maxWidth: '50vw',
       overflow: 'hidden',
-      flexWrap: 'wrap',
-      wordBreak: 'break-all'
+      textOverflow: 'ellipsis',
+      display:'inline-block',
+      whiteSpace: 'nowrap'
   }
 }));
 
