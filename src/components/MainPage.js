@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-  const MainPage = ({onRecommendSong, recommendSongState}) => {
+  const MainPage = ({onRecommendArtist, recommendArtistState}) => {
     const classes = useStyles();
     const [searchText, setSearchText] = useState('');
   
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     const search = async () => {
       try {
         const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-        if (res) onRecommendSong(res);
+        if (res) onRecommendArtist(res);
       } catch (error) {
         console.log(error)
       }
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
       </form>
         <div>
           <Grid className={classes.container} container spacing={3}>
-            {recommendSongState.map(el => {
+            {recommendArtistState.map(el => {
               return (
                 <ListComponent 
                 mbid={el.mbid}

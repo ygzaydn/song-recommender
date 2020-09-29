@@ -12,11 +12,14 @@ const App = () => {
   const [background, setBackground] = useState(true);
   const [mainpageClass, setMainpageClass] = useState('main-page main-page-animation')
   
-  const changeBackground = () => {
+  const changeBackground = (event) => {
     if(background) setMainpageClass('main-page main-page-animation main-page-animation-out')
     setTimeout(() => {
       setBackground(false)
     }, 900);
+    console.log(event.target);
+    document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorInherit')
+    event.target.className = 'MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorTextPrimary'
   }
   const endAnimation = () => {
     setMainpageClass('')

@@ -4,6 +4,7 @@ import { createLogger } from 'redux-logger'
 //action types
 const RECOMMEND_SONG = 'RECOMMEND_SONG';
 const GET_TRACK = 'GET_TRACK'
+const RECOMMEND_ARTIST = 'RECOMMEND_ARTIST'
 
 //reducers
 const recommendSongReducer = (state = [], action) => {
@@ -24,6 +25,15 @@ const songInfoStateReducer = (state = [], action) => {
     }
 }
 
+const recommendArtistReducer = (state = [], action) => {
+    switch (action.type) {
+        case RECOMMEND_ARTIST: {
+            return applyRecommendArtist(state,action)
+        }
+        default: return state
+    }
+}
+
 //actions
 const applyRecommendSong = (state, action) => {
     return  [...action.similartracks]
@@ -33,11 +43,22 @@ const applyGetTrack = (state, action) => {
     return {...action.track}
 }
 
+const applyRecommendArtist = (state, action) => {
+    return [...action.similarartists]
+}
+
 //action creators
 const doRecommendSong = (similartracks) => {
     return {
         type: RECOMMEND_SONG,
         similartracks: similartracks.data.similarartists.artist
+    }
+}
+
+const doRecommendArtist = (similarartists) => {
+    return {
+        type: RECOMMEND_ARTIST,
+        similarartists: similarartists.data.similarartists.artist
     }
 }
 
@@ -54,6 +75,7 @@ const logger = createLogger();
 const rootReducer = combineReducers({
     recommendSongState: recommendSongReducer,
     songInfoState: songInfoStateReducer,
+    recommendArtistState: recommendArtistReducer
 })
 export const store = createStore(rootReducer, undefined, applyMiddleware(logger));
 
@@ -61,7 +83,8 @@ export const store = createStore(rootReducer, undefined, applyMiddleware(logger)
 export const mapStateToProps = (state) => {
     return {
         recommendSongState: state.recommendSongState,
-        songInfoState: state.songInfoState
+        songInfoState: state.songInfoState,
+        recommendArtistState: state.recommendArtistState
     }
 }
 
@@ -69,5 +92,6 @@ export const mapDispatchToProps = (dispatch) => {
     return {
         onRecommendSong: similartracks => dispatch(doRecommendSong(similartracks)),
         onGetTrack: track => dispatch(doGetTrack(track)),
+        onRecommendArtist: similarartists => dispatch(doRecommendArtist(similarartists))
     }
 }

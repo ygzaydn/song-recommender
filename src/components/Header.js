@@ -1,25 +1,28 @@
 import React from 'react';
-import { Breadcrumbs, Link, Typography } from '@material-ui/core'
+import { Breadcrumbs, Link } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   ol: {
     margin: '5%',
     justifyContent: 'center',
+    fontSize: '3vw',
   },
 }));
 
 export const Header = ({handleClick}) => {
     const classes = useStyles();
     return (
-    <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">
-        <Link color="inherit" href="#" onClick={handleClick}>
-            Material-UI
+    <Breadcrumbs  classes={{ol: classes.ol}} aria-label="breadcrumb">
+        <Link id="header" color="inherit" href="#" onClick={handleClick}>
+            Artists
         </Link>
-        <Link color="inherit" href="#" onClick={handleClick}>
-            Core
+        <Link id="header" color="inherit" href="#" onClick={handleClick}>
+            Tracks
         </Link>
-        <Typography color="textPrimary" href="#">Breadcrumb</Typography>
+        <Link id="header" color="inherit" href="#" onClick={handleClick}>
+            Tags
+        </Link>
     </Breadcrumbs>
     )
 }
