@@ -4,7 +4,7 @@ import { Grid, Paper, Typography, Collapse, GridList, GridListTile } from '@mate
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
-import { BestAlbum } from './BestAlbums'
+import { Best } from './Best'
 import dotenv from 'dotenv'
 import axios from 'axios'
 
@@ -86,7 +86,7 @@ const ArtistInfo = ({artistState, renderState}) => {
                             ))}
                         </GridList>
                     </Grid>
-                    <BestAlbum data={artistState.getTopAlbums.album} />
+                    <Best data={artistState.getTopAlbums.album} title="Best Albums"/>
                 </Grid>
             </Paper>
         </div>

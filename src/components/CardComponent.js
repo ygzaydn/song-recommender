@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const CardComponent = ({name, url, playcount, img, artist}) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
+      <div style={{maxWidth:800}}>
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
@@ -56,5 +56,6 @@ export const CardComponent = ({name, url, playcount, img, artist}) => {
         </CardContent>
       </div>
     </Card>
+    </div>
   );
 }
