@@ -17,7 +17,6 @@ const App = () => {
     setTimeout(() => {
       setBackground(false)
     }, 900);
-    console.log(event.target);
     document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorInherit')
     event.target.className = 'MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorTextPrimary'
   }

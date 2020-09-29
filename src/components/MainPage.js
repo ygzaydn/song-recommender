@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-  const MainPage = ({onRecommendArtist, recommendArtistState}) => {
+  const MainPage = ({onRecommendArtist, artistState}) => {
     const classes = useStyles();
     const [searchText, setSearchText] = useState('');
   
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         console.log(error)
       }
     }
-  
+    console.log(artistState)
     return (
     <div>
       <form className={classes.root} noValidate autoComplete="off">
@@ -51,15 +51,15 @@ const useStyles = makeStyles((theme) => ({
       </form>
         <div>
           <Grid className={classes.container} container spacing={3}>
-            {recommendArtistState.map(el => {
+            {artistState.getSimilar?artistState.getSimilar.map(el => {
               return (
                 <ListComponent 
                 mbid={el.mbid}
                 name={el.name}
                 match={el.match}
-                />
+                /> 
               )
-            })}
+            }) : null }
           </Grid>
         </div>
     </div>

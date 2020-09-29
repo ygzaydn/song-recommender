@@ -25,7 +25,7 @@ const songInfoStateReducer = (state = [], action) => {
     }
 }
 
-const recommendArtistReducer = (state = [], action) => {
+const artistReducer = (state = [], action) => {
     switch (action.type) {
         case RECOMMEND_ARTIST: {
             return applyRecommendArtist(state,action)
@@ -44,7 +44,7 @@ const applyGetTrack = (state, action) => {
 }
 
 const applyRecommendArtist = (state, action) => {
-    return [...action.similarartists]
+    return {...state, getSimilar: [...action.similarartists]}
 }
 
 //action creators
@@ -75,7 +75,7 @@ const logger = createLogger();
 const rootReducer = combineReducers({
     recommendSongState: recommendSongReducer,
     songInfoState: songInfoStateReducer,
-    recommendArtistState: recommendArtistReducer
+    artistState: artistReducer
 })
 export const store = createStore(rootReducer, undefined, applyMiddleware(logger));
 
@@ -84,7 +84,7 @@ export const mapStateToProps = (state) => {
     return {
         recommendSongState: state.recommendSongState,
         songInfoState: state.songInfoState,
-        recommendArtistState: state.recommendArtistState
+        artistState: state.artistState
     }
 }
 
