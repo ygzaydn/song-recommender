@@ -16,13 +16,14 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export const RecommendArtist = ({artistState, onGetArtist}) => {
+export const RecommendArtist = ({artistState, onGetArtist, onStateChange}) => {
   const classes = useStyles();
 
   const getArtist = async (mbid) => {
   const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
    if(res) {
     onGetArtist(res);
+    onStateChange('ArtistInfo')
   }
   }
 return (

@@ -40,7 +40,7 @@ export const ListComponent = ({mbid, name, match, getArtist}) => {
     return (
         <Grid key={mbid} item xs={12}>
             <Paper
-                key={mbid} 
+                key={name} 
                 elevation={1} 
                 classes={{
                     root: classes.root,

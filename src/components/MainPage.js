@@ -8,6 +8,7 @@ import 'fontsource-roboto';
 import dotenv from 'dotenv'
 import { StyledButton } from './StyledButtonComponent'
 import { ConnectedRecommendArtist } from './RecommendArtist'
+import { ConnectedArtistInfo } from './ArtistInfo'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,6 +56,9 @@ const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) 
       <div>
       {renderState==='ArtistRecommend'
           ? <ConnectedRecommendArtist />
+          : null }
+      {renderState==='ArtistInfo'
+          ? <ConnectedArtistInfo />
           : null }
       </div>
   </div>
