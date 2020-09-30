@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/song-recommender/static/css/main.d8354593.chunk.css",
-    "main.js": "/song-recommender/static/js/main.aac1dd05.chunk.js",
-    "main.js.map": "/song-recommender/static/js/main.aac1dd05.chunk.js.map",
+    "main.css": "/song-recommender/static/css/main.2248f46a.chunk.css",
+    "main.js": "/song-recommender/static/js/main.86fb2a69.chunk.js",
+    "main.js.map": "/song-recommender/static/js/main.86fb2a69.chunk.js.map",
     "runtime-main.js": "/song-recommender/static/js/runtime-main.9632fda7.js",
     "runtime-main.js.map": "/song-recommender/static/js/runtime-main.9632fda7.js.map",
     "static/css/2.fea0eb96.chunk.css": "/song-recommender/static/css/2.fea0eb96.chunk.css",
-    "static/js/2.14ecf7ee.chunk.js": "/song-recommender/static/js/2.14ecf7ee.chunk.js",
-    "static/js/2.14ecf7ee.chunk.js.map": "/song-recommender/static/js/2.14ecf7ee.chunk.js.map",
+    "static/js/2.f8e32636.chunk.js": "/song-recommender/static/js/2.f8e32636.chunk.js",
+    "static/js/2.f8e32636.chunk.js.map": "/song-recommender/static/js/2.f8e32636.chunk.js.map",
     "index.html": "/song-recommender/index.html",
-    "precache-manifest.0dd7b4b0b214327d68ae98c06790460e.js": "/song-recommender/precache-manifest.0dd7b4b0b214327d68ae98c06790460e.js",
+    "precache-manifest.42a693f20a51e49d1f5c9e4b224729b1.js": "/song-recommender/precache-manifest.42a693f20a51e49d1f5c9e4b224729b1.js",
     "service-worker.js": "/song-recommender/service-worker.js",
     "static/css/2.fea0eb96.chunk.css.map": "/song-recommender/static/css/2.fea0eb96.chunk.css.map",
-    "static/css/main.d8354593.chunk.css.map": "/song-recommender/static/css/main.d8354593.chunk.css.map",
-    "static/js/2.14ecf7ee.chunk.js.LICENSE.txt": "/song-recommender/static/js/2.14ecf7ee.chunk.js.LICENSE.txt",
+    "static/css/main.2248f46a.chunk.css.map": "/song-recommender/static/css/main.2248f46a.chunk.css.map",
+    "static/js/2.f8e32636.chunk.js.LICENSE.txt": "/song-recommender/static/js/2.f8e32636.chunk.js.LICENSE.txt",
     "static/media/index.css": "/song-recommender/static/media/roboto-vietnamese-400-normal.a8be5b46.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.9632fda7.js",
     "static/css/2.fea0eb96.chunk.css",
-    "static/js/2.14ecf7ee.chunk.js",
-    "static/css/main.d8354593.chunk.css",
-    "static/js/main.aac1dd05.chunk.js"
+    "static/js/2.f8e32636.chunk.js",
+    "static/css/main.2248f46a.chunk.css",
+    "static/js/main.86fb2a69.chunk.js"
   ]
 }
