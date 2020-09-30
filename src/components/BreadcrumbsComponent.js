@@ -2,7 +2,7 @@ import React from 'react';
 import { Breadcrumbs, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   ol: {
     justifyContent: 'center',
   },
@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const BreadcrumbsComponent = ({handleClick, classTrigger}) => {
     const classes = useStyles();
-    console.log(classes);
     return (
         <div className={classTrigger}>
             <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">

@@ -6,9 +6,11 @@
     bottom: 0;
     width: 100%;
     justify-content: space-between;
-    background-color: black;
+    background: black;
     height: 5vh;
     color: #E5E5E5;
+    border-top: 2px;
+
 }
 
 .footer-logos{
@@ -25,4 +27,5 @@
     display: flex;
     justify-items: center;
     align-items: center;
+    margin-right: 3vw;
 }

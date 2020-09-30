@@ -1,14 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link, Card, CardContent, CardMedia, Typography} from '@material-ui/core'
+import { color } from '../colors'
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     justifyContent: 'left',
     border: '1px solid black',
     height: 160,
+    background: `${color.YELLOWCOLOR}`
   },
   details: {
     display: 'flex',
@@ -27,7 +29,16 @@ const useStyles = makeStyles((theme) => ({
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       display:'inline-block',
-      whiteSpace: 'nowrap'
+      whiteSpace: 'nowrap',
+      color: `${color.GRAYCOLOR}`,
+      textDecoration: 'underline',
+  },
+  typoColor: {
+    color: `${color.GRAYCOLOR}`
+  },
+  typoColorBold: {
+    color: `${color.GRAYCOLOR}`,
+    textShadow: `0.2px 0.2px ${color.GRAYCOLOR}`,
   }
 }));
 
@@ -35,7 +46,7 @@ export const CardComponent = ({name, url, playcount, img, artist}) => {
   const classes = useStyles();
 
   return (
-      <div style={{maxWidth:800}}>
+  <div style={{maxWidth:800}}>
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
@@ -44,21 +55,21 @@ export const CardComponent = ({name, url, playcount, img, artist}) => {
       />
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h6" variant="h6">
+          <Typography component="h6" variant="h6" className={classes.typoColorBold}>
             {name}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography variant="subtitle1" className={classes.typoColor}>
             {artist}
           </Typography>
           <Link variant="subtitle1" href={url} className={classes.subtitle1}>
             {url}
           </Link>
-          <Typography variant="subtitle2" color="textSecondary">
+          <Typography variant="subtitle2" className={classes.typoColor}>
             Playcount: {playcount}
           </Typography>
         </CardContent>
       </div>
     </Card>
-    </div>
+  </div>
   );
 }

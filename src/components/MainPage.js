@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, } from '@material-ui/core/'
+import { TextField } from '@material-ui/core/'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { mapDispatchToProps, mapStateToProps } from '../store'
@@ -9,6 +9,7 @@ import dotenv from 'dotenv'
 import { StyledButton } from './StyledButtonComponent'
 import { ConnectedRecommendArtist } from './RecommendArtist'
 import { ConnectedArtistInfo } from './ArtistInfo'
+import { StyledTextField } from './StyledTextField'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       alignContent: 'center',
     },
-
   }));
 
 const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) => {
@@ -45,8 +45,8 @@ const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) 
   return (
   <div className={classes.root}>
     <form noValidate autoComplete="off">
-      <TextField id="standard-basic" label="Artist Name" color="secondary" onChange={setTextField}/>
-      <StyledButton variant="contained" color="primary" onClick={search}>
+      <StyledTextField label="Artist Name" onChange={setTextField}/>
+      <StyledButton color="primary" variant="outlined" onClick={search}>
         Search
       </StyledButton>
     </form>

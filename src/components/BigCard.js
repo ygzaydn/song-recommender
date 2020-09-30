@@ -3,38 +3,26 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, GridList, GridListTile } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { CardComponent } from './CardComponent'
+import { color } from '../colors'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
         marginTop: '2%',
-        background: '#E5E5E5',
-    },
-    paper: {
-      padding: theme.spacing(2),
-      margin: 'auto',
-    },
-    title: {
-      maxWidth: 'inherit',
-      height: 'auto',
-      textAlign: 'center'
     },
     bio: {
       textAlign: 'center',
-      background: '#E5E5E5',
+      background: `${color.PINKCOLOR}`,
+      color: `${color.BLACKCOLOR}`,
+      fontWeight: 'bold'
     },
     gridList: {
       flexWrap: 'nowrap',
       maxHeight: 300,
-      background: '#E5E5E5',
-    },
-    img: {
-        maxWidth: 300,
-        maxHeight: 300
+      background: `${color.PINKCOLOR}`,
     },
     gridListTile: {
         maxWidth:700

@@ -1,3 +1,28 @@
+html {
+	background-color: #323232;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #ff1e56; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #000000; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #323232; 
+}
+
+
+
 .App {
   text-align: center;
 }

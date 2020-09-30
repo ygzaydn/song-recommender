@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import 'fontsource-roboto';
+import { color } from '../colors'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '5%',
     display: 'flex',
     flexWrap: 'wrap',
+    backgroundColor: `${color.PINKCOLOR}`,
   },
   label: {
     textTransform: 'capitalize',
@@ -17,14 +19,14 @@ const useStyles = makeStyles((theme) => ({
   elevation1: {
     flexDirection: 'column',
     justifyContent: 'center',
-    color: theme.palette.text.secondary,
     minHeight: '10vh',
-    maxHeight: 150,
+    maxHeight: 250,
     overflow: 'hidden',
     textAlign: 'center',
+    fontWeight: 'bold',
+    color: `${color.WHITECOLOR}`,
     '&:hover':{
-        border: "2px solid #000000",
-        color: "#000000"
+        border: `2px solid ${color.PINKCOLOR}`,
     },
    }
 }));
@@ -46,7 +48,7 @@ export const ListComponent = ({mbid, name, match, getArtist}) => {
                 color="secondary"
                 onClick={() => getArtist(mbid)}
             >
-                <Typography variant="subtitle1" display="block" >
+                <Typography variant="h6" display="block">
                 {name}
                 </Typography>
                 <Typography variant="subtitle2" display="block">

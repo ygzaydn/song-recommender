@@ -6,19 +6,19 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
 import { BigCard } from './BigCard'
 import { SmallCard } from './SmallCard'
+import { color } from '../colors'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 1,
-    background: '#E5E5E5',
     margin: '1vh 0.2vw 5vh 0.2vw'
   },
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
     maxWidth: '90vw',
-    background: '#E5E5E5',
+    background: `${color.PINKCOLOR}`,
   },
   title: {
     maxWidth: 'inherit',
@@ -69,7 +69,7 @@ const ArtistInfo = ({artistState, renderState}) => {
                         <GridList className={classes.gridList} cols={1}>
                             {artistState.getArtist.similar.artist.map((el) => (
                                 <GridListTile key={el.url} style={{height:'100%'}}cols={1}>
-                                    <SmallCard title="Similar Artists" data1={el.name} data2={el.url} par1="Name" par2="Link"/>
+                                    <SmallCard title="Similar Artists" data1={el.name} data2="Click for more info!" par1="Name" par2="-"/>
                                 </GridListTile>
                             ))}
                         </GridList>
