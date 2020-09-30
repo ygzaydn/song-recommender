@@ -18,6 +18,8 @@
 }
 
 .main-page-animation-out {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
 	animation: closeModal 2s ease-out forwards;
 }
 
@@ -34,8 +36,9 @@
 }
 
 @keyframes closeModal {
-	0% { transform: translateY(0); }
-	50% { transform: translateY(-100%); }
-	100% { transform: translateY(0);}
-	
+	0% { opacity: 1; }
+	25% { opacity: 0.5; }
+	50% { opacity: 0.25; }
+	75% { opacity: 0.15; }
+	100% { opacity: 0; }
 }

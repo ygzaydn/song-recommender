@@ -6,6 +6,7 @@ import { Header } from './components/Header-Component/Header'
 import { ConnectedMainPage } from './components/MainPage'
 import TypedJS from './components/TypedJS-Component/TypedJS'
 import { Footer } from './components/Footer-Component/Footer'
+import { BreadcrumbsComponent } from './components/BreadcrumbsComponent'
 
 const App = () => {
 
@@ -29,10 +30,15 @@ const App = () => {
 
 
   return ( 
-  <div className={mainpageClass} style={{marginBottom: '5vh'}}onAnimationEnd={endAnimation}>
-    <TypedJSConditional background={background} />
-    <Header handleClick={changeBackground} classTrigger={section}/>
-    <ConnectedMainPageConditional section={section} background={background} />
+    <div>
+    <Header handleClick={changeBackground} classTrigger={'fixed-header' }/>
+      <div className={mainpageClass} style={{width: 'auto', height: '90vh'}}onAnimationEnd={endAnimation}>
+        <TypedJSConditional background={background} />
+        { background
+        ? <BreadcrumbsComponent handleClick={changeBackground} classTrigger={section}/>
+        : null}
+        <ConnectedMainPageConditional section={section} background={background} />
+      </div>
     <Footer />
   </div>
   );
@@ -42,7 +48,6 @@ const ConnectedMainPageConditional = ({background, section}) =>
   !background 
   ? <ConnectedMainPage section={section}/>
   : null
-
 
 const TypedJSConditional = ({background}) => 
   background ?
