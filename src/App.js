@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import { connect } from 'react-redux'
 import './App.css';
 import 'fontsource-roboto';
-import { Header } from './components/Header'
+import { Header } from './components/Header-Component/Header'
 import { ConnectedMainPage } from './components/MainPage'
 import TypedJS from './components/TypedJS-Component/TypedJS'
-
+import { Footer } from './components/Footer-Component/Footer'
 
 const App = () => {
 
@@ -18,8 +18,8 @@ const App = () => {
     setTimeout(() => {
       setBackground(false)
     }, 900);
-    document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorInherit')
-    event.target.className = 'MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorTextPrimary'
+    document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-root-2')
+    event.target.className = 'MuiTypography-root MuiLink-root makeStyles-root-2 MuiLink-underlineAlways'
     setSection(input);
   }
 
@@ -29,10 +29,11 @@ const App = () => {
 
 
   return ( 
-  <div className={mainpageClass} onAnimationEnd={endAnimation}>
+  <div className={mainpageClass} style={{marginBottom: '5vh'}}onAnimationEnd={endAnimation}>
     <TypedJSConditional background={background} />
-    <Header handleClick={changeBackground} />
+    <Header handleClick={changeBackground} classTrigger={section}/>
     <ConnectedMainPageConditional section={section} background={background} />
+    <Footer />
   </div>
   );
 }

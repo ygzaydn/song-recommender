@@ -1,0 +1,10 @@
+.fixed-header {
+    position: sticky;
+    background-color: black;
+    padding: 0%;
+    min-width: 96vw;
+    min-height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

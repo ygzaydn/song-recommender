@@ -10,24 +10,24 @@ const useStyles = makeStyles((theme) => ({
     padding: '5%',
     display: 'flex',
     flexWrap: 'wrap',
-    margin: '1% 5%',
+    margin: 'auto'
   },
   label: {
     textTransform: 'capitalize',
   },
   elevation1: {
     flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     color: theme.palette.text.secondary,
-    maxHeight: '150px',
+    height: '10vh',
+    maxHeight: 150,
+    width: '25vw',
     overflow: 'hidden',
     textAlign: 'center',
     '&:hover':{
         border: "2px solid #000000",
         color: "#000000"
-        /*theme.transitions.create("all", {
-            easing: theme.transitions.easing.sharp, 
-            duration: theme.transitions.duration.leavingScreen
-        })*/
     },
    }
 }));

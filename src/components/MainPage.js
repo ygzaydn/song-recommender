@@ -19,10 +19,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       alignContent: 'center',
     },
-    container: {
-      display: 'grid',
-      gridTemplateColumns: 'auto auto auto',
-    }
+
   }));
 
 const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) => {
