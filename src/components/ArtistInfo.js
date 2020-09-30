@@ -23,10 +23,25 @@ const useStyles = makeStyles((theme) => ({
   title: {
     maxWidth: 'inherit',
     height: 'auto',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: `${color.WHITECOLOR}`,
+    fontWeight: 'bold',
+    fontSize: '150%',
+    background: `${color.BLACKCOLOR}`,
+  },
+  bioTitle: {
+    maxWidth: 'inherit',
+    height: 'auto',
+    textAlign: 'center',
+    color: `${color.WHITECOLOR}`,
+    background: `${color.BLACKCOLOR}`, 
   },
   bio: {
-    textAlign: 'left'
+    textAlign: 'center',
+    color: `${color.BLACKCOLOR}`,
+    border: `2px solid ${color.BLACKCOLOR}`,
+    padding: '1%',
+    background: `${color.YELLOWCOLOR}`,
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -53,7 +68,7 @@ const ArtistInfo = ({artistState, renderState}) => {
                         </Paper>
                     </Grid>
                     <Grid item xs={12} onClick={unCollapse}>
-                        <Typography variant="subtitle1" className={classes.title}>
+                        <Typography variant="subtitle1" className={classes.bioTitle}>
                             {checked ?  'Click to close bio!' : 'Click here for bio!'}
                         </Typography>
                         <Collapse in={checked} collapsedSize={150}>

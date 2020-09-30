@@ -15,8 +15,8 @@ const useStyles = makeStyles(() => ({
     },
     bio: {
       textAlign: 'center',
-      background: `${color.PINKCOLOR}`,
-      color: `${color.BLACKCOLOR}`,
+      background: `${color.BLACKCOLOR}`,
+      color: `${color.WHITECOLOR}`,
       fontWeight: 'bold'
     },
     gridList: {
