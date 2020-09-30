@@ -1,5 +1,5 @@
 .fixed-header {
-    position: sticky;
+    position: fixed;
     background-color: black;
     padding: 0%;
     min-height: 5vh;

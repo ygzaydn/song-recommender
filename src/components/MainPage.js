@@ -13,10 +13,9 @@ import { ConnectedArtistInfo } from './ArtistInfo'
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
+      flexDirection: 'column',
       flexGrow: 1,
-      margin: '1vh 3vw 0 3vw ',
-      width: '95%',
-      height: 'auto',
+      margin: '6vh auto ',
       alignItems: 'center',
       alignContent: 'center',
     },
@@ -44,8 +43,8 @@ const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) 
   }
 
   return (
-  <div>
-    <form className={classes.root} noValidate autoComplete="off">
+  <div className={classes.root}>
+    <form noValidate autoComplete="off">
       <TextField id="standard-basic" label="Artist Name" color="secondary" onChange={setTextField}/>
       <StyledButton variant="contained" color="primary" onClick={search}>
         Search

@@ -32,8 +32,8 @@ const App = () => {
 
   return ( 
     <div>
-    <Header handleClick={changeBackground} classTrigger={'fixed-header' }/>
-      <div className={mainpageClass} style={{width: 'auto', }}onAnimationEnd={endAnimation}>
+    <Header handleClick={changeBackground} classTrigger={'fixed-header'}/>
+      <div className={mainpageClass} onAnimationEnd={endAnimation}>
         <TypedJSConditional background={background} />
         { background
         ? <BreadcrumbsComponent handleClick={changeBackground} classTrigger={section}/>
