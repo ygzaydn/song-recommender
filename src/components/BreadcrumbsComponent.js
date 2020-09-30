@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumbs, Link } from '@material-ui/core'
+import { Breadcrumbs, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -7,28 +7,34 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   root: {
-      color: 'white'
+      color: 'white',
+      '&:hover': {
+        textDecoration: 'underline',
+    }
   },
-
+  underlineTypo: {
+    textDecoration: 'underline',
+  }
 }));
 
 export const BreadcrumbsComponent = ({handleClick, classTrigger}) => {
     const classes = useStyles();
+    console.log(classes);
     return (
         <div className={classTrigger}>
             <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">
-                <Link id="header" className={classes.root}color="inherit" href="#" onClick={handleClick('Artist')}>
+                <Typography id="header" className={classes.root} onClick={handleClick('Artist')}>
                     Artists
-                </Link>
-                <Link id="header1" className={classes.root} color="inherit" href="#" onClick={handleClick('Track')}>
+                </Typography>
+                <Typography id="header1" className={classes.root} color="inherit" href="#" onClick={handleClick('Track')}>
                     Tracks
-                </Link>
-                <Link id="header2" className={classes.root} color="inherit" href="#" onClick={handleClick('Tag')}>
+                </Typography>
+                <Typography id="header2" className={classes.root} color="inherit" href="#" onClick={handleClick('Tag')}>
                     Tags
-                </Link>
-                <Link id="header3" className={classes.root} color="inherit" href="#" onClick={handleClick('Geo')}>
+                </Typography>
+                <Typography id="header3" className={classes.root} color="inherit" href="#" onClick={handleClick('Geo')}>
                     Geo
-                </Link>
+                </Typography>
             </Breadcrumbs>
         </div>  
     )

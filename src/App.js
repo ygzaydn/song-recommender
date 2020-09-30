@@ -20,7 +20,7 @@ const App = () => {
       setBackground(false)
     }, 900);
     document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-root-2')
-    event.target.className = 'MuiTypography-root MuiLink-root makeStyles-root-2 MuiLink-underlineAlways'
+    event.target.className = 'MuiTypography-root MuiLink-root makeStyles-root-2 makeStyles-underlineTypo-7'
     setSection(input);
     event.preventDefault();
   }
