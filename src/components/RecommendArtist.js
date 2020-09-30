@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     container: {
       display: 'grid',
       gridTemplateColumns: 'auto auto auto',
-      width: '100%',
+      width: '95%',
       margin: 'auto'
     }
   }));

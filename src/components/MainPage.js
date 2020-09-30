@@ -14,8 +14,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
       flexGrow: 1,
-      margin: '1vh 3vw 3vh 3vw ',
+      margin: '1vh 3vw 0 3vw ',
       width: '95%',
+      height: 'auto',
       alignItems: 'center',
       alignContent: 'center',
     },

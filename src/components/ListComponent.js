@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '5%',
     display: 'flex',
     flexWrap: 'wrap',
-    margin: 'auto'
   },
   label: {
     textTransform: 'capitalize',
@@ -18,11 +17,9 @@ const useStyles = makeStyles((theme) => ({
   elevation1: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
     color: theme.palette.text.secondary,
-    height: '10vh',
+    minHeight: '10vh',
     maxHeight: 150,
-    width: '25vw',
     overflow: 'hidden',
     textAlign: 'center',
     '&:hover':{
