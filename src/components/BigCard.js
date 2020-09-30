@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export const Best = ({data, title}) => {
+export const BigCard = ({data, title}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>

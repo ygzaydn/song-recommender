@@ -5,9 +5,9 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: black;
-    min-height: 5vh;
+    height: 5vh;
     color: #E5E5E5;
 }
 

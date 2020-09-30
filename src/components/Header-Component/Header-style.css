@@ -2,7 +2,7 @@
     position: fixed;
     background-color: black;
     padding: 0%;
-    min-height: 5vh;
+    height: 5vh;
     display: flex;
     top: 0;
     left: 0;

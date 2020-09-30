@@ -4,7 +4,8 @@ import { Grid, Paper, Typography, Collapse, GridList, GridListTile } from '@mate
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
-import { Best } from './Best'
+import { BigCard } from './BigCard'
+import { SmallCard } from './SmallCard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
   gridList: {
     flexWrap: 'nowrap',
-    maxHeight: 300
+    padding: 0,
+    height: '100%',
+    width: '100%'
   },
 
 }));
@@ -60,35 +63,19 @@ const ArtistInfo = ({artistState, renderState}) => {
                         </Collapse>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper className={classes.title}>
-                            <Typography variant="subtitle1" className={classes.title}> Stats </Typography>
-                            <Typography variant="subtitle2" className={classes.bio}> 
-                                Listeners: {artistState.getArtist.stats.listeners} 
-                            </Typography>
-                            <Typography variant="subtitle2" className={classes.bio}> 
-                                Playcount: {artistState.getArtist.stats.playcount} 
-                            </Typography>
-                        </Paper>
+                        <SmallCard title="Stats" data1={artistState.getArtist.stats.listeners} data2={artistState.getArtist.stats.playcount} par1="Listeners" par2="Playcount"/>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography variant="subtitle2" className={classes.bio}> 
-                           Similar Artists
-                        </Typography>
                         <GridList className={classes.gridList} cols={1}>
                             {artistState.getArtist.similar.artist.map((el) => (
-                                <GridListTile key={el.url} cols={1}>
-                                    <Typography variant="subtitle2" className={classes.bio}> 
-                                        Name: {el.name} 
-                                    </Typography>
-                                    <Typography variant="subtitle2" className={classes.bio}> 
-                                        Url: {el.url} 
-                                    </Typography>
+                                <GridListTile key={el.url} style={{height:'100%'}}cols={1}>
+                                    <SmallCard title="Similar Artists" data1={el.name} data2={el.url} par1="Name" par2="Link"/>
                                 </GridListTile>
                             ))}
                         </GridList>
                     </Grid>
-                    <Best data={artistState.getTopTracks.track} title="Best Songs"/>
-                    <Best data={artistState.getTopAlbums.album} title="Best Albums"/>
+                    <BigCard data={artistState.getTopTracks.track} title="Best Songs"/>
+                    <BigCard data={artistState.getTopAlbums.album} title="Best Albums"/>
                 </Grid>
             </Paper>
         </div>
