@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import  * as Typed from 'typed.js'
 import './TypedJS-style.css'
+import 'fontsource-roboto';
 
 export default class TypedJS extends Component {
     componentDidMount() {
