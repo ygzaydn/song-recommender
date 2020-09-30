@@ -21,7 +21,7 @@ export const Footer = () => {
             <IconButton className={classes.extendedIcon} href="https://github.com/ygzaydn">
                 <GitHubIcon />
             </IconButton>
-            <IconButton className={classes.extendedIcon} href="https://tr.linkedin.com/in/erol-ya%C4%9F%C4%B1z-ayd%C4%B1n-208517a9/%7Bcountry%3Dse%2C+language%3Dsv%7D?trk=people-guest_profile-result-card_result-card_full-click">
+            <IconButton className={classes.extendedIcon} href="https://www.linkedin.com/in/erol-ya%C4%9F%C4%B1z-ayd%C4%B1n-208517a9/">
                 <LinkedInIcon />
             </IconButton>
 
