@@ -20,13 +20,13 @@ export const BreadcrumbsComponent = ({handleClick, classTrigger}) => {
                 <Link id="header" className={classes.root}color="inherit" href="#" onClick={handleClick('Artist')}>
                     Artists
                 </Link>
-                <Link id="header" className={classes.root} color="inherit" href="#" onClick={handleClick('Track')}>
+                <Link id="header1" className={classes.root} color="inherit" href="#" onClick={handleClick('Track')}>
                     Tracks
                 </Link>
-                <Link id="header" className={classes.root} color="inherit" href="#" onClick={handleClick('Tag')}>
+                <Link id="header2" className={classes.root} color="inherit" href="#" onClick={handleClick('Tag')}>
                     Tags
                 </Link>
-                <Link id="header" className={classes.root} color="inherit" href="#" onClick={handleClick('Geo')}>
+                <Link id="header3" className={classes.root} color="inherit" href="#" onClick={handleClick('Geo')}>
                     Geo
                 </Link>
             </Breadcrumbs>

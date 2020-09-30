@@ -22,6 +22,7 @@ const App = () => {
     document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-root-2')
     event.target.className = 'MuiTypography-root MuiLink-root makeStyles-root-2 MuiLink-underlineAlways'
     setSection(input);
+    event.preventDefault();
   }
 
   const endAnimation = () => {
