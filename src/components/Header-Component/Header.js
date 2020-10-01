@@ -31,7 +31,7 @@ export const Header = ({handleClick, changeSection, classTrigger}) => {
             {headerClassName === 'fixed-header'
             ? <IconButton className={classes.icon} href={`${window.location.href.split('#')[0]}`}>
                 <HomeIcon />
-                 Home
+                 
               </IconButton>
             : null}
             <BreadcrumbsComponent handleClick={handleClick} classTrigger={''} />

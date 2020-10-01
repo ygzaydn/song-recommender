@@ -9,9 +9,11 @@ const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     justifyContent: 'left',
-    border: '1px solid black',
+    borderBottom: '1px solid black',
     height: 160,
-    background: `${color.YELLOWCOLOR}`
+    background: `${color.YELLOWCOLOR}`,
+    borderBottomLeftRadius: '4px',
+    borderBottomRightRadius: '4px',
   },
   details: {
     display: 'flex',

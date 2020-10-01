@@ -11,7 +11,8 @@ const useStyles = makeStyles(() => ({
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         overflow: 'hidden',
-        marginTop: '2%',
+        border: 'none',
+
     },
     bio: {
       textAlign: 'center',
@@ -22,7 +23,6 @@ const useStyles = makeStyles(() => ({
     gridList: {
       flexWrap: 'nowrap',
       maxHeight: 300,
-      background: `${color.PINKCOLOR}`,
     },
     gridListTile: {
         maxWidth:700
