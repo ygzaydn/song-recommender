@@ -5,7 +5,8 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    min-height: 24px;
     background: black;
     height: 5vh;
     color: #E5E5E5;
@@ -17,6 +18,7 @@
     display: flex;
     justify-items: center;
     align-items: center;
+    margin-right: auto;
 }
 .footer-copyright{
     display: flex;
@@ -28,4 +30,5 @@
     justify-items: center;
     align-items: center;
     margin-right: 3vw;
+    margin-left: auto;
 }

@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
   },
   underlineTypo: {
     textDecoration: 'underline',
+    color: 'white',
   }
 }));
 

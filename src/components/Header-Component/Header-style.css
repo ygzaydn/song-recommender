@@ -3,6 +3,7 @@
     background-color: black;
     padding: 0%;
     height: 5vh;
+    min-height: 24px;
     display: flex;
     top: 0;
     left: 0;
