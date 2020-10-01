@@ -13,7 +13,8 @@ import { StyledTextField } from './StyledTextField'
 const useStyles = makeStyles((theme) => ({
     container: {
       display: 'grid',
-      width: '90%',
+      width: 'auto',
+      margin: 'auto',
       gridTemplateColumns: `${window.innerWidth < 600 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
     },
     form :{

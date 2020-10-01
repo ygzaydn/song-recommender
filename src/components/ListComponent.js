@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '5%',
     display: 'grid',
     flexWrap: 'wrap',
-    backgroundColor: `${color.YELLOWCOLOR}`,
+    backgroundColor: `${color.PINKCOLOR}`,
   },
   label: {
     textTransform: 'capitalize',
@@ -21,10 +21,8 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 250,
     overflow: 'hidden',
     textAlign: 'center',
-    fontWeight: 'bold',
-    color: `${color.YELLOWCOLOR}`,
     '&:hover':{
-        border: `2px solid ${color.PINKCOLOR}`,
+        border: `2px solid ${color.BLACKCOLOR}`,
     },
    },
    name: {
@@ -32,13 +30,16 @@ const useStyles = makeStyles((theme) => ({
        alignItems: 'center',
        color: `${color.WHITECOLOR}`,
        backgroundColor: `${color.BLACKCOLOR}`,
+       height: 100,
 
    },
    match: {
        display: 'grid',
        alignItems: 'end',
        fontWeight: 'bold',
-       color: `${color.BLACKCOLOR}`,
+       color: `${color.WHITECOLOR}`,
+       height: 25,
+
    }
 }));
 
