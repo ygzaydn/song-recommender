@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
 
     container: {
       display: 'grid',
+      width: '90%',
       gridTemplateColumns: `${window.innerWidth < 600 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
     }
   }));
