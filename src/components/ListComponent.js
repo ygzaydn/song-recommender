@@ -9,25 +9,36 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 3,
     border: 0,
     padding: '5%',
-    display: 'flex',
+    display: 'grid',
     flexWrap: 'wrap',
-    backgroundColor: `${color.PINKCOLOR}`,
+    backgroundColor: `${color.YELLOWCOLOR}`,
   },
   label: {
     textTransform: 'capitalize',
   },
   elevation1: {
-    flexDirection: 'column',
-    justifyContent: 'center',
     minHeight: '10vh',
     maxHeight: 250,
     overflow: 'hidden',
     textAlign: 'center',
     fontWeight: 'bold',
-    color: `${color.WHITECOLOR}`,
+    color: `${color.YELLOWCOLOR}`,
     '&:hover':{
         border: `2px solid ${color.PINKCOLOR}`,
     },
+   },
+   name: {
+       display: 'grid',
+       alignItems: 'center',
+       color: `${color.WHITECOLOR}`,
+       backgroundColor: `${color.BLACKCOLOR}`,
+
+   },
+   match: {
+       display: 'grid',
+       alignItems: 'end',
+       fontWeight: 'bold',
+       color: `${color.BLACKCOLOR}`,
    }
 }));
 
@@ -48,10 +59,10 @@ export const ListComponent = ({mbid, name, match, getArtist}) => {
                 color="secondary"
                 onClick={() => getArtist(mbid)}
             >
-                <Typography variant="h6" display="block">
+                <Typography className={classes.name} variant="h6" display="block">
                 {name}
                 </Typography>
-                <Typography variant="subtitle2" display="block">
+                <Typography className={classes.match} variant="subtitle2" display="block">
                 Match: {parseInt(match*10)}
                 </Typography>
             </Paper>
