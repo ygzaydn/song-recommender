@@ -8,6 +8,7 @@ import { BigCard } from './BigCard'
 import { ConnectedSmallCard } from './SmallCard'
 import { color } from '../colors'
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -46,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     flexWrap: 'nowrap',
     padding: 0,
-    height: '100%',
     width: '100%'
   },
 
@@ -77,16 +77,14 @@ const ArtistInfo = ({artistState, renderState}) => {
                             </Typography>
                         </Collapse>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={6} >
+                    <GridList className={classes.gridList} cols={1}>
                         <ConnectedSmallCard clickInfo={false} title="Stats" data1={artistState.getArtist.stats.listeners} data2={artistState.getArtist.stats.playcount} par1="Listeners" par2="Playcount"/>
+                        </GridList>
                     </Grid>
                     <Grid item xs={6}>
                         <GridList className={classes.gridList} cols={1}>
-                            {artistState.getArtist.similar.artist.map((el) => (
-                                <GridListTile key={el.url} style={{height:'100%'}}cols={1}>
-                                    <ConnectedSmallCard clickInfo={true} title="Similar Artists" name={el.name} data1={el.name} data2="Click here!" par1="Name" par2="Change Artist"/>
-                                </GridListTile>
-                            ))}
+                            <ConnectedSmallCard clickInfo={true} title="Similar Artists" data1={artistState.getArtist.similar.artist}/>
                         </GridList>
                     </Grid>
                     <BigCard data={artistState.getTopTracks.track} icon={true} title="Best Songs"/>

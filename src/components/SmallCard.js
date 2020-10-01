@@ -9,20 +9,30 @@ import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import axios from 'axios'
 import dotenv from 'dotenv'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: '40vw',
+    width: '40vw',
     minHeight: '270px',
     padding: 0,
     borderColor: `${color.BLACKCOLOR}`,
     backgroundColor: `${color.YELLOWCOLOR}`,
-  },
-  rootTitle: {
-    maxWidth: '40vw',
     
+  },
+  rootTitle1: {
     padding: 0,
     borderColor: `${color.BLACKCOLOR}`,
+    display: 'grid',
+    height: '100%',
+    gridTemplateRows: '15% 15% 15% 15% 15% 15%',
+  },
+  rootTitle2: {
+    padding: 0,
+    borderColor: `${color.BLACKCOLOR}`,
+    display: 'grid',
+    height: '100%',
+    gridTemplateRows: '15% 65%',
   },
   title: {
     fontSize: 24,
@@ -39,11 +49,16 @@ const useStyles = makeStyles({
   moreInfo: {
     color: `${color.BLACKCOLOR}`,
     fontSize: 16,
+  },
+  similarArtistLine: {
+    display:'flex',
+    justifyContent:'space-between'
   }
 });
 
 const SmallCard = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, title, data1, data2, par1, par2, name, clickInfo}) => {
   const classes = useStyles();
+  const classNameForContent = clickInfo? classes.rootTitle1 : classes.rootTitle2;
 
   const getArtist = async (name) => {
     const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
@@ -69,21 +84,28 @@ const SmallCard = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onG
 
   return (
     <Card className={classes.root} variant="outlined" >
-      <CardContent className={classes.rootTitle}>
+      <CardContent className={classNameForContent}>
         <Typography className={classes.title} gutterBottom>
           {title}
         </Typography>
+        {clickInfo
+        ? data1.map(el => {
+          return (
+            <div className={classes.similarArtistLine}>
+          <Typography>
+            {el.name}
+          </Typography>
+          <ChevronRightIcon onClick={()=> getArtist(el.name)}/>
+            </div>
+          )
+        })
+        : <div>
         <Typography className={classes.pos} >
           {par1}
         </Typography>
         <Typography  className={classes.moreInfo} >
           {data1}
         </Typography>
-        {clickInfo
-        ? <StyledButton style={{marginTop: '2vh'}}onClick={()=> getArtist(name)}>
-            Change Artist
-          </StyledButton>
-        : <div>
         <Typography className={classes.pos} >
           {par2}
         </Typography> 
