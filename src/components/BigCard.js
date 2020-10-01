@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
     }
   }));
 
-export const BigCard = ({data, title}) => {
+export const BigCard = ({data, title, icon}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -40,7 +40,7 @@ export const BigCard = ({data, title}) => {
                 <GridList className={classes.gridList} cols={1}>
                     {data.map((el) => (
                         <GridListTile key={el.url} cols={1} className={classes.gridListTile}>
-                            <CardComponent name={el.name} artist={el.artist.name} url={el.url} playcount={el.playcount} img={el.image[2]["#text"]}/>
+                            <CardComponent name={el.name} artist={el.artist.name} url={el.url} playcount={el.playcount} img={el.image[2]["#text"]} icon={icon}/>
                         </GridListTile>
                     ))}
                 </GridList>

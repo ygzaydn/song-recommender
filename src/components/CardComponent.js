@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link, Card, CardContent, CardMedia, Typography} from '@material-ui/core'
 import { color } from '../colors'
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 
 
 const useStyles = makeStyles(() => ({
@@ -25,6 +26,7 @@ const useStyles = makeStyles(() => ({
   cover: {
     minWidth: 150,
     borderRadius: '25%',
+    fontSize: '144px',
   },
   subtitle1: {
       maxWidth: '50vw',
@@ -44,17 +46,23 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const CardComponent = ({name, url, playcount, img, artist}) => {
+export const CardComponent = ({name, url, playcount, img, artist, icon}) => {
   const classes = useStyles();
 
   return (
   <div style={{maxWidth:800}}>
     <Card className={classes.root}>
-      <CardMedia
+      {icon
+      ?<LibraryMusicIcon
         className={classes.cover}
         image={img}
         title={classes.artist}
       />
+      :<CardMedia
+        className={classes.cover}
+        image={img}
+        title={classes.artist}
+      />}
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h6" variant="h6" className={classes.typoColorBold}>

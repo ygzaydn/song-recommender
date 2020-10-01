@@ -89,7 +89,7 @@ const ArtistInfo = ({artistState, renderState}) => {
                             ))}
                         </GridList>
                     </Grid>
-                    <BigCard data={artistState.getTopTracks.track} title="Best Songs"/>
+                    <BigCard data={artistState.getTopTracks.track} icon={true} title="Best Songs"/>
                     <BigCard data={artistState.getTopAlbums.album} title="Best Albums"/>
                 </Grid>
             </Paper>
