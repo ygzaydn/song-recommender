@@ -8,6 +8,7 @@ import { color } from '../colors'
 const useStyles = makeStyles({
   root: {
     maxWidth: '40vw',
+    minHeight: '270px',
     backgroundColor: `${color.PURPLECOLOR}`,
   },
   title: {

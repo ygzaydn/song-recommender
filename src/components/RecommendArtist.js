@@ -12,12 +12,13 @@ const useStyles = makeStyles((theme) => ({
 
     container: {
       display: 'grid',
-      gridTemplateColumns: 'auto auto auto',
+      gridTemplateColumns: `${window.innerWidth < 600 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
     }
   }));
 
 export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
   const classes = useStyles();
+  console.log(window.innerWidth);
 
   const getArtist = async (mbid) => {
     const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
@@ -41,7 +42,7 @@ export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetT
     }
   }
 return (
-    <div style={{width: '90%', margin:'auto'}}>
+    <div>
       <Grid className={classes.container} container spacing={3}>
         {artistState.getSimilar
         ? artistState.getSimilar.map(el => {
