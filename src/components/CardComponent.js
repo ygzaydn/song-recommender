@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
   details: {
     display: 'flex',
     flexDirection: 'column',
+    marginLeft: '2vh',
   },
   content: {
     flex: '1 0 auto',
@@ -23,6 +24,7 @@ const useStyles = makeStyles(() => ({
   },
   cover: {
     minWidth: 150,
+    borderRadius: '25%',
   },
   subtitle1: {
       maxWidth: '50vw',
