@@ -14,22 +14,30 @@ const useStyles = makeStyles({
   root: {
     maxWidth: '40vw',
     minHeight: '270px',
-    backgroundColor: `${color.PURPLECOLOR}`,
+    padding: 0,
+    borderColor: `${color.BLACKCOLOR}`,
+    backgroundColor: `${color.YELLOWCOLOR}`,
+  },
+  rootTitle: {
+    maxWidth: '40vw',
+    
+    padding: 0,
+    borderColor: `${color.BLACKCOLOR}`,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: `${color.WHITECOLOR}`,
     textAlign: 'center',
-    border: `solid 2px ${color.WHITECOLOR}`,
+    backgroundColor: `${color.BLACKCOLOR}`,
   },
   pos: {
-    color: `${color.WHITECOLOR}`,
+    color: `${color.BLACKCOLOR}`,
     textDecoration : 'underline',
     fontSize: 20,
   },
   moreInfo: {
-    color: `${color.WHITECOLOR}`,
+    color: `${color.BLACKCOLOR}`,
     fontSize: 16,
   }
 });
@@ -61,7 +69,7 @@ const SmallCard = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onG
 
   return (
     <Card className={classes.root} variant="outlined" >
-      <CardContent>
+      <CardContent className={classes.rootTitle}>
         <Typography className={classes.title} gutterBottom>
           {title}
         </Typography>

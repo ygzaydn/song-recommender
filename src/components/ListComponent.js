@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textAlign: 'center',
     '&:hover':{
-        border: `2px solid ${color.PINKCOLOR}`,
         backgroundColor: `${color.PINKCOLOR}`,
     },
    },

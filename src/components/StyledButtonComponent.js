@@ -8,7 +8,6 @@ export const StyledButton = withStyles({
     borderRadius: 3,
     border: 0,
     color: 'white',
-    margin: '0 1vh 0 0',
     height: 56,
     padding: '0 30px',
   },
