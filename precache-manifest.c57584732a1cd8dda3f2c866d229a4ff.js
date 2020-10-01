@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "226b53e3fe550c9d1b5ed417f52f1438",
+    "revision": "c9503d5ff7e1dcbe3ec8d4f86cb43633",
     "url": "/song-recommender/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/song-recommender/static/css/2.fea0eb96.chunk.css"
   },
   {
-    "revision": "dffd518bcbabdae30af1",
+    "revision": "0526a6ba4a3902022042",
     "url": "/song-recommender/static/css/main.35d0ba96.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/song-recommender/static/js/2.8d691a33.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "dffd518bcbabdae30af1",
-    "url": "/song-recommender/static/js/main.34394c81.chunk.js"
+    "revision": "0526a6ba4a3902022042",
+    "url": "/song-recommender/static/js/main.08d2ac16.chunk.js"
   },
   {
     "revision": "59d2261602141d9db63a",
