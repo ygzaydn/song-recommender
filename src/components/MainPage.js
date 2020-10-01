@@ -19,48 +19,20 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       alignContent: 'center',
     },
-    form :{
-      margin: '0 0 1vh 0'
-    }
   }));
 
 const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) => {
   const classes = useStyles();
-  const [searchText, setSearchText] = useState('');
-
-  const setTextField = (event) => {
-    setSearchText(event.target.value)
-  }
-
-  const search = async () => {
-    try {
-      const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-      if (res) {
-        onRecommendArtist(res);
-        onStateChange('ArtistRecommend');
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   return (
-  <div className={classes.root}>
-    <form className={classes.form} noValidate autoComplete="off">
-      <StyledTextField label="Artist Name" onChange={setTextField}/>
-      <StyledButton color="primary" variant="outlined" onClick={search}>
-        Search
-      </StyledButton>
-    </form>
-      <div>
+    <div className={classes.root}>
       {renderState==='ArtistRecommend'
           ? <ConnectedRecommendArtist />
           : null }
       {renderState==='ArtistInfo'
           ? <ConnectedArtistInfo />
           : null }
-      </div>
-  </div>
+    </div>
   );
 }
 

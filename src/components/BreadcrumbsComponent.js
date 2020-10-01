@@ -18,12 +18,12 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const BreadcrumbsComponent = ({handleClick, classTrigger}) => {
+export const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger}) => {
     const classes = useStyles();
     return (
         <div className={classTrigger}>
             <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">
-                <Typography id="header" className={classes.root} onClick={handleClick('Artist')}>
+                <Typography id="header" className={classes.root} onClick={handleClick('Artist','ArtistRecommend')}> 
                     Artists
                 </Typography>
                 <Typography id="header1" className={classes.root} color="inherit" href="#" onClick={handleClick('Track')}>

@@ -7,20 +7,23 @@ import { ConnectedMainPage } from './components/MainPage'
 import TypedJS from './components/TypedJS-Component/TypedJS'
 import { Footer } from './components/Footer-Component/Footer'
 import { BreadcrumbsComponent } from './components/BreadcrumbsComponent'
+import { mapDispatchToProps, mapStateToProps } from './store'
 
-const App = () => {
+
+const App = ({onStateChange}) => {
 
   const [background, setBackground] = useState(true);
   const [mainpageClass, setMainpageClass] = useState('main-page main-page-animation')
   const [section, setSection] = useState('')
   
-  const changeBackground = (input) => (event) => {
+  const handleClick = (input, pageEvent) => (event) => {
     if(background) setMainpageClass('main-page main-page-animation main-page-animation-out')
     setTimeout(() => {
       setBackground(false)
     }, 900);
     document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-root-2')
     event.target.className = 'MuiTypography-root MuiLink-root makeStyles-root-2 makeStyles-underlineTypo-7'
+    if(pageEvent) onStateChange('ArtistRecommend')
     setSection(input);
     event.preventDefault();
   }
@@ -29,17 +32,18 @@ const App = () => {
     setMainpageClass('')
   }
 
-
   return ( 
     <div>
-    <Header handleClick={changeBackground} classTrigger={'fixed-header'}/>
+    <Header handleClick={handleClick} classTrigger={'fixed-header'}/>
+
       <div className={mainpageClass} onAnimationEnd={endAnimation}>
         <TypedJSConditional background={background} />
         { background
-        ? <BreadcrumbsComponent handleClick={changeBackground} classTrigger={section}/>
+        ? <BreadcrumbsComponent handleClick={handleClick} classTrigger={section}/>
         : null}
         <ConnectedMainPageConditional section={section} background={background} />
       </div>
+
     <Footer />
   </div>
   );
@@ -61,6 +65,4 @@ const TypedJSConditional = ({background}) =>
   : null;
 
 
-export const ConnectedApp = connect()(App)
-
-
+export const ConnectedApp = connect(mapStateToProps,mapDispatchToProps)(App)

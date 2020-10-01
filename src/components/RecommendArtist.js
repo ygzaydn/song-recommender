@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core/'
 import 'fontsource-roboto';
@@ -7,19 +7,38 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
 import dotenv from 'dotenv'
 import axios from 'axios'
+import { StyledButton } from './StyledButtonComponent'
+import { StyledTextField } from './StyledTextField'
 
 const useStyles = makeStyles((theme) => ({
-
     container: {
       display: 'grid',
       width: '90%',
       gridTemplateColumns: `${window.innerWidth < 600 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
+    },
+    form :{
+      margin: '0 0 1vh 0'
     }
   }));
 
-export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
+export const RecommendArtist = ({onRecommendArtist, artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
   const classes = useStyles();
-  console.log(window.innerWidth);
+    const [searchText, setSearchText] = useState('');
+
+  const setTextField = (event) => {
+    setSearchText(event.target.value)
+  }
+
+  const search = async () => {
+    try {
+      const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+      if (res) {
+        onRecommendArtist(res);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const getArtist = async (mbid) => {
     const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
@@ -45,6 +64,12 @@ export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetT
   
 return (
     <div>
+      <form className={classes.form} noValidate autoComplete="off">
+       <StyledTextField label="Artist Name" onChange={setTextField}/>
+        <StyledButton color="primary" variant="outlined" onClick={search}>
+          Search
+        </StyledButton>
+      </form>
       <Grid className={classes.container} container spacing={3}>
         {artistState.getSimilar
         ? artistState.getSimilar.map(el => {

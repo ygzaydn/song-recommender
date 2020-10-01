@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, } from '@material-ui/core/'
 import 'fontsource-roboto';
-import { color } from '../colors'
 
 const useStyles = makeStyles(() => ({
     searchField: {
