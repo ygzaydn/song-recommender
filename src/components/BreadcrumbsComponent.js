@@ -1,6 +1,7 @@
 import React from 'react';
 import { Breadcrumbs, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import { color } from '../colors'
 
 const useStyles = makeStyles(() => ({
   ol: {
@@ -14,12 +15,13 @@ const useStyles = makeStyles(() => ({
   },
   underlineTypo: {
     textDecoration: 'underline',
-    color: 'white',
+    color: `${color.PINKCOLOR}`,
   }
 }));
 
 export const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger}) => {
     const classes = useStyles();
+    console.log(classes);
     return (
         <div className={classTrigger}>
             <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">

@@ -22,7 +22,7 @@ const App = ({onStateChange}) => {
       setBackground(false)
     }, 900);
     document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-root-2')
-    event.target.className = 'MuiTypography-root MuiLink-root makeStyles-root-2 makeStyles-underlineTypo-7'
+    event.target.className = ' makeStyles-underlineTypo-7'
     if(pageEvent) onStateChange('ArtistRecommend')
     setSection(input);
     event.preventDefault();
