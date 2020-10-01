@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { StyledButton } from './StyledButtonComponent'
 import { color } from '../colors';
 import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from '../store'
@@ -19,7 +20,8 @@ const useStyles = makeStyles({
     fontSize: 24,
     fontWeight: 'bold',
     color: `${color.WHITECOLOR}`,
-    textAlign: 'center'
+    textAlign: 'center',
+    border: `solid 2px ${color.WHITECOLOR}`,
   },
   pos: {
     color: `${color.WHITECOLOR}`,
@@ -69,12 +71,19 @@ const SmallCard = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onG
         <Typography  className={classes.moreInfo} >
           {data1}
         </Typography>
+        {clickInfo
+        ? <StyledButton style={{marginTop: '2vh'}}onClick={()=> getArtist(name)}>
+            Change Artist
+          </StyledButton>
+        : <div>
         <Typography className={classes.pos} >
           {par2}
-        </Typography>
-        <Typography className={classes.moreInfo} onClick={()=> clickInfo ? getArtist(name): null}>
+        </Typography> 
+        <Typography className={classes.moreInfo} >
           {data2}
         </Typography>
+        </div>
+        }
       </CardContent>
     </Card>
   );

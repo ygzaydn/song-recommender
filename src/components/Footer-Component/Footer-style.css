@@ -5,20 +5,16 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    justify-content: center;
-    min-height: 24px;
+    justify-content: space-between;
     background: black;
     height: 5vh;
     color: #E5E5E5;
     border-top: 2px;
-
 }
-
 .footer-logos{
+    width: 35vw;
     display: flex;
-    justify-items: center;
-    align-items: center;
-    margin-right: auto;
+    justify-content: center;
 }
 .footer-copyright{
     display: flex;
@@ -26,9 +22,9 @@
     align-items: center;
 }
 .footer-date{
-    display: flex;
-    justify-items: center;
+    width: 35vw;
+    display: flex ;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-right: 3vw;
-    margin-left: auto;
 }
