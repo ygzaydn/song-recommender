@@ -49,6 +49,7 @@ const useStyles = makeStyles({
   moreInfo: {
     color: `${color.BLACKCOLOR}`,
     fontSize: 16,
+    textAlign:'center'
   },
   similarArtistLine: {
     display:'flex',
@@ -92,14 +93,14 @@ const SmallCard = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onG
         ? data1.map(el => {
           return (
             <div className={classes.similarArtistLine}>
-          <Typography>
+          <Typography style={{alignSelf:'center'}}>
             {el.name}
           </Typography>
-          <ChevronRightIcon onClick={()=> getArtist(el.name)}/>
+          <ChevronRightIcon style={{alignSelf:'center'}} onClick={()=> getArtist(el.name)}/>
             </div>
           )
         })
-        : <div>
+        : <div style={{alignSelf:'center', justifySelf:'center'}}>
         <Typography className={classes.pos} >
           {par1}
         </Typography>

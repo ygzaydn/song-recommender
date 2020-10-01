@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, GridList, GridListTile } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { CardComponent } from './CardComponent'
 import { color } from '../colors'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { CardActions } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -12,9 +15,8 @@ const useStyles = makeStyles(() => ({
         justifyContent: 'space-around',
         overflow: 'hidden',
         border: 'none',
-
     },
-    bio: {
+    title: {
       textAlign: 'center',
       background: `${color.BLACKCOLOR}`,
       color: `${color.WHITECOLOR}`,
@@ -26,25 +28,45 @@ const useStyles = makeStyles(() => ({
     },
     gridListTile: {
         maxWidth:700
+    },
+    iconStyle: {
+        color: 'white',
+    },
+    cardActions: {
+        background: `${color.BLACKCOLOR}`,
+        display: 'grid',
+        gridTemplateColumns: '20% 60% 20%',
     }
   }));
 
 export const BigCard = ({data, title, icon}) => {
     const classes = useStyles();
+    const [counter,setCounter] = useState(0);
+    const [usefulData, setusefulData] = useState({})
+    const changeCounter = (input) => setCounter(input);
+    useEffect(() => {
+        setusefulData(data[counter]);
+    },[counter])
     return (
         <div className={classes.root}>
-            <Grid item xs={12}>
-                <Typography variant="h5" className={classes.bio}> 
-                    {title}
-                </Typography>
+        {Object.keys(usefulData).length
+        ? <Grid item xs={12}>
+                <CardActions className={classes.cardActions}>
+                    {counter===0
+                    ?  <ChevronLeftIcon className={classes.iconStyle} style={{color:'black'}}fontSize="large"/>
+                    :  <ChevronLeftIcon className={classes.iconStyle} fontSize="large" onClick={() => changeCounter(counter-1)}/>}
+                    <Typography variant="h5" className={classes.title}> 
+                        {title}
+                    </Typography>
+                    <ChevronRightIcon className={classes.iconStyle} style={{justifySelf:'end'}} fontSize="large" onClick={() => changeCounter(counter+1)}/>
+                </CardActions>
                 <GridList className={classes.gridList} cols={1}>
-                    {data.map((el) => (
-                        <GridListTile key={el.url} cols={1} className={classes.gridListTile}>
-                            <CardComponent name={el.name} artist={el.artist.name} url={el.url} playcount={el.playcount} img={el.image[2]["#text"]} icon={icon}/>
-                        </GridListTile>
-                    ))}
+                    <GridListTile key={usefulData.name} cols={1} className={classes.gridListTile}>
+                        <CardComponent name={usefulData.name} artist={usefulData.artist.name} url={usefulData.url} playcount={usefulData.playcount} img={usefulData.image[2]["#text"]} icon={icon}/>
+                    </GridListTile>
                 </GridList>
             </Grid>
+        : null}
         </div>
     )
 }
