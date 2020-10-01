@@ -41,6 +41,7 @@ export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetT
      onStateChange('ArtistInfo')
     }
   }
+  
 return (
     <div>
       <Grid className={classes.container} container spacing={3}>
