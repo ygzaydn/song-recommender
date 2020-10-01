@@ -13,8 +13,6 @@ const useStyles = makeStyles((theme) => ({
     container: {
       display: 'grid',
       gridTemplateColumns: 'auto auto auto',
-      width: '95%',
-      margin: 'auto'
     }
   }));
 
@@ -43,7 +41,7 @@ export const RecommendArtist = ({artistState, onGetArtist, onStateChange, onGetT
     }
   }
 return (
-    <div>
+    <div style={{width: '90%', margin:'auto'}}>
       <Grid className={classes.container} container spacing={3}>
         {artistState.getSimilar
         ? artistState.getSimilar.map(el => {

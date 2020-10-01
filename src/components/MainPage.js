@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       alignContent: 'center',
     },
+    form :{
+      margin: '0 0 1vh 0'
+    }
   }));
 
 const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) => {
@@ -43,7 +46,7 @@ const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) 
 
   return (
   <div className={classes.root}>
-    <form noValidate autoComplete="off">
+    <form className={classes.form} noValidate autoComplete="off">
       <StyledTextField label="Artist Name" onChange={setTextField}/>
       <StyledButton color="primary" variant="outlined" onClick={search}>
         Search
