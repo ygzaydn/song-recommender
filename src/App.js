@@ -6,7 +6,7 @@ import { Header } from './components/Header-Component/Header'
 import { ConnectedMainPage } from './components/MainPage'
 import TypedJS from './components/TypedJS-Component/TypedJS'
 import { Footer } from './components/Footer-Component/Footer'
-import { BreadcrumbsComponent } from './components/BreadcrumbsComponent'
+import { ConnectedBreadcrumbsComponent } from './components/BreadcrumbsComponent'
 import { mapDispatchToProps, mapStateToProps } from './store'
 
 
@@ -21,9 +21,7 @@ const App = ({onStateChange}) => {
     setTimeout(() => {
       setBackground(false)
     }, 900);
-    document.querySelectorAll('#header').forEach(el => el.className='MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-root-2')
-    event.target.className = ' makeStyles-underlineTypo-7'
-    if(pageEvent) onStateChange('ArtistRecommend')
+    if(pageEvent) onStateChange(pageEvent)
     setSection(input);
     event.preventDefault();
   }
@@ -39,7 +37,7 @@ const App = ({onStateChange}) => {
       <div className={mainpageClass} onAnimationEnd={endAnimation}>
         <TypedJSConditional background={background} />
         { background
-        ? <BreadcrumbsComponent handleClick={handleClick} classTrigger={section}/>
+        ? <ConnectedBreadcrumbsComponent handleClick={handleClick} classTrigger={section}/>
         : null}
         <ConnectedMainPageConditional section={section} background={background} />
       </div>
