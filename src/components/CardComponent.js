@@ -52,7 +52,7 @@ export const CardComponent = ({name, url, playcount, img, artist, icon}) => {
   const classes = useStyles();
 
   return (
-  <div style={{maxWidth:800}}>
+  <div>
     <Card className={classes.root}>
       {icon
       ?<LibraryMusicIcon

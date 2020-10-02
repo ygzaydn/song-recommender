@@ -87,8 +87,12 @@ const ArtistInfo = ({artistState, renderState}) => {
                             <ConnectedSmallCard clickInfo={true} title="Similar Artists" data1={artistState.getArtist.similar.artist}/>
                         </GridList>
                     </Grid>
+                    <Grid item xs={12}>
                     <BigCard data={artistState.getTopTracks.track} icon={true} title="Best Songs"/>
+                    </Grid>
+                    <Grid item xs={12}>
                     <BigCard data={artistState.getTopAlbums.album} title="Best Albums"/>
+                    </Grid>
                 </Grid>
             </Paper>
         </div>

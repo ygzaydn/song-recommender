@@ -26,9 +26,7 @@ const useStyles = makeStyles(() => ({
       flexWrap: 'nowrap',
       maxHeight: 300,
     },
-    gridListTile: {
-        maxWidth:700
-    },
+
     iconStyle: {
         color: 'white',
     },
@@ -70,5 +68,4 @@ export const BigCard = ({data, title, icon}) => {
         </div>
     )
 }
-
 
