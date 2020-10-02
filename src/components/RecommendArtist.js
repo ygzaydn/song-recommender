@@ -5,8 +5,6 @@ import 'fontsource-roboto';
 import { ListComponent } from './ListComponent'
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
-import dotenv from 'dotenv'
-import axios from 'axios'
 import { StyledButton } from './StyledButtonComponent'
 import { StyledTextField } from './StyledTextField'
 import { searchByArtistName, getArtistInfoFromSearch } from '../axiosCalls'

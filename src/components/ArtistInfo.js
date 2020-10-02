@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Typography, Collapse, GridList, GridListTile } from '@material-ui/core/'
+import { Grid, Paper, Typography, Collapse, GridList } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'

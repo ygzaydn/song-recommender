@@ -5,9 +5,8 @@ import { connect } from 'react-redux'
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core/'
-import axios from 'axios'
-import dotenv from 'dotenv'
 import { ListComponent } from './ListComponent'
+import { searchTrackByName } from '../axiosCalls'
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -34,21 +33,11 @@ const TrackSearch = ({trackInfoState, onSearchTracks}) => {
     const setTextField = (event) => {
         setSeachText(event.target.value);
     }
-
-    const searchTrack = async () => {
-        const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.search&track=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-        try {
-            onSearchTracks(res);
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     return (
         <div>
             <form className={classes.form} noValidate autoComplete="off">
                 <StyledTextField label="Track Name" onChange={setTextField}/>
-                <StyledButton color="primary" variant="outlined" onClick={searchTrack}>
+                <StyledButton color="primary" variant="outlined" onClick={() => {searchTrackByName(searchText, onSearchTracks)}}>
                     Search
                  </StyledButton>
             </form>

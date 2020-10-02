@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
     }
   },
   underlineTypo: {
-    color: 'white',
       '&:hover': {
         textDecoration: 'underline',
     },

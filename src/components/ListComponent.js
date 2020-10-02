@@ -3,9 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import 'fontsource-roboto';
 import { color } from '../colors'
-import { mapDispatchToProps, mapStateToProps } from '../store'
-import { connect } from 'react-redux'
-import { getArtistInfoFromSearch } from '../axiosCalls'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,19 +12,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     flexWrap: 'wrap',
     backgroundColor: `${color.BLACKCOLOR}`,
-  },
-  label: {
-    textTransform: 'capitalize',
-  },
-  elevation1: {
-    minHeight: '10vh',
+    inHeight: '10vh',
     maxHeight: 250,
     overflow: 'hidden',
     textAlign: 'center',
     '&:hover':{
         backgroundColor: `${color.PINKCOLOR}`,
     },
-   },
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
    name: {
     display: 'grid',
     alignItems: 'center',
@@ -64,10 +59,7 @@ export const ListComponent = ({mbid, name, match, getArtist, listeners, artist, 
             <Paper
                 key={name} 
                 elevation={1} 
-                classes={{
-                    root: classes.root,
-                    elevation1: classes.elevation1
-                }}
+                className={classes.root}
                 color="secondary"
                 onClick={handleClick}
             >

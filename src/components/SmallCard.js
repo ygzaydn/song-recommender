@@ -9,6 +9,7 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import axios from 'axios'
 import dotenv from 'dotenv'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { getArtistInfoFromName } from '../axiosCalls'
 
 const useStyles = makeStyles({
   root: {
@@ -61,31 +62,9 @@ const useStyles = makeStyles({
   }
 });
 
-const SmallCard = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, title, data1, data2, par1, par2, name, clickInfo}) => {
+const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, title, data1, data2, par1, par2, name, clickInfo}) => {
   const classes = useStyles();
   const classNameForContent = clickInfo? classes.rootTitle1 : classes.rootTitle2;
-
-  const getArtist = async (name) => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-    if(res) {
-    onGetArtist(res);
-    getArtistTopTracks(name);
-    }
-  }
-  const getArtistTopTracks = async (name) => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${name}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-    if(res) {
-     onGetTopTracks(res);
-     getArtistTopAlbums(name)
-    }
-  }
-  const getArtistTopAlbums = async (name) => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${name}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-    if(res) {
-     onGetTopAlbums(res);
-     onStateChange('ArtistInfo')
-    }
-  }
 
   return (
     <Card className={classes.root} variant="outlined" >
@@ -100,7 +79,7 @@ const SmallCard = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onG
           <Typography style={{alignSelf:'center'}}>
             {el.name}
           </Typography>
-          <ChevronRightIcon style={{alignSelf:'center'}} fontSize="large" onClick={()=> getArtist(el.name)}/>
+          <ChevronRightIcon style={{alignSelf:'center'}} fontSize="large" onClick={() => {getArtistInfoFromName(el.name,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)}}/>
             </div>
           )
         })
