@@ -6,6 +6,7 @@ import 'fontsource-roboto';
 import { ConnectedRecommendArtist } from './RecommendArtist'
 import { ConnectedArtistInfo } from './ArtistInfo'
 import { ConnectedRecommendTrack } from './RecommendTrack'
+import { ConnectedTrackInfo } from './TrackInfo'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,6 +32,9 @@ const MainPage = ({renderState}) => {
           : null }
       {renderState==='TrackSearch'
           ? <ConnectedRecommendTrack />
+          : null }
+      {renderState==='TrackInfo'
+          ? <ConnectedTrackInfo />
           : null }
     </div>
   );

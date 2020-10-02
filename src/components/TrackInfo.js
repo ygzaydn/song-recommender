@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const ArtistInfo = ({artistState}) => {
+const TrackInfo = ({trackInfoState}) => {
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     const unCollapse = () => {
@@ -67,40 +67,39 @@ const ArtistInfo = ({artistState}) => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Paper className={classes.title}>
-                            {artistState.getArtist.name}
+                            {trackInfoState.getTrack.name}
                         </Paper>
                     </Grid>
                     <Grid item xs={12} onClick={unCollapse}>
                         <Typography variant="subtitle1" className={classes.bioTitle}>
-                            {checked ?  'Click to close bio!' : 'Click here for bio!'}
+                            {checked ?  'Click to close!' : 'Click here to open LastFM url!'}
                         </Typography>
                         <Collapse in={checked} collapsedSize={150}>
                             <Typography className={classes.bio}>
-                                {artistState.getArtist.bio.content.split('<a hr')[0]
-                                }
+                                {trackInfoState.getTrack.url}
                             </Typography>
                         </Collapse>
                     </Grid>
                     <Grid item xs={6} >
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard clickInfo={false} title="Stats" data1={artistState.getArtist.stats.listeners} data2={artistState.getArtist.stats.playcount} par1="Listeners" par2="Playcount" stats={true}/>
+                            <ConnectedSmallCard clickInfo={false} title="Stats" data1={trackInfoState.getTrack.listeners} data2={trackInfoState.getTrack.playcount} par1="Listeners" par2="Playcount" stats={true}/>
                         </GridList>
                     </Grid>
                     <Grid item xs={6}>
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard clickInfo={true} title="Similar Artists" data1={artistState.getArtist.similar.artist}/>
+                            <ConnectedSmallCard clickInfo={true} title="Top Tags" data1={trackInfoState.getTrack.toptags.tag}/>
                         </GridList>
                     </Grid>
-                    <Grid item xs={12}>
-                        <BigCard data={artistState.getTopTracks.track} icon={true} title="Best Songs"/>
+                    {/*<Grid item xs={12}>
+                        <BigCard data={trackInfoState.getTrack.album} icon={true} title="Album of the song"/>
                     </Grid>
                     <Grid item xs={12}>
-                        <BigCard data={artistState.getTopAlbums.album} title="Best Albums"/>
-                    </Grid>
+                        <BigCard data={trackInfoState.getSimilarTrack} title="Best Albums"/>
+                    </Grid>*/}
                 </Grid>
             </Paper>
         </div>
     )
 }
 
-export const ConnectedArtistInfo = connect(mapStateToProps,mapDispatchToProps)(ArtistInfo)
+export const ConnectedTrackInfo = connect(mapStateToProps,mapDispatchToProps)(TrackInfo)
