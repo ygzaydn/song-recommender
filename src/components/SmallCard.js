@@ -62,7 +62,7 @@ const useStyles = makeStyles({
   }
 });
 
-const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, title, data1, data2, par1, par2, name, clickInfo}) => {
+const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, title, data1, data2, par1, par2, name, clickInfo, stats}) => {
   const classes = useStyles();
   const classNameForContent = clickInfo? classes.rootTitle1 : classes.rootTitle2;
 
@@ -72,7 +72,7 @@ const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, 
         <Typography className={classes.title} gutterBottom>
           {title}
         </Typography>
-        {clickInfo
+        {clickInfo === true
         ? data1.map(el => {
           return (
             <div className={classes.similarArtistLine}>
@@ -83,7 +83,9 @@ const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, 
             </div>
           )
         })
-        : <div style={{alignSelf:'center', justifySelf:'center'}}>
+        : null}
+        {stats === true
+        ? <div style={{alignSelf:'center', justifySelf:'center'}}>
         <Typography className={classes.pos} >
           {par1}
         </Typography>
@@ -97,7 +99,7 @@ const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, 
           {data2}
         </Typography>
         </div>
-        }
+        : null}
       </CardContent>
     </Card>
   );

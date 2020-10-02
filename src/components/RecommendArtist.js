@@ -7,7 +7,7 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
 import { StyledButton } from './StyledButtonComponent'
 import { StyledTextField } from './StyledTextField'
-import { searchByArtistName, getArtistInfoFromSearch } from '../axiosCalls'
+import { searchByArtistName, getArtistInfoFromSearch, getArtistInfoFromName } from '../axiosCalls'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,12 +45,13 @@ export const RecommendArtist = ({onRecommendArtist, artistState, onGetArtist, on
       <Grid className={classes.container} container spacing={3}>
         {artistState.getSimilar
         ? artistState.getSimilar.map(el => {
+          const handleClickFunction = () => el.mbid ? getArtistInfoFromSearch(el.mbid,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange) :  getArtistInfoFromName(el.name,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange);
           return (
             <ListComponent
             mbid={el.mbid}
             name={el.name}
             match={el.match}
-            handleClick={()=> {getArtistInfoFromSearch(el.mbid,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)}}
+            handleClick={handleClickFunction}
             /> 
           )
         }) 

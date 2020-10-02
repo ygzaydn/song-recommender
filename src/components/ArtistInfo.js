@@ -76,13 +76,14 @@ const ArtistInfo = ({artistState, renderState}) => {
                         </Typography>
                         <Collapse in={checked} collapsedSize={150}>
                             <Typography className={classes.bio}>
-                                {artistState.getArtist.bio.content.split('<a hr')[0]}
+                                {artistState.getArtist.bio.content.split('<a hr')[0]
+                                }
                             </Typography>
                         </Collapse>
                     </Grid>
                     <Grid item xs={6} >
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard clickInfo={false} title="Stats" data1={artistState.getArtist.stats.listeners} data2={artistState.getArtist.stats.playcount} par1="Listeners" par2="Playcount"/>
+                            <ConnectedSmallCard clickInfo={false} title="Stats" data1={artistState.getArtist.stats.listeners} data2={artistState.getArtist.stats.playcount} par1="Listeners" par2="Playcount" stats={true}/>
                         </GridList>
                     </Grid>
                     <Grid item xs={6}>
