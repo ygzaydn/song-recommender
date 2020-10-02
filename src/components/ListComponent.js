@@ -26,12 +26,21 @@ const useStyles = makeStyles((theme) => ({
     },
    },
    name: {
-       display: 'grid',
-       alignItems: 'center',
-       color: `${color.WHITECOLOR}`,
-       backgroundColor: `${color.BLACKCOLOR}`,
-       height: 100,
-
+    display: 'grid',
+    alignItems: 'center',
+    color: `${color.WHITECOLOR}`,
+    backgroundColor: `${color.BLACKCOLOR}`,
+    height: 140,
+    fontSize: 18
+   },
+   artist: {
+    display: 'grid',
+    alignItems: 'center',
+    color: `${color.WHITECOLOR}`,
+    backgroundColor: `${color.BLACKCOLOR}`,
+    height: 80,
+    borderTop: '1px solid white',
+    fontSize: 14
    },
    match: {
        display: 'grid',
@@ -46,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const ListComponent = ({mbid, name, match, getArtist}) => {
+export const ListComponent = ({mbid, name, match, getArtist, listeners, artist}) => {
     
     const classes = useStyles();
     return (
@@ -64,9 +73,25 @@ export const ListComponent = ({mbid, name, match, getArtist}) => {
                 <Typography className={classes.name} variant="h6" display="block">
                 {name}
                 </Typography>
-                <Typography className={classes.match} variant="subtitle2" display="block">
+                {artist ?
+                <div className={classes.artist}>
+                <Typography style={{textDecoration: 'underline'}}display="block">
+                Artist
+                </Typography>
+                <Typography display="block">
+                {artist}
+                </Typography>
+                </div>
+                : null}
+                {match 
+                ?<Typography className={classes.match} variant="subtitle2" display="block">
                 Match: {parseInt(match*10)}
                 </Typography>
+                : <Typography className={classes.match} variant="subtitle2" display="block">
+                Listeners: {listeners}
+                </Typography>
+                }
+
             </Paper>
         </Grid>
     )

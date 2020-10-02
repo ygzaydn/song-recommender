@@ -59,7 +59,7 @@ const TrackSearch = ({trackInfoState, onSearchTracks}) => {
                     <ListComponent 
                     mbid={el.mbid}
                     name={el.name}
-                    match={el.listeners}
+                    listeners={el.listeners}
                     artist={el.artist}
                     /> 
                 )
