@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { BigCard } from './BigCard-Component/BigCard'
 import { ConnectedSmallCard } from './SmallCard'
 import { color } from '../colors'
+import { getArtistInfoFromName } from '../axiosCalls'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,12 +55,13 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const ArtistInfo = ({artistState}) => {
+const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     const unCollapse = () => {
         setChecked((prev) => !prev)
     }
+    const getArtistInfoFromNamewithInput = (name) => getArtistInfoFromName(name,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)
     return(
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -87,7 +89,7 @@ const ArtistInfo = ({artistState}) => {
                     </Grid>
                     <Grid item xs={6}>
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard clickInfo={true} title="Similar Artists" data1={artistState.getArtist.similar.artist} clickInfoFunction={'getArtistInfoFromName'}/>
+                            <ConnectedSmallCard clickInfo={true} title="Similar Artists" data1={artistState.getArtist.similar.artist} clickInfoFunction={getArtistInfoFromNamewithInput}/>
                         </GridList>
                     </Grid>
                     <Grid item xs={12}>

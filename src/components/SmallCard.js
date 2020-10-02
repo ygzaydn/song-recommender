@@ -60,7 +60,7 @@ const useStyles = makeStyles({
   }
 });
 
-const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, title, data1, data2, par1, par2, clickInfo, stats, clickInfoFunction}) => {
+const SmallCard = ({ title, data1, data2, par1, par2, clickInfo, stats, clickInfoFunction}) => {
   const classes = useStyles();
   const classNameForContent = clickInfo? classes.rootTitle1 : classes.rootTitle2;
   
@@ -77,7 +77,7 @@ const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, 
           <Typography style={{alignSelf:'center'}}>
             {el.name}
           </Typography>
-          <ChevronRightIcon style={{alignSelf:'center'}} fontSize="large" onClick={() => {getArtistInfoFromName(el.name,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)}}/>
+          <ChevronRightIcon style={{alignSelf:'center'}} fontSize="large" onClick={() => clickInfoFunction(el.name)}/>
             </div>
           )
         })
