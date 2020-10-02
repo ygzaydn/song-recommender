@@ -4,5 +4,11 @@ const url = 'https://ipapi.co/json/'
 
 export const getGeoInfo = async () => {
    const res = await axios.get(url);
-   return res;
+   try {
+    return res;
+   } catch (error) {
+    console.log(error);
+    return error;
+   }
+   
 }
