@@ -15,12 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
       color: 'white',
-      marginRight: 'auto',
       fontSize: '95%',
   },
   blankicon: {
       color: 'black',
-      marginLeft: 'auto'
   }
 }));
 
@@ -31,7 +29,7 @@ export const Header = ({handleClick, changeSection, classTrigger}) => {
         <div className={headerClassName}>
             {headerClassName === 'fixed-header'
             ? <IconButton className={classes.icon} href={`${window.location.href.split('#')[0]}`}>
-                <HomeIcon />
+                <HomeIcon fontSize="medium"/>
               </IconButton>
             : null}
             <ConnectedBreadcrumbsComponent handleClick={handleClick} classTrigger={''} />

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
    name: {
        display: 'grid',
        alignItems: 'center',
-       color: `${color.PINKCOLOR}`,
+       color: `${color.WHITECOLOR}`,
        backgroundColor: `${color.BLACKCOLOR}`,
        height: 100,
 
