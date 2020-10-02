@@ -44,7 +44,7 @@ export const BigCard = ({data, title, icon, iterable}) => {
     const changeCounter = (input) => setCounter(input);
     useEffect(() => {
         setusefulData(data[counter]);
-    },[counter])
+    },[counter, data])
     return (
         <div className={classes.root}>
         {Object.keys(usefulData).length

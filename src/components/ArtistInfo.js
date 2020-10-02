@@ -8,7 +8,6 @@ import { BigCard } from './BigCard-Component/BigCard'
 import { ConnectedSmallCard } from './SmallCard'
 import { color } from '../colors'
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -88,7 +87,7 @@ const ArtistInfo = ({artistState}) => {
                     </Grid>
                     <Grid item xs={6}>
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard clickInfo={true} title="Similar Artists" data1={artistState.getArtist.similar.artist}/>
+                            <ConnectedSmallCard clickInfo={true} title="Similar Artists" data1={artistState.getArtist.similar.artist} clickInfoFunction={'getArtistInfoFromName'}/>
                         </GridList>
                     </Grid>
                     <Grid item xs={12}>

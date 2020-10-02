@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import { color } from '../colors';
 import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from '../store'
-import axios from 'axios'
-import dotenv from 'dotenv'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { getArtistInfoFromName } from '../axiosCalls'
 
@@ -62,10 +60,10 @@ const useStyles = makeStyles({
   }
 });
 
-const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, title, data1, data2, par1, par2, name, clickInfo, stats}) => {
+const SmallCard = ({onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, title, data1, data2, par1, par2, clickInfo, stats, clickInfoFunction}) => {
   const classes = useStyles();
   const classNameForContent = clickInfo? classes.rootTitle1 : classes.rootTitle2;
-
+  
   return (
     <Card className={classes.root} variant="outlined" >
       <CardContent className={classNameForContent}>
