@@ -2,28 +2,32 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { createLogger } from 'redux-logger'
 
 //action types
-const RECOMMEND_SONG = 'RECOMMEND_SONG';
-const GET_TRACK = 'GET_TRACK'
+
 const RECOMMEND_ARTIST = 'RECOMMEND_ARTIST'
-const GET_ARTIST = 'GET_ARTIST'
+const RECOMMEND_TRACK = 'RECOMMEND_TRACK'
+
 const STATE_CHANGE = 'STATE_CHANGE'
+
+const GET_TRACK = 'GET_TRACK'
+const GET_ARTIST = 'GET_ARTIST'
 const GET_TOP_ALBUMS = 'GET_TOP_ALBUMS'
-const GET_TOP_TRACKS = 'GET_TOP_TRACKS';
+const GET_TOP_TRACKS = 'GET_TOP_TRACKS'
+
+const GET_SIMILAR_TRACK= 'GET_SIMILAR_TRACK'
+
 
 //reducers
-const recommendSongReducer = (state = [], action) => {
-    switch(action.type) {
-        case RECOMMEND_SONG: {
-            return applyRecommendSong(state, action)
-        }
-        default: return state
-    }
-}
 
 const trackInfoReducer = (state = [], action) => {
     switch(action.type) {
+        case RECOMMEND_TRACK: {
+            return applyRecommendTrack(state, action)
+        }
         case GET_TRACK: {
             return applyGetTrack(state, action)
+        }
+        case GET_SIMILAR_TRACK: {
+            return applyGetSimilarTrack(state, action)
         }
         default: return state;
     }
@@ -56,10 +60,10 @@ const renderReducer = (state = '', action) => {
     }
 }
 //actions
-const applyRecommendSong = (state, action) => {
-    return  [...action.similartracks]
+    //artistState actions
+const applyRecommendArtist = (state, action) => {
+    return {...state, getSimilar: [...action.similarartists]}
 }
-
 const applyGetArtist = (state, action) => {
     return {...state, getArtist: {...action.artist}}
 }
@@ -72,37 +76,39 @@ const applyGetTopTracks = (state, action) => {
     return {...state, getTopTracks: {...action.tracks}}
 }
 
-const applyGetTrack = (state, action) => {
-    return {...state, getTrack: [...action.track]}
+    //trackState actions
+const applyRecommendTrack = (state, action) => {
+    return {...state, getRecommendedTrack: [...action.track]}
 }
 
-const applyRecommendArtist = (state, action) => {
-    return {...state, getSimilar: [...action.similarartists]}
+const applyGetTrack = (state, action) => {
+    return {...state, getTrack: {...action.track}}
+}
+
+const applyGetSimilarTrack = (state, action) => {
+    return {...state, getSimilarTrack: [...action.track]}
 }
 
 //action creators
-const doRecommendSong = (similartracks) => {
+    //artistState action creators
+const doRecommendArtist = (similarartists) => {
     return {
-        type: RECOMMEND_SONG,
-        similartracks: similartracks.data.similarartists.artist
+        type: RECOMMEND_ARTIST,
+        similarartists: similarartists.data.similarartists.artist
     }
 }
-
-
-const doGetArtist = (artist) => {
+const doGetRecommendedArtist = (artist) => {
     return {
         type: GET_ARTIST,
         artist: artist.data.artist
     }
 }
-
 const doGetTopAlbums = (artist) => {
     return {
         type: GET_TOP_ALBUMS,
         artist: artist.data.topalbums
     }
 }
-
 const doGetTopTracks = (tracks) => {
     return {
         type: GET_TOP_TRACKS,
@@ -110,27 +116,27 @@ const doGetTopTracks = (tracks) => {
     }
 }
 
-const doRecommendArtist = (similarartists) => {
-    return {
-        type: RECOMMEND_ARTIST,
-        similarartists: similarartists.data.similarartists.artist
-    }
-}
-
-const doGetTrack = (track) => {
+    //trackState action creators
+const doGetRecommendedTrack = (track) => {
     return {
         type: GET_TRACK,
-        track
+        track: track.data.track
     }
 }
-
-const doSearchTracks = (track) => {
+const doRecommendTrack = (track) => {
     return {
-        type: GET_TRACK,
+        type: RECOMMEND_TRACK,
         track: track.data.results.trackmatches.track
     }
 }
 
+const doGetSimilarTrack = (track) => {
+    return {
+        type: GET_SIMILAR_TRACK,
+        track: track.data.similartracks.track
+    }
+}
+    //renderState action creators
 const doStateChange = (id) => {
     return {
         type: STATE_CHANGE,
@@ -142,7 +148,6 @@ const doStateChange = (id) => {
 const logger = createLogger();
 
 const rootReducer = combineReducers({
-    recommendSongState: recommendSongReducer,
     trackInfoState: trackInfoReducer,
     artistState: artistReducer,
     renderState: renderReducer
@@ -152,7 +157,6 @@ export const store = createStore(rootReducer, undefined, applyMiddleware(logger)
 //React-redux functions
 export const mapStateToProps = (state) => {
     return {
-        recommendSongState: state.recommendSongState,
         trackInfoState: state.trackInfoState,
         artistState: state.artistState,
         renderState: state.renderState
@@ -161,13 +165,17 @@ export const mapStateToProps = (state) => {
 
 export const mapDispatchToProps = (dispatch) => {
     return {
-        onRecommendSong: similartracks => dispatch(doRecommendSong(similartracks)),
-        onGetTrack: track => dispatch(doGetTrack(track)),
         onRecommendArtist: similarartists => dispatch(doRecommendArtist(similarartists)),
-        onGetArtist: artist => dispatch(doGetArtist(artist)),
+        onRecommendTrack: tracks => dispatch(doRecommendTrack(tracks)),
+
+        onGetArtist: artist => dispatch(doGetRecommendedArtist(artist)),
+        onGetTrack: track => dispatch(doGetRecommendedTrack(track)),
+
         onStateChange: id => dispatch(doStateChange(id)),
+
         onGetTopAlbums: artist => dispatch(doGetTopAlbums(artist)),
         onGetTopTracks: tracks => dispatch(doGetTopTracks(tracks)),
-        onSearchTracks: tracks => dispatch(doSearchTracks(tracks))
+
+        onGetSimilarTrack: tracks => dispatch(doGetSimilarTrack(tracks)),
     }
 }

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const RecommendArtist = ({onRecommendArtist, artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
   const classes = useStyles();
-    const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   const setTextField = (event) => {
     setSearchText(event.target.value)

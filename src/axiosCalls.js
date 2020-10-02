@@ -61,6 +61,21 @@ export const getArtistInfoFromName  = async (name, dispatcherMethod1, dispatcher
    }
 }
 
+export const getTrackFromSearch = async (mbid, dispatcherMethod1, dispatcherMethod2, stateMethod1) => {
+   const requestOne = axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${process.env.REACT_APP_API_KEY}&mbid=${mbid}&format=json`)
+   const requestTwo = axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.getSimilar&api_key=${process.env.REACT_APP_API_KEY}&mbid=${mbid}&format=json`)
+   const responses = await axios.all([requestOne, requestTwo])
+   try {
+      const responseOne = responses[0]
+      const responseTwo = responses[1]
+      dispatcherMethod1(responseOne);
+      dispatcherMethod2(responseTwo);
+      stateMethod1('TrackInfo')
+   } catch (error) {
+      console.log(error)
+   }
+}
+
 export const searchTrackByName = async (searchText, dispatcherMethod) => {
    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.search&track=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
    try {

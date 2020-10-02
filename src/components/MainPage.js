@@ -5,7 +5,7 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import 'fontsource-roboto';
 import { ConnectedRecommendArtist } from './RecommendArtist'
 import { ConnectedArtistInfo } from './ArtistInfo'
-import { ConnectedTrackSearch} from './TrackSearch'
+import { ConnectedRecommendTrack } from './RecommendTrack'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) => {
+const MainPage = ({renderState}) => {
   const classes = useStyles();
 
   return (
@@ -30,7 +30,7 @@ const MainPage = ({onStateChange, onRecommendArtist, artistState, renderState}) 
           ? <ConnectedArtistInfo />
           : null }
       {renderState==='TrackSearch'
-          ? <ConnectedTrackSearch />
+          ? <ConnectedRecommendTrack />
           : null }
     </div>
   );

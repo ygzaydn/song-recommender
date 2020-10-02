@@ -6,7 +6,7 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core/'
 import { ListComponent } from './ListComponent'
-import { searchTrackByName } from '../axiosCalls'
+import { searchTrackByName, getTrackFromSearch } from '../axiosCalls'
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -24,9 +24,9 @@ const useStyles = makeStyles(() => ({
     }
 
 }))
-//trackInfoState.getTrack
+//trackInfoState.getRecommendedTrack
 
-const TrackSearch = ({trackInfoState, onSearchTracks}) => {
+const RecommendTrack = ({trackInfoState, onRecommendTrack, onGetTrack,onGetSimilarTrack,onStateChange}) => {
     const classes = useStyles();
     const [searchText, setSeachText] = useState('')
 
@@ -37,19 +37,21 @@ const TrackSearch = ({trackInfoState, onSearchTracks}) => {
         <div>
             <form className={classes.form} noValidate autoComplete="off">
                 <StyledTextField label="Track Name" onChange={setTextField}/>
-                <StyledButton color="primary" variant="outlined" onClick={() => {searchTrackByName(searchText, onSearchTracks)}}>
+                <StyledButton color="primary" variant="outlined" onClick={() => {searchTrackByName(searchText, onRecommendTrack)}}>
                     Search
                  </StyledButton>
             </form>
             <Grid className={classes.container} container spacing={3}>
-                {trackInfoState.getTrack
-                ? trackInfoState.getTrack.map(el => {
+                {trackInfoState.getRecommendedTrack
+                ? trackInfoState.getRecommendedTrack.map(el => {
+                const handleClickFunction = () => el.mbid ? getTrackFromSearch(el.mbid,onGetTrack,onGetSimilarTrack,onStateChange) :  getTrackFromSearch(el.name,onGetTrack,onGetSimilarTrack,onStateChange);
                 return (
                     <ListComponent 
                     mbid={el.mbid}
                     name={el.name}
                     listeners={el.listeners}
                     artist={el.artist}
+                    handleClick={handleClickFunction}
                     /> 
                 )
                 }) 
@@ -59,4 +61,4 @@ const TrackSearch = ({trackInfoState, onSearchTracks}) => {
     )
 }
 
-export const ConnectedTrackSearch = connect(mapStateToProps,mapDispatchToProps)(TrackSearch);
+export const ConnectedRecommendTrack = connect(mapStateToProps,mapDispatchToProps)(RecommendTrack);
