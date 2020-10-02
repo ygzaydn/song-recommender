@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import 'fontsource-roboto';
 import { color } from '../colors'
+import { mapDispatchToProps, mapStateToProps } from '../store'
+import { connect } from 'react-redux'
+import { getArtistInfoFromSearch } from '../axiosCalls'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,9 +56,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-
-
-export const ListComponent = ({mbid, name, match, getArtist, listeners, artist}) => {
+export const ListComponent = ({mbid, name, match, getArtist, listeners, artist, handleClick}) => {
     
     const classes = useStyles();
     return (
@@ -68,30 +69,29 @@ export const ListComponent = ({mbid, name, match, getArtist, listeners, artist})
                     elevation1: classes.elevation1
                 }}
                 color="secondary"
-                onClick={() => getArtist(mbid)}
+                onClick={handleClick}
             >
                 <Typography className={classes.name} variant="h6" display="block">
-                {name}
+                    {name}
                 </Typography>
                 {artist ?
                 <div className={classes.artist}>
-                <Typography style={{textDecoration: 'underline'}}display="block">
-                Artist
-                </Typography>
-                <Typography display="block">
-                {artist}
-                </Typography>
+                    <Typography style={{textDecoration: 'underline'}}display="block">
+                        Artist
+                    </Typography>
+                    <Typography display="block">
+                        {artist}
+                    </Typography>
                 </div>
                 : null}
                 {match 
                 ?<Typography className={classes.match} variant="subtitle2" display="block">
-                Match: {parseInt(match*10)}
+                    Match: {parseInt(match*10)}
                 </Typography>
                 : <Typography className={classes.match} variant="subtitle2" display="block">
-                Listeners: {listeners}
+                    Listeners: {listeners}
                 </Typography>
                 }
-
             </Paper>
         </Grid>
     )

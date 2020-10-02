@@ -9,6 +9,8 @@ import dotenv from 'dotenv'
 import axios from 'axios'
 import { StyledButton } from './StyledButtonComponent'
 import { StyledTextField } from './StyledTextField'
+import { searchByArtistName, getArtistInfoFromSearch } from '../axiosCalls'
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -33,45 +35,12 @@ export const RecommendArtist = ({onRecommendArtist, artistState, onGetArtist, on
   const setTextField = (event) => {
     setSearchText(event.target.value)
   }
-
-  const search = async () => {
-    try {
-      const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${searchText}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-      if (res) {
-        onRecommendArtist(res);
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const getArtist = async (mbid) => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-    if(res) {
-    onGetArtist(res);
-    getArtistTopTracks(mbid);
-    }
-  }
-  const getArtistTopTracks = async (mbid) => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-    if(res) {
-     onGetTopTracks(res);
-     getArtistTopAlbums(mbid)
-    }
-  }
-  const getArtistTopAlbums = async (mbid) => {
-    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
-    if(res) {
-     onGetTopAlbums(res);
-     onStateChange('ArtistInfo')
-    }
-  }
   
-return (
+  return (
     <div>
       <form className={classes.form} noValidate autoComplete="off">
        <StyledTextField label="Artist Name" onChange={setTextField}/>
-        <StyledButton color="primary" variant="outlined" onClick={search}>
+        <StyledButton color="primary" variant="outlined" onClick={()=> searchByArtistName(searchText, onRecommendArtist)}>
           Search
         </StyledButton>
       </form>
@@ -79,18 +48,18 @@ return (
         {artistState.getSimilar
         ? artistState.getSimilar.map(el => {
           return (
-            <ListComponent 
+            <ListComponent
             mbid={el.mbid}
             name={el.name}
             match={el.match}
-            getArtist={getArtist}
+            handleClick={()=> {getArtistInfoFromSearch(el.mbid,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)}}
             /> 
           )
         }) 
         : null }
       </Grid>
     </div>
-)
+  )
 }
 
 export const ConnectedRecommendArtist = connect(mapStateToProps,mapDispatchToProps)(RecommendArtist)
