@@ -37,7 +37,7 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                 <Typography id="header" className={classnames==='ArtistRecommend'? classes.underlineTypo: classes.root} onClick={handleClick('Artist','ArtistRecommend')}> 
                     Artists
                 </Typography>
-                <Typography id="header1" className={classnames==='TrackRecommend'? classes.underlineTypo: classes.root} color="inherit" href="#" onClick={handleClick('Track','TrackRecommend')}>
+                <Typography id="header1" className={classnames==='TrackSearch'? classes.underlineTypo: classes.root} color="inherit" href="#" onClick={handleClick('Track','TrackSearch')}>
                     Tracks
                 </Typography>
                 <Typography id="header2" className={classnames==='TagRecommend'? classes.underlineTypo: classes.root} color="inherit" href="#" onClick={handleClick('Tag','TagRecommend')}>

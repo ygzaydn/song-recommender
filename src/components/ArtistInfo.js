@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: `${color.WHITECOLOR}`,
     background: `${color.BLACKCOLOR}`,
-    borderRadius: '10px'
   },
   bio: {
     textAlign: 'center',
@@ -82,8 +81,8 @@ const ArtistInfo = ({artistState, renderState}) => {
                         </Collapse>
                     </Grid>
                     <Grid item xs={6} >
-                    <GridList className={classes.gridList} cols={1}>
-                        <ConnectedSmallCard clickInfo={false} title="Stats" data1={artistState.getArtist.stats.listeners} data2={artistState.getArtist.stats.playcount} par1="Listeners" par2="Playcount"/>
+                        <GridList className={classes.gridList} cols={1}>
+                            <ConnectedSmallCard clickInfo={false} title="Stats" data1={artistState.getArtist.stats.listeners} data2={artistState.getArtist.stats.playcount} par1="Listeners" par2="Playcount"/>
                         </GridList>
                     </Grid>
                     <Grid item xs={6}>
@@ -92,10 +91,10 @@ const ArtistInfo = ({artistState, renderState}) => {
                         </GridList>
                     </Grid>
                     <Grid item xs={12}>
-                    <BigCard data={artistState.getTopTracks.track} icon={true} title="Best Songs"/>
+                        <BigCard data={artistState.getTopTracks.track} icon={true} title="Best Songs"/>
                     </Grid>
                     <Grid item xs={12}>
-                    <BigCard data={artistState.getTopAlbums.album} title="Best Albums"/>
+                        <BigCard data={artistState.getTopAlbums.album} title="Best Albums"/>
                     </Grid>
                 </Grid>
             </Paper>

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
       margin: 'auto',
       gridTemplateColumns: `${window.innerWidth < 600 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
     },
-    form :{
+    form: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

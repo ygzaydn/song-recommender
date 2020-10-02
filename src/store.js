@@ -8,7 +8,7 @@ const RECOMMEND_ARTIST = 'RECOMMEND_ARTIST'
 const GET_ARTIST = 'GET_ARTIST'
 const STATE_CHANGE = 'STATE_CHANGE'
 const GET_TOP_ALBUMS = 'GET_TOP_ALBUMS'
-const GET_TOP_TRACKS = 'GET_TOP_TRACKS'
+const GET_TOP_TRACKS = 'GET_TOP_TRACKS';
 
 //reducers
 const recommendSongReducer = (state = [], action) => {
@@ -20,7 +20,7 @@ const recommendSongReducer = (state = [], action) => {
     }
 }
 
-const songInfoReducer = (state = [], action) => {
+const trackInfoReducer = (state = [], action) => {
     switch(action.type) {
         case GET_TRACK: {
             return applyGetTrack(state, action)
@@ -73,7 +73,7 @@ const applyGetTopTracks = (state, action) => {
 }
 
 const applyGetTrack = (state, action) => {
-    return {...action.track}
+    return {...state, getTrack: [...action.track]}
 }
 
 const applyRecommendArtist = (state, action) => {
@@ -87,6 +87,7 @@ const doRecommendSong = (similartracks) => {
         similartracks: similartracks.data.similarartists.artist
     }
 }
+
 
 const doGetArtist = (artist) => {
     return {
@@ -123,6 +124,13 @@ const doGetTrack = (track) => {
     }
 }
 
+const doSearchTracks = (track) => {
+    return {
+        type: GET_TRACK,
+        track: track.data.results.trackmatches.track
+    }
+}
+
 const doStateChange = (id) => {
     return {
         type: STATE_CHANGE,
@@ -135,7 +143,7 @@ const logger = createLogger();
 
 const rootReducer = combineReducers({
     recommendSongState: recommendSongReducer,
-    songInfoState: songInfoReducer,
+    trackInfoState: trackInfoReducer,
     artistState: artistReducer,
     renderState: renderReducer
 })
@@ -145,7 +153,7 @@ export const store = createStore(rootReducer, undefined, applyMiddleware(logger)
 export const mapStateToProps = (state) => {
     return {
         recommendSongState: state.recommendSongState,
-        songInfoState: state.songInfoState,
+        trackInfoState: state.trackInfoState,
         artistState: state.artistState,
         renderState: state.renderState
     }
@@ -159,6 +167,7 @@ export const mapDispatchToProps = (dispatch) => {
         onGetArtist: artist => dispatch(doGetArtist(artist)),
         onStateChange: id => dispatch(doStateChange(id)),
         onGetTopAlbums: artist => dispatch(doGetTopAlbums(artist)),
-        onGetTopTracks: tracks => dispatch(doGetTopTracks(tracks))
+        onGetTopTracks: tracks => dispatch(doGetTopTracks(tracks)),
+        onSearchTracks: tracks => dispatch(doSearchTracks(tracks))
     }
 }
