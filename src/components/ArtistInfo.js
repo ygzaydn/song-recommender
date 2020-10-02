@@ -29,13 +29,16 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     fontSize: '150%',
     background: `${color.BLACKCOLOR}`,
+    padding: '5%',
+    borderRadius: '15px'
   },
   bioTitle: {
     maxWidth: 'inherit',
     height: 'auto',
     textAlign: 'center',
     color: `${color.WHITECOLOR}`,
-    background: `${color.BLACKCOLOR}`, 
+    background: `${color.BLACKCOLOR}`,
+    borderRadius: '10px'
   },
   bio: {
     textAlign: 'center',
@@ -47,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     flexWrap: 'nowrap',
     padding: 0,
-    width: '100%'
+    width: '100%',
+    justifyContent: 'center',
   },
 
 }));

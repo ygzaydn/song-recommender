@@ -34,11 +34,15 @@ const useStyles = makeStyles({
     gridTemplateRows: '15% 65%',
   },
   title: {
-    fontSize: 24,
+    fontSize: '2vh',
     fontWeight: 'bold',
     color: `${color.WHITECOLOR}`,
     textAlign: 'center',
     backgroundColor: `${color.BLACKCOLOR}`,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
   },
   pos: {
     color: `${color.BLACKCOLOR}`,
@@ -52,7 +56,8 @@ const useStyles = makeStyles({
   },
   similarArtistLine: {
     display:'flex',
-    justifyContent:'space-between'
+    justifyContent:'space-between',
+    margin: '0 2vw'
   }
 });
 
@@ -95,7 +100,7 @@ const SmallCard = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onG
           <Typography style={{alignSelf:'center'}}>
             {el.name}
           </Typography>
-          <ChevronRightIcon style={{alignSelf:'center'}} onClick={()=> getArtist(el.name)}/>
+          <ChevronRightIcon style={{alignSelf:'center'}} fontSize="large" onClick={()=> getArtist(el.name)}/>
             </div>
           )
         })
