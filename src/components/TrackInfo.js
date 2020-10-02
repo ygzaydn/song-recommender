@@ -4,7 +4,8 @@ import { Grid, Paper, Typography, Collapse, GridList } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
-import { BigCard } from './BigCard'
+import { BigCard } from './BigCard-Component/BigCard'
+import { BigCardwithoutIteration } from './BigCard-Component/BigCardwithoutIteration'
 import { ConnectedSmallCard } from './SmallCard'
 import { color } from '../colors'
 
@@ -90,12 +91,12 @@ const TrackInfo = ({trackInfoState}) => {
                             <ConnectedSmallCard clickInfo={true} title="Top Tags" data1={trackInfoState.getTrack.toptags.tag}/>
                         </GridList>
                     </Grid>
-                    {/*<Grid item xs={12}>
-                        <BigCard data={trackInfoState.getTrack.album} icon={true} title="Album of the song"/>
-                    </Grid>
+                    {<Grid item xs={12}>
+                        <BigCardwithoutIteration data={trackInfoState.getTrack.album}  title="Album of the song" iterable={false} />
+                    </Grid>}
                     <Grid item xs={12}>
-                        <BigCard data={trackInfoState.getSimilarTrack} title="Best Albums"/>
-                    </Grid>*/}
+                        <BigCard data={trackInfoState.getSimilarTrack} icon={true} title="Similar Tracks"/>
+                    </Grid>
                 </Grid>
             </Paper>
         </div>

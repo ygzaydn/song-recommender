@@ -27,7 +27,6 @@ const useStyles = makeStyles(() => ({
   },
   cover: {
     minWidth: 150,
-    borderRadius: '25%',
     fontSize: '144px',
   },
   subtitle1: {
@@ -76,9 +75,11 @@ export const CardComponent = ({name, url, playcount, img, artist, icon}) => {
           <Link variant="subtitle1" href={url} className={classes.subtitle1}>
             {url}
           </Link>
-          <Typography variant="subtitle2" className={classes.typoColor}>
+          {playcount === false 
+          ? null 
+          : <Typography variant="subtitle2" className={classes.typoColor}>
             Playcount: {playcount}
-          </Typography>
+          </Typography> }
         </CardContent>
       </div>
     </Card>

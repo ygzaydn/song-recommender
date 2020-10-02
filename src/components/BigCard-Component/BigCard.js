@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, GridList, GridListTile } from '@material-ui/core/'
 import 'fontsource-roboto';
-import { CardComponent } from './CardComponent'
-import { color } from '../colors'
+import { CardComponent } from '../CardComponent'
+import { color } from '../../colors'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { CardActions } from '@material-ui/core';
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
     }
   }));
 
-export const BigCard = ({data, title, icon}) => {
+export const BigCard = ({data, title, icon, iterable}) => {
     const classes = useStyles();
     const [counter,setCounter] = useState(0);
     const [usefulData, setusefulData] = useState({})

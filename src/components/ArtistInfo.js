@@ -4,7 +4,7 @@ import { Grid, Paper, Typography, Collapse, GridList } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
-import { BigCard } from './BigCard'
+import { BigCard } from './BigCard-Component/BigCard'
 import { ConnectedSmallCard } from './SmallCard'
 import { color } from '../colors'
 
