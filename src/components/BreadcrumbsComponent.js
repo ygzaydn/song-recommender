@@ -28,9 +28,14 @@ const useStyles = makeStyles(() => ({
       background: `${color.BLACKCOLOR}`,
       color: `${color.WHITECOLOR}`,
       border: `2px solid ${color.PINKCOLOR}`,
-      paddingTop: 8,
-      paddingBottom: 8
   },
+  menuItemStyle: {
+      borderBottom: `1px solid  ${color.PINKCOLOR}`,
+      borderTop: `1px solid  ${color.PINKCOLOR}`,
+      '&:hover': {
+        background: `${color.PINKCOLOR}`,
+      },
+  }
 }));
 
 const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderState}) => {
@@ -44,6 +49,10 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const editedHandleClick = (input1, input2) => {
+        return (handleClick(input1, input2))
+    }
 
     useEffect(() => {
         setClassnames(renderState)
@@ -86,17 +95,18 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                     }}
                 >   
                 <div className={classes.menuStyle} >
-                    <MenuItem>
-                        <ListItemIcon>
+                    <MenuItem className={classes.menuItemStyle}>
+                        <ListItemIcon >
                             <AlbumSharpIcon style={{color:'white'}} />
                         </ListItemIcon>
                         <ListItemText primary="Drafts" />
-                    </MenuItem>
-                    <MenuItem onClick={handleClick('Track','TrackSearch')} >
-                        <ListItemIcon>
+                    </MenuItem >
+                    <MenuItem onClick={editedHandleClick('Track','TrackSearch')}
+                            className={classes.menuItemStyle}>
+                        <ListItemIcon onClick={handleClose}>
                             <LibraryMusicIcon style={{color:'white'}}  />
                         </ListItemIcon>
-                        <ListItemText primary="Search for a track"/>
+                        <ListItemText onClick={handleClose} primary="Search for a track"/>
                     </MenuItem>
                 </div>
                 </Menu>
