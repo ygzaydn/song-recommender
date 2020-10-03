@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     form: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
+      //alignItems: 'center',
       margin: 'auto',
       width: '80vw',
     },
@@ -36,7 +36,8 @@ const RecommendTrack = ({trackInfoState, onRecommendTrack, onGetTrack,onGetSimil
     return (
         <div>
             <form className={classes.form} noValidate autoComplete="off">
-                <StyledTextField label="Track Name" onChange={setTextField}/>
+                    <StyledTextField label="Track Name" onChange={setTextField}/>
+                    <StyledTextField label="Track Artist" onChange={setTextField}/>
                 <StyledButton color="primary" variant="outlined" onClick={() => {searchTrackByName(searchText, onRecommendTrack)}}>
                     Search
                  </StyledButton>

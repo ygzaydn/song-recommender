@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import AlbumSharpIcon from '@material-ui/icons/AlbumSharp';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+import QueueMusicIcon from '@material-ui/icons/QueueMusic';
+import MusicVideoIcon from '@material-ui/icons/MusicVideo';
 
 const useStyles = makeStyles(() => ({
   ol: {
@@ -49,17 +51,14 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
 
     const classes = useStyles();
     const [classnames, setClassnames] = useState();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const handleClickMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
-    const editedHandleClick = (input1, input2) => {
-        return (handleClick(input1, input2))
-    }
+    const [anchorElArtists, setanchorElArtists] = useState(null);
+    const [anchorElTracks, setanchorElTracks] = useState(null);
+
+
+    const handleClickMenu = (statefunction) => (event) => statefunction(event.currentTarget)
+    
+    const handleClose = (statefunction) => statefunction(null);
 
     useEffect(() => {
         setClassnames(renderState)
@@ -69,10 +68,10 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
     return (
         <div className={classTrigger}>
             <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">
-                <Typography id="header" className={classnames==='ArtistRecommend'? classes.underlineTypo: classes.root} onClick={handleClick('Artist','ArtistRecommend')}> 
+                <Typography id="header" className={classnames==='ArtistRecommend'? classes.underlineTypo: classes.root} aria-controls="artist-menu" color="inherit" onClick={ handleClickMenu(setanchorElArtists)}> 
                     Artists
                 </Typography>
-                <Typography id="header1" className={classnames==='TrackSearch'? classes.underlineTypo: classes.root} aria-controls="simple-menu" color="inherit" onClick={handleClickMenu}>
+                <Typography id="header1" className={classnames==='TrackSearch'? classes.underlineTypo: classes.root} aria-controls="track-menu" color="inherit" onClick={handleClickMenu(setanchorElTracks)}>
                     Tracks
                 </Typography>
                 <Typography id="header2" className={classnames==='TagRecommend'? classes.underlineTypo: classes.root} color="inherit" href="#" onClick={handleClick('Tag','TagRecommend')}>
@@ -84,10 +83,10 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
             </Breadcrumbs>
             
             <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
+                    id="track-menu"
+                    anchorEl={anchorElTracks}
+                    open={Boolean(anchorElTracks)}
+                    onClose={() => {handleClose(setanchorElTracks)}}
                     getContentAnchorEl={null}
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -109,18 +108,55 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                         <ListItemIcon >
                             <AlbumSharpIcon style={{color:'white'}} />
                         </ListItemIcon>
-                        <ListItemText primary="Drafts" />
+                        <ListItemText primary="Find a track" />
                     </MenuItem >
-                    <MenuItem onClick={editedHandleClick('Track','TrackSearch')}
+                    <MenuItem onClick={handleClick('Track','TrackSearch')}
                             className={classes.menuItemStyle}>
-                        <ListItemIcon onClick={handleClose}>
+                        <ListItemIcon onClick={() => {handleClose(setanchorElTracks)}}>
                             <LibraryMusicIcon style={{color:'white'}}  />
                         </ListItemIcon>
-                        <ListItemText onClick={handleClose} primary="Search Similar Tracks"/>
+                        <ListItemText onClick={() => {handleClose(setanchorElTracks)}} primary="Search Similar Tracks"/>
                     </MenuItem>
                 </div>
                 </Menu>
                 
+                <Menu
+                    id="artist-menu"
+                    anchorEl={anchorElArtists}
+                    open={Boolean(anchorElArtists)}
+                    onClose={() => {handleClose(setanchorElArtists)}}
+                    getContentAnchorEl={null}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                    MenuListProps={{
+                        disablePadding: true
+                    }}
+                >   
+                <div className={classes.menuStyle} >
+                    <MenuItem className={classes.menuItemTitle}>
+                        <ListItemText primary="Artist Menu" />
+                    </MenuItem >
+                    <MenuItem className={classes.menuItemStyle}>
+                        <ListItemIcon >
+                            <QueueMusicIcon style={{color:'white'}} />
+                        </ListItemIcon>
+                        <ListItemText primary="Find an artist" />
+                    </MenuItem >
+                    <MenuItem onClick={handleClick('Artist','ArtistRecommend')}
+                            className={classes.menuItemStyle}>
+                        <ListItemIcon onClick={() => {handleClose(setanchorElArtists)}}>
+                            <MusicVideoIcon style={{color:'white'}}  />
+                        </ListItemIcon>
+                        <ListItemText onClick={() => {handleClose(setanchorElArtists)}} primary="Find similar artists"/>
+                    </MenuItem>
+                </div>
+                </Menu>
         </div>  
     )
 }
