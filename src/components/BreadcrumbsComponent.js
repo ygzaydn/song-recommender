@@ -116,7 +116,7 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                         <ListItemIcon onClick={handleClose}>
                             <LibraryMusicIcon style={{color:'white'}}  />
                         </ListItemIcon>
-                        <ListItemText onClick={handleClose} primary="Search for a track"/>
+                        <ListItemText onClick={handleClose} primary="Search Similar Tracks"/>
                     </MenuItem>
                 </div>
                 </Menu>
