@@ -35,6 +35,13 @@ const useStyles = makeStyles(() => ({
       '&:hover': {
         background: `${color.PINKCOLOR}`,
       },
+  },
+  menuItemTitle: {
+      textAlign:'center',
+      background: `${color.PINKCOLOR}`,
+      '&:hover': {
+        background: `${color.PINKCOLOR}`,
+      },
   }
 }));
 
@@ -95,6 +102,9 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                     }}
                 >   
                 <div className={classes.menuStyle} >
+                    <MenuItem className={classes.menuItemTitle}>
+                        <ListItemText primary="Tracks Menu" />
+                    </MenuItem >
                     <MenuItem className={classes.menuItemStyle}>
                         <ListItemIcon >
                             <AlbumSharpIcon style={{color:'white'}} />
