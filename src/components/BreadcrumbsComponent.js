@@ -27,11 +27,9 @@ const useStyles = makeStyles(() => ({
   menuStyle: {
       background: `${color.BLACKCOLOR}`,
       color: `${color.WHITECOLOR}`,
-      border: `2px solid ${color.PINKCOLOR}`
-  },
-  padding: {
-    paddingTop:'0',
-    paddingBottom: '0'
+      border: `2px solid ${color.PINKCOLOR}`,
+      paddingTop: 8,
+      paddingBottom: 8
   },
 }));
 
@@ -85,7 +83,7 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                     }}
                     MenuListProps={{
                         disablePadding: true
-                      }}
+                    }}
                 >   
                 <div className={classes.menuStyle} >
                     <MenuItem>
