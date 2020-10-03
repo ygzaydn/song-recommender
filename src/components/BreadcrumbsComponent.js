@@ -83,7 +83,9 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                         vertical: 'top',
                         horizontal: 'center',
                     }}
-                    className={classes.padding}
+                    MenuListProps={{
+                        disablePadding: true
+                      }}
                 >   
                 <div className={classes.menuStyle} >
                     <MenuItem>
