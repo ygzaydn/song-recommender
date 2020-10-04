@@ -126,7 +126,7 @@ const doGetRecommendedTrack = (track) => {
 const doRecommendTrack = (track) => {
     return {
         type: RECOMMEND_TRACK,
-        track: track.data.results.trackmatches.track
+        track: track.data.similartracks.track
     }
 }
 

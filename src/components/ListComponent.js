@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-export const ListComponent = ({mbid, name, match, getArtist, listeners, artist, handleClick}) => {
+export const ListComponent = ({mbid, name, match, listeners, artist, handleClick}) => {
     
     const classes = useStyles();
     return (

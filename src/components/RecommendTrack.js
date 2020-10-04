@@ -6,7 +6,7 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core/'
 import { ListComponent } from './ListComponent'
-import { searchTrackByName, getTrackFromSearch } from '../axiosCalls'
+import { searchTrackByNameAndArtist, getTrackFromSearch } from '../axiosCalls'
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -28,17 +28,21 @@ const useStyles = makeStyles(() => ({
 
 const RecommendTrack = ({trackInfoState, onRecommendTrack, onGetTrack,onGetSimilarTrack,onStateChange}) => {
     const classes = useStyles();
-    const [searchText, setSeachText] = useState('')
+    const [trackName, setTrackName] = useState('')
+    const [trackArtist, setTrackArtist] = useState('')
 
-    const setTextField = (event) => {
-        setSeachText(event.target.value);
+    const getTrackName = (event) => {
+        setTrackName(event.target.value);
+    }
+    const getTrackArtist = (event) => {
+        setTrackArtist(event.target.value);
     }
     return (
         <div>
             <form className={classes.form} noValidate autoComplete="off">
-                    <StyledTextField label="Track Name" onChange={setTextField}/>
-                    <StyledTextField label="Track Artist" onChange={setTextField}/>
-                <StyledButton color="primary" variant="outlined" onClick={() => {searchTrackByName(searchText, onRecommendTrack)}}>
+                    <StyledTextField label="Track Name" onChange={getTrackName}/>
+                    <StyledTextField label="Track Artist" onChange={getTrackArtist}/>
+                <StyledButton color="primary" variant="outlined" onClick={() => {searchTrackByNameAndArtist(trackName, trackArtist, onRecommendTrack)}}>
                     Search
                  </StyledButton>
             </form>
@@ -50,9 +54,9 @@ const RecommendTrack = ({trackInfoState, onRecommendTrack, onGetTrack,onGetSimil
                     <ListComponent 
                     mbid={el.mbid}
                     name={el.name}
-                    listeners={el.listeners}
-                    artist={el.artist}
+                    artist={el.artist.name}
                     handleClick={handleClickFunction}
+                    match={el.match}
                     /> 
                 )
                 }) 
