@@ -6,7 +6,7 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core/'
 import { ListComponent } from './ListComponent'
-import { searchTrackByNameAndArtist, getTrackFromSearch } from '../axiosCalls'
+import { searchTrackByNameAndArtist, getTrackFromSearch,getTrackFromSearchwithNameandArtist } from '../axiosCalls'
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -49,7 +49,7 @@ const RecommendTrack = ({trackInfoState, onRecommendTrack, onGetTrack,onGetSimil
             <Grid className={classes.container} container spacing={3}>
                 {trackInfoState.getRecommendedTrack
                 ? trackInfoState.getRecommendedTrack.map(el => {
-                const handleClickFunction = () => el.mbid ? getTrackFromSearch(el.mbid,onGetTrack,onGetSimilarTrack,onStateChange) :  getTrackFromSearch(el.name,onGetTrack,onGetSimilarTrack,onStateChange);
+                const handleClickFunction = () => el.mbid ? getTrackFromSearch(el.mbid,onGetTrack,onGetSimilarTrack,onStateChange) :  getTrackFromSearchwithNameandArtist(el.name,el.artist.name, onGetTrack,onGetSimilarTrack,onStateChange);
                 return (
                     <ListComponent 
                     mbid={el.mbid}

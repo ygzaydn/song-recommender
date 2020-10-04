@@ -81,7 +81,7 @@ const TrackInfo = ({trackInfoState}) => {
                         </Typography>
                         <Collapse in={checked} collapsedSize={150}>
                             <Typography className={classes.bio} style={{border:'none'}}>
-                                {trackInfoState.getTrack.artist.name}
+                            Artist Name: {trackInfoState.getTrack.artist.name}
                             </Typography>
                             <Typography className={classes.bio} style={{border:'none'}}>
                                 {trackInfoState.getTrack.artist.url}
