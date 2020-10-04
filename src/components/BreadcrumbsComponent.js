@@ -8,6 +8,7 @@ import AlbumSharpIcon from '@material-ui/icons/AlbumSharp';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles(() => ({
   ol: {
@@ -15,14 +16,15 @@ const useStyles = makeStyles(() => ({
   },
   root: {
       color: 'white',
+      display: 'flex',
+      justifyContent: 'center',
       '&:hover': {
         textDecoration: 'underline',
     }
   },
   underlineTypo: {
-      '&:hover': {
-        textDecoration: 'underline',
-    },
+    display: 'flex',
+    justifyContent: 'center',
     textDecoration: 'underline',
     color: `${color.PINKCOLOR}`,
   },
@@ -54,6 +56,8 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
 
     const [anchorElArtists, setanchorElArtists] = useState(null);
     const [anchorElTracks, setanchorElTracks] = useState(null);
+    const [anchorElTags, setanchorElTags] = useState(null);
+    const [anchorElGeos, setanchorElGeos] = useState(null);
 
 
     const handleClickMenu = (statefunction) => (event) => statefunction(event.currentTarget)
@@ -70,61 +74,103 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
             <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">
                 <Typography id="header" className={classnames==='ArtistRecommend'? classes.underlineTypo: classes.root} aria-controls="artist-menu" color="inherit" onClick={ handleClickMenu(setanchorElArtists)}> 
                     Artists
+                    <ExpandMoreIcon color="white" />
                 </Typography>
                 <Typography id="header1" className={classnames==='TrackSearch'? classes.underlineTypo: classes.root} aria-controls="track-menu" color="inherit" onClick={handleClickMenu(setanchorElTracks)}>
                     Tracks
+                    <ExpandMoreIcon color="white" />
                 </Typography>
-                <Typography id="header2" className={classnames==='TagRecommend'? classes.underlineTypo: classes.root} color="inherit" href="#" onClick={handleClick('Tag','TagRecommend')}>
+                <Typography id="header2" className={classnames==='TagRecommend'? classes.underlineTypo: classes.root} aria-controls="tag-menu" color="inherit" onClick={handleClickMenu(setanchorElTags)}>
                     Tags
+                    <ExpandMoreIcon color="white" />
                 </Typography>
-                <Typography id="header3" className={classnames==='GeoRecommend'? classes.underlineTypo: classes.root} color="inherit" href="#" onClick={handleClick('Geo','GeoRecommend')}>
+                <Typography id="header3" className={classnames==='GeoRecommend'? classes.underlineTypo: classes.root} color="inherit" aria-controls="geo-menu" onClick={handleClickMenu(setanchorElGeos)}>
                     Geo
+                    <ExpandMoreIcon color="white" />
                 </Typography>
             </Breadcrumbs>
             
             <Menu
-                    id="track-menu"
-                    anchorEl={anchorElTracks}
-                    open={Boolean(anchorElTracks)}
-                    onClose={() => {handleClose(setanchorElTracks)}}
-                    getContentAnchorEl={null}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                    }}
-                    MenuListProps={{
-                        disablePadding: true
-                    }}
-                >   
-                <div className={classes.menuStyle} >
-                    <MenuItem className={classes.menuItemTitle}>
-                        <ListItemText primary="Tracks Menu" />
-                    </MenuItem >
-                    <MenuItem className={classes.menuItemStyle}>
-                        <ListItemIcon >
-                            <AlbumSharpIcon style={{color:'white'}} />
-                        </ListItemIcon>
-                        <ListItemText primary="Find a track" />
-                    </MenuItem >
-                    <MenuItem onClick={handleClick('Track','TrackSearch')}
-                            className={classes.menuItemStyle}>
-                        <ListItemIcon onClick={() => {handleClose(setanchorElTracks)}}>
-                            <LibraryMusicIcon style={{color:'white'}}  />
-                        </ListItemIcon>
-                        <ListItemText onClick={() => {handleClose(setanchorElTracks)}} primary="Search Similar Tracks"/>
-                    </MenuItem>
-                </div>
-                </Menu>
+                id="artist-menu"
+                anchorEl={anchorElArtists}
+                open={Boolean(anchorElArtists)}
+                onClose={() => {handleClose(setanchorElArtists)}}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+                MenuListProps={{
+                    disablePadding: true
+                }}
+            >   
+            <div className={classes.menuStyle} onClick={() => {handleClose(setanchorElArtists)}} >
+                <MenuItem className={classes.menuItemTitle}>
+                    <ListItemText primary="Artist Menu" />
+                </MenuItem >
+                <MenuItem className={classes.menuItemStyle}>
+                    <ListItemIcon >
+                        <QueueMusicIcon style={{color:'white'}} />
+                    </ListItemIcon>
+                    <ListItemText primary="Find an artist" />
+                </MenuItem >
+                <MenuItem onClick={handleClick('Artist','ArtistRecommend')}
+                        className={classes.menuItemStyle}>
+                    <ListItemIcon >
+                        <MusicVideoIcon style={{color:'white'}}  />
+                    </ListItemIcon>
+                    <ListItemText primary="Find similar artists"/>
+                </MenuItem>
+            </div>
+            </Menu>
+
+            <Menu
+                id="track-menu"
+                anchorEl={anchorElTracks}
+                open={Boolean(anchorElTracks)}
+                onClose={() => {handleClose(setanchorElTracks)}}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+                MenuListProps={{
+                    disablePadding: true
+                }}
+            >   
+            <div className={classes.menuStyle} onClick={() => {handleClose(setanchorElTracks)}}>
+                <MenuItem className={classes.menuItemTitle}>
+                    <ListItemText primary="Tracks Menu" />
+                </MenuItem >
+                <MenuItem className={classes.menuItemStyle}>
+                    <ListItemIcon >
+                        <AlbumSharpIcon style={{color:'white'}} />
+                    </ListItemIcon>
+                    <ListItemText primary="Find a track" />
+                </MenuItem >
+                <MenuItem onClick={handleClick('Track','TrackSearch')}
+                        className={classes.menuItemStyle}>
+                    <ListItemIcon>
+                        <LibraryMusicIcon style={{color:'white'}}  />
+                    </ListItemIcon>
+                    <ListItemText primary="Find similar tracks"/>
+                </MenuItem>
+            </div>
+            </Menu>
                 
                 <Menu
-                    id="artist-menu"
-                    anchorEl={anchorElArtists}
-                    open={Boolean(anchorElArtists)}
-                    onClose={() => {handleClose(setanchorElArtists)}}
+                    id="tag-menu"
+                    anchorEl={anchorElTags}
+                    open={Boolean(anchorElTags)}
+                    onClose={() => {handleClose(setanchorElTags)}}
                     getContentAnchorEl={null}
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -138,22 +184,60 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                         disablePadding: true
                     }}
                 >   
-                <div className={classes.menuStyle} >
+                <div className={classes.menuStyle} onClick={() => {handleClose(setanchorElTags)}} >
                     <MenuItem className={classes.menuItemTitle}>
-                        <ListItemText primary="Artist Menu" />
+                        <ListItemText primary="Tag Menu" />
                     </MenuItem >
                     <MenuItem className={classes.menuItemStyle}>
                         <ListItemIcon >
                             <QueueMusicIcon style={{color:'white'}} />
                         </ListItemIcon>
-                        <ListItemText primary="Find an artist" />
+                        <ListItemText primary="Find a tag" />
                     </MenuItem >
-                    <MenuItem onClick={handleClick('Artist','ArtistRecommend')}
+                    <MenuItem onClick={handleClick('Tag','TagRecommend')}
                             className={classes.menuItemStyle}>
-                        <ListItemIcon onClick={() => {handleClose(setanchorElArtists)}}>
-                            <MusicVideoIcon style={{color:'white'}}  />
+                        <ListItemIcon >
+                            <LibraryMusicIcon style={{color:'white'}}  />
                         </ListItemIcon>
-                        <ListItemText onClick={() => {handleClose(setanchorElArtists)}} primary="Find similar artists"/>
+                        <ListItemText primary="Find top tags"/>
+                    </MenuItem>
+                </div>
+                </Menu>
+
+                <Menu
+                    id="geo-menu"
+                    anchorEl={anchorElGeos}
+                    open={Boolean(anchorElGeos)}
+                    onClose={() => {handleClose(setanchorElGeos)}}
+                    getContentAnchorEl={null}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                    MenuListProps={{
+                        disablePadding: true
+                    }}
+                >   
+                <div className={classes.menuStyle} onClick={() => {handleClose(setanchorElGeos)}} >
+                    <MenuItem className={classes.menuItemTitle}>
+                        <ListItemText primary="Tag Menu" />
+                    </MenuItem >
+                    <MenuItem className={classes.menuItemStyle}>
+                        <ListItemIcon >
+                            <QueueMusicIcon style={{color:'white'}} />
+                        </ListItemIcon>
+                        <ListItemText primary="Find top artist for your country" />
+                    </MenuItem >
+                    <MenuItem onClick={handleClick('Geo','GeoRecommend')}
+                            className={classes.menuItemStyle}>
+                        <ListItemIcon >
+                            <AlbumSharpIcon style={{color:'white'}}  />
+                        </ListItemIcon>
+                        <ListItemText primary="Find top tracks for your country"/>
                     </MenuItem>
                 </div>
                 </Menu>
