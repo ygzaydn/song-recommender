@@ -71,6 +71,8 @@ export const getTrackFromSearch = async (mbid, dispatcherMethod1, dispatcherMeth
       dispatcherMethod1(responseOne);
       dispatcherMethod2(responseTwo);
       stateMethod1('TrackInfo')
+      console.log(responseOne)
+      console.log(responseTwo)
    } catch (error) {
       console.log(error)
    }
@@ -79,7 +81,7 @@ export const getTrackFromSearch = async (mbid, dispatcherMethod1, dispatcherMeth
 export const searchTrackByNameAndArtist = async (trackName, trackArtist, dispatcherMethod) => {
    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.getSimilar&track=${trackName}&artist=${trackArtist}&autocorrect=1&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
    try {
-      console.log(res);
+      ;
       dispatcherMethod(res);
    } catch (error) {
       console.log(error)

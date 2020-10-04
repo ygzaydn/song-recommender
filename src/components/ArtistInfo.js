@@ -71,8 +71,8 @@ const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, on
                             {artistState.getArtist.name}
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} onClick={unCollapse}>
-                        <Typography variant="subtitle1" className={classes.bioTitle}>
+                    <Grid item xs={12} className={classes.collapseStyle} >
+                        <Typography variant="subtitle1" className={classes.bioTitle} onClick={unCollapse}>
                             {checked ?  'Click to close bio!' : 'Click here for bio!'}
                         </Typography>
                         <Collapse in={checked} collapsedSize={150}>

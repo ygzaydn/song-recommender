@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     fontSize: '150%',
     background: `${color.BLACKCOLOR}`,
-    padding: '5%',
+    padding: '1%',
     borderRadius: '15px'
   },
   bioTitle: {
@@ -53,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     justifyContent: 'center',
   },
+  collapseStyle: {
+    border: `2px solid ${color.BLACKCOLOR}`, 
+    padding: 0
+  }
 
 }));
 
@@ -71,13 +75,16 @@ const TrackInfo = ({trackInfoState}) => {
                             {trackInfoState.getTrack.name}
                         </Paper>
                     </Grid>
-                    <Grid item xs={12} onClick={unCollapse}>
-                        <Typography variant="subtitle1" className={classes.bioTitle}>
-                            {checked ?  'Click to close!' : 'Click here to open LastFM url!'}
+                    <Grid item xs={12} className={classes.collapseStyle}>
+                        <Typography variant="subtitle1" className={classes.bioTitle} onClick={unCollapse}>
+                            {checked ?  'Click to close!' : 'Click to open Artist Info'}
                         </Typography>
                         <Collapse in={checked} collapsedSize={150}>
-                            <Typography className={classes.bio}>
-                                {trackInfoState.getTrack.url}
+                            <Typography className={classes.bio} style={{border:'none'}}>
+                                {trackInfoState.getTrack.artist.name}
+                            </Typography>
+                            <Typography className={classes.bio} style={{border:'none'}}>
+                                {trackInfoState.getTrack.artist.url}
                             </Typography>
                         </Collapse>
                     </Grid>
