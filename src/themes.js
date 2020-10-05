@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { color } from './colors'
 
+const width = window.innerWidth;
+
 export const artistInfoStyle = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -144,7 +146,7 @@ export const cardComponentStyle =  makeStyles(() => ({
   }
 }));
 
-export const geoTopArtistStyle = makeStyles(() => ({
+export const geoTopArtistStyle = makeStyles((width) => ({
     form: {
       display: 'flex',
       flexDirection: 'column',
@@ -156,7 +158,7 @@ export const geoTopArtistStyle = makeStyles(() => ({
       display: 'grid',
       width: 'auto',
       margin: 'auto',
-      gridTemplateColumns: `${window.innerWidth < 800 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
+      gridTemplateColumns: `${width < 800 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
     }
 
 }))

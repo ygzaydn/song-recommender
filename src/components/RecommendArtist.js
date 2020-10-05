@@ -10,7 +10,7 @@ import { searchByArtistName, getArtistInfoFromSearch, getArtistInfoFromName } fr
 import { geoTopArtistStyle } from '../themes'
 
 export const RecommendArtist = ({onRecommendArtist, artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
-  const classes = geoTopArtistStyle();
+  const classes = geoTopArtistStyle(window.innerWidth);
   const [searchText, setSearchText] = useState('');
 
   const setTextField = (event) => {

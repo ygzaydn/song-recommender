@@ -9,7 +9,7 @@ import { getGeoTopTracks, getTrackFromSearch, getTrackFromSearchwithNameandArtis
 import { geoTopArtistStyle } from '../themes'
 
 const GeoTopTrack = ({geoState, onGetGeoTopTracks, onStateChange, onGetTrack,onGetSimilarTrack}) => {
-    const classes = geoTopArtistStyle();
+    const classes = geoTopArtistStyle(window.innerWidth);
     const [searchText, setSearchText] = useState('')
 
     const setTextField = (event) => {

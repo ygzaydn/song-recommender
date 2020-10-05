@@ -6,8 +6,9 @@ import { ListComponent } from './ListComponent'
 import { getTopTags, getTagInfoFromName } from '../axiosCalls'
 import { geoTopArtistStyle } from '../themes'
 
+
 const RecommendTag = ({tagState, onGetTopTags, onGetTopAlbumsTag, onGetTopArtistTag ,onGetTag, onGetTopTracksTag, onStateChange}) => {
-    const classes = geoTopArtistStyle();
+    const classes = geoTopArtistStyle(window.innerWidth);
     useEffect(() => {
         getTopTags(onGetTopTags, onStateChange)
     }, [])

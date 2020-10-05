@@ -10,7 +10,7 @@ import { geoTopArtistStyle } from '../themes'
 
 
 const GeoTopArtist = ({geoState, onGetGeoTopArtists, onStateChange, onGetArtist, onGetTopTracks, onGetTopAlbums}) => {
-    const classes = geoTopArtistStyle();
+    const classes = geoTopArtistStyle(window.innerWidth);
     const [searchText, setSearchText] = useState('')
 
     const setTextField = (event) => {

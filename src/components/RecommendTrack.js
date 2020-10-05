@@ -9,7 +9,7 @@ import { searchTrackByNameAndArtist, getTrackFromSearch,getTrackFromSearchwithNa
 import { geoTopArtistStyle } from '../themes'
 
 const RecommendTrack = ({trackInfoState, onRecommendTrack, onGetTrack,onGetSimilarTrack,onStateChange}) => {
-    const classes = geoTopArtistStyle();
+    const classes = geoTopArtistStyle(window.innerWidth);
     const [trackName, setTrackName] = useState('')
     const [trackArtist, setTrackArtist] = useState('')
 
