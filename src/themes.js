@@ -1,8 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { color } from './colors'
 
-const width = window.innerWidth;
-
 export const artistInfoStyle = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -158,7 +156,7 @@ export const geoTopArtistStyle = makeStyles((width) => ({
       display: 'grid !important',
       width: 'auto',
       margin: 'auto',
-      gridTemplateColumns: `${width < 800 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
+      gridTemplateColumns: `${window.innerWidth < 800 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
     }
 
 }))
