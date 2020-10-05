@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
     }
   }));
 
-export const BigCard = ({data, title, icon, iterable, playcount}) => {
+export const BigCard = ({ data, title, icon, iterable, playcount}) => {
     const classes = useStyles();
     const [counter,setCounter] = useState(0);
     const [usefulData, setusefulData] = useState({})
@@ -60,7 +60,7 @@ export const BigCard = ({data, title, icon, iterable, playcount}) => {
                 </CardActions>
                 <GridList className={classes.gridList} cols={1}>
                     <GridListTile key={usefulData.name} cols={1} className={classes.gridListTile}>
-                        <CardComponent name={usefulData.name} url={usefulData.url} img={usefulData.image[2]["#text"]} icon={icon} playcount={playcount}/>
+                        <CardComponent name={usefulData.name} url={usefulData.url} img={usefulData.image[2]["#text"]} artist={usefulData.artist.name} icon={icon} playcount={playcount}/>
                     </GridListTile>
                 </GridList>
             </Grid>

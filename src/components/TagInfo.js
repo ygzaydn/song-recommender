@@ -110,14 +110,14 @@ const TagInfo = ({tagState, onGetTag, onStateChange, onGetTopArtistTag, onGetTop
                     </Grid>
                     <Grid item xs={6}>
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard data1={tagState.getTopArtistTags} title="Similar Artists" clickInfo={true} />
+                            <ConnectedSmallCard data1={tagState.getTopArtistTags} title="Related Artists" clickInfo={true} />
                         </GridList>
                     </Grid>
                     <Grid item xs={12}>
-                        <BigCard data={tagState.getTopTrackTags} icon={true} title="Similar Tracks" playcount={false}/>
+                        <BigCard data={tagState.getTopTrackTags} icon={true} title="Related Tracks" playcount={false}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <BigCard data={tagState.getTopArtistTags} title="Similar Albums" playcount={false}/>
+                        <BigCard data={tagState.getTopAlbumTags} title="Related Albums" playcount={false}/>
                     </Grid>
                 </Grid>
             </Paper>

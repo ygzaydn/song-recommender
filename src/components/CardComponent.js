@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '144px',
   },
   subtitle1: {
-      maxWidth: '50vw',
+      maxWidth: '45vw',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       display:'inline-block',
