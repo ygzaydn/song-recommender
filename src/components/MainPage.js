@@ -8,6 +8,7 @@ import { ConnectedArtistInfo } from './ArtistInfo'
 import { ConnectedRecommendTrack } from './RecommendTrack'
 import { ConnectedTrackInfo } from './TrackInfo'
 import { ConnectedTagInfo } from './TagInfo'
+import { ConnectedRecommendTag } from './RecommendTag'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,6 +41,9 @@ const MainPage = ({renderState}) => {
       {renderState==='TagInfo'
           ? <ConnectedTagInfo />
           : null }
+      {renderState==='TagRecommend'
+          ? <ConnectedRecommendTag />
+          : null}
     </div>
   );
 }

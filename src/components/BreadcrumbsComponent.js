@@ -196,7 +196,7 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                         </ListItemIcon>
                         <ListItemText primary="Find a tag" />
                     </MenuItem >
-                    <MenuItem 
+                    <MenuItem onClick={handleClick('Tag','TagRecommend')}
                             className={classes.menuItemStyle}>
                         <ListItemIcon >
                             <LibraryMusicIcon style={{color:'white'}}  />

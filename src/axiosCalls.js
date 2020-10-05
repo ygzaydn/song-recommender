@@ -124,5 +124,14 @@ export const getTagInfoFromName = async (tag, dispatcherMethod1, dispatcherMetho
    } catch (error) {
       console.log(error)
    }
+}
 
+export const getTopTags = async (dispatcherMethod, stateMethod) => {
+   const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=tag.getTopTags&api_key=${process.env.REACT_APP_API_KEY}&format=json`);
+   try {
+      dispatcherMethod(res);
+      stateMethod('TagRecommend')
+   } catch (err) {
+      console.log(err);
+   }
 }

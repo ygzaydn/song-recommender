@@ -17,6 +17,7 @@ const GET_TOP_TRACKS = 'GET_TOP_TRACKS'
 const GET_TOP_ALBUM_TAGS = 'GET_TOP_ALBUM_TAGS'
 const GET_TOP_ARTIST_TAGS = 'GET_TOP_ARTIST_TAGS'
 const GET_TOP_TRACK_TAGS = 'GET_TOP_TRACK_TAGS'
+const GET_TOP_TAGS = 'GET_TOP_TAGS'
 
 const GET_SIMILAR_TRACK = 'GET_SIMILAR_TRACK'
 
@@ -93,6 +94,9 @@ const tagReducer = (state= [], action) => {
         case RESET_TAG_STATE: {
             return applyResetTagState(state, action)
         }
+        case GET_TOP_TAGS: {
+            return applyGetTopTags(state,action)
+        }
         default: return state
 
     }
@@ -150,6 +154,10 @@ const applyGetTopArtistTags = (state, action) => {
 
 const applyGetTopTrackTags = (state, action) => {
     return {...state, getTopTrackTags: [...action.tag]}
+}
+
+const applyGetTopTags = (state, action) => {
+    return {...state, getTopTags: [...action.tag]}
 }
 
 const applyResetTagState = (state, action) => {
@@ -244,7 +252,12 @@ const doGetTopTrackTags = (tag) => {
     }
 }
 
-
+const doGetTopTags = (tag) => {
+    return {
+        type: GET_TOP_TAGS,
+        tag: tag.data.toptags.tag
+    }
+}
 
 const doResetTagState = () => {
     return {
@@ -296,6 +309,7 @@ export const mapDispatchToProps = (dispatch) => {
         onGetTopAlbumsTag: tag => dispatch(doGetTopAlbumTags(tag)),
         onGetTopArtistTag: tag => dispatch(doGetTopArtistTags(tag)),
         onGetTopTracksTag: tag => dispatch(doGetTopTrackTags(tag)),
+        onGetTopTags: tag=> dispatch(doGetTopTags(tag)),
 
         onGetSimilarTrack: tracks => dispatch(doGetSimilarTrack(tracks)),
 

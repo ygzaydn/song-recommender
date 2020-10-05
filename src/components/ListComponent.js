@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-export const ListComponent = ({mbid, name, match, listeners, artist, handleClick}) => {
+export const ListComponent = ({mbid, name, match, listeners, artist, handleClick, count}) => {
     
     const classes = useStyles();
     return (
@@ -80,7 +80,11 @@ export const ListComponent = ({mbid, name, match, listeners, artist, handleClick
                 ?<Typography className={classes.match} variant="subtitle2" display="block">
                     Match: {parseInt(match*10)}
                 </Typography>
-                : <Typography className={classes.match} variant="subtitle2" display="block">
+                : count ?
+                <Typography className={classes.match} variant="subtitle2" display="block">
+                    Count: {count}
+                </Typography>
+                :<Typography className={classes.match} variant="subtitle2" display="block">
                     Listeners: {listeners}
                 </Typography>
                 }
