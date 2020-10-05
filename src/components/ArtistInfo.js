@@ -8,6 +8,8 @@ import { BigCard } from './BigCard-Component/BigCard'
 import { ConnectedSmallCard } from './SmallCard'
 import { color } from '../colors'
 import { getArtistInfoFromName } from '../axiosCalls'
+import { StyledButton } from './StyledButtonComponent'
+import { StyledTextField } from './StyledTextField'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,16 +57,24 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
+const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, onRecommendArtist}) => {
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
+    const [searchText, setSearchText] = useState('');
+
+    const setTextField = (event) => {
+    setSearchText(event.target.value)
+    }
+
     const unCollapse = () => {
         setChecked((prev) => !prev)
     }
     const getArtistInfoFromNamewithInput = (name) => getArtistInfoFromName(name,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)
     return(
         <div className={classes.root}>
-            <Paper className={classes.paper}>
+        {artistState.getArtist && artistState.getTopAlbums && artistState.getTopTracks
+        ?
+        <Paper className={classes.paper}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Paper className={classes.title}>
@@ -100,6 +110,15 @@ const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, on
                     </Grid>
                 </Grid>
             </Paper>
+            :
+            <form className={classes.form} noValidate autoComplete="off">
+                <StyledTextField label="Artist Name" onChange={setTextField}/>
+                <StyledButton color="primary" variant="outlined" onClick={()=> getArtistInfoFromName(searchText,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)}>
+                Search
+                </StyledButton>
+             </form>
+        }
+            
         </div>
     )
 }

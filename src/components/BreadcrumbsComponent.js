@@ -114,7 +114,7 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                 <MenuItem className={classes.menuItemTitle}>
                     <ListItemText primary="Artist Menu" />
                 </MenuItem >
-                <MenuItem className={classes.menuItemStyle}>
+                <MenuItem className={classes.menuItemStyle} onClick={handleClick('Artist','ArtistInfo')}>
                     <ListItemIcon >
                         <QueueMusicIcon style={{color:'white'}} />
                     </ListItemIcon>
