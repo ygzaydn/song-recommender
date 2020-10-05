@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/song-recommender/static/css/main.8617a860.chunk.css",
-    "main.js": "/song-recommender/static/js/main.88da2bc0.chunk.js",
-    "main.js.map": "/song-recommender/static/js/main.88da2bc0.chunk.js.map",
+    "main.js": "/song-recommender/static/js/main.ebf8d682.chunk.js",
+    "main.js.map": "/song-recommender/static/js/main.ebf8d682.chunk.js.map",
     "runtime-main.js": "/song-recommender/static/js/runtime-main.9632fda7.js",
     "runtime-main.js.map": "/song-recommender/static/js/runtime-main.9632fda7.js.map",
     "static/css/2.fea0eb96.chunk.css": "/song-recommender/static/css/2.fea0eb96.chunk.css",
     "static/js/2.3ca6b189.chunk.js": "/song-recommender/static/js/2.3ca6b189.chunk.js",
     "static/js/2.3ca6b189.chunk.js.map": "/song-recommender/static/js/2.3ca6b189.chunk.js.map",
     "index.html": "/song-recommender/index.html",
-    "precache-manifest.984d13946c75545b56b050423a34e007.js": "/song-recommender/precache-manifest.984d13946c75545b56b050423a34e007.js",
+    "precache-manifest.e19c5c30f0311934d25218368e0446c9.js": "/song-recommender/precache-manifest.e19c5c30f0311934d25218368e0446c9.js",
     "service-worker.js": "/song-recommender/service-worker.js",
     "static/css/2.fea0eb96.chunk.css.map": "/song-recommender/static/css/2.fea0eb96.chunk.css.map",
     "static/css/main.8617a860.chunk.css.map": "/song-recommender/static/css/main.8617a860.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.fea0eb96.chunk.css",
     "static/js/2.3ca6b189.chunk.js",
     "static/css/main.8617a860.chunk.css",
-    "static/js/main.88da2bc0.chunk.js"
+    "static/js/main.ebf8d682.chunk.js"
   ]
 }
