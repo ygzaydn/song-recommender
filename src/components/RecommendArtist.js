@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { ListComponent } from './ListComponent'
@@ -8,26 +7,10 @@ import { connect } from 'react-redux'
 import { StyledButton } from './StyledButtonComponent'
 import { StyledTextField } from './StyledTextField'
 import { searchByArtistName, getArtistInfoFromSearch, getArtistInfoFromName } from '../axiosCalls'
-
-
-const useStyles = makeStyles((theme) => ({
-    container: {
-      display: 'grid',
-      width: 'auto',
-      margin: 'auto',
-      gridTemplateColumns: `${window.innerWidth < 600 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
-    },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      //alignItems: 'center',
-      margin: 'auto',
-      width: '80vw',
-    }
-  }));
+import { geoTopArtistStyle } from '../themes'
 
 export const RecommendArtist = ({onRecommendArtist, artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks}) => {
-  const classes = useStyles();
+  const classes = geoTopArtistStyle();
   const [searchText, setSearchText] = useState('');
 
   const setTextField = (event) => {

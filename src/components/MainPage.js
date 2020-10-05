@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import 'fontsource-roboto';
@@ -11,20 +10,10 @@ import { ConnectedTagInfo } from './TagInfo'
 import { ConnectedRecommendTag } from './RecommendTag'
 import { ConnectedGeoTopArtist } from './GeoTopArtist'
 import { ConnectedGeoTopTrack } from './GeoTopTrack'
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      flexGrow: 1,
-      margin: '6vh auto ',
-      alignContent: 'center',
-    },
-  }));
+import { mainPageStyle } from '../themes'
 
 const MainPage = ({renderState}) => {
-  const classes = useStyles();
+  const classes = mainPageStyle();
 
   return (
     <div className={classes.root}>

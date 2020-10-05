@@ -1,75 +1,18 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Typography, Collapse, GridList } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { connect } from 'react-redux'
 import { BigCard } from './BigCard-Component/BigCard'
 import { ConnectedSmallCard } from './SmallCard'
-import { color } from '../colors'
 import { getArtistInfoFromName } from '../axiosCalls'
 import { StyledButton } from './StyledButtonComponent'
 import { StyledTextField } from './StyledTextField'
+import { artistInfoStyle } from '../themes'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexGrow: 1,
-    margin: '1vh 0.2vw 5vh 0.2vw'
-  },
-  paper: {
-    padding: theme.spacing(2),
-    margin: 'auto',
-    maxWidth: '90vw',
-    background: `${color.PINKCOLOR}`,
-  },
-  title: {
-    maxWidth: 'inherit',
-    height: 'auto',
-    textAlign: 'center',
-    color: `${color.WHITECOLOR}`,
-    fontWeight: 'bold',
-    fontSize: '150%',
-    background: `${color.BLACKCOLOR}`,
-    padding: '1%',
-    borderRadius: '15px'
-  },
-  bioTitle: {
-    maxWidth: 'inherit',
-    height: 'auto',
-    textAlign: 'center',
-    color: `${color.WHITECOLOR}`,
-    background: `${color.BLACKCOLOR}`,
-  },
-  bio: {
-    textAlign: 'center',
-    color: `${color.BLACKCOLOR}`,
-    border: `2px solid ${color.BLACKCOLOR}`,
-    padding: '1%',
-    background: `${color.YELLOWCOLOR}`,
-  },
-  gridList: {
-    flexWrap: 'nowrap',
-    padding: 0,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    //alignItems: 'center',
-    margin: 'auto',
-    width: '80vw',
-    },
-collapseStyle: {
-    border: `2px solid ${color.BLACKCOLOR}`, 
-    padding: 0
-  },
-
-}));
 
 const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, onRecommendArtist}) => {
-    const classes = useStyles();
+    const classes = artistInfoStyle();
     const [checked, setChecked] = useState(false);
     const [searchText, setSearchText] = useState('');
 

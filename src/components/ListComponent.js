@@ -1,59 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Paper, Typography } from '@material-ui/core'
 import 'fontsource-roboto';
-import { color } from '../colors'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    borderRadius: 3,
-    border: 0,
-    padding: '5%',
-    display: 'grid',
-    flexWrap: 'wrap',
-    backgroundColor: `${color.BLACKCOLOR}`,
-    inHeight: '10vh',
-    maxHeight: 250,
-    overflow: 'hidden',
-    textAlign: 'center',
-    '&:hover':{
-        backgroundColor: `${color.PINKCOLOR}`,
-    },
-  },
-  label: {
-    textTransform: 'capitalize',
-  },
-   name: {
-    display: 'grid',
-    alignItems: 'center',
-    color: `${color.WHITECOLOR}`,
-    backgroundColor: `${color.BLACKCOLOR}`,
-    height: 140,
-    fontSize: 18
-   },
-   artist: {
-    display: 'grid',
-    alignItems: 'center',
-    color: `${color.WHITECOLOR}`,
-    backgroundColor: `${color.BLACKCOLOR}`,
-    height: 80,
-    borderTop: '1px solid white',
-    fontSize: 14
-   },
-   match: {
-       display: 'grid',
-       alignItems: 'end',
-       fontWeight: 'bold',
-       color: `${color.WHITECOLOR}`,
-       backgroundColor: `${color.PINKCOLOR}`,
-       height: 25,
-
-   }
-}));
+import { listComponentStyle } from '../themes'
 
 export const ListComponent = ({mbid, name, match, listeners, artist, handleClick, count}) => {
     
-    const classes = useStyles();
+    const classes = listComponentStyle();
     return (
         <Grid key={mbid} item xs={12}>
             <Paper

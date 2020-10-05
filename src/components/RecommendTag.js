@@ -1,31 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import { mapDispatchToProps, mapStateToProps } from '../store'
-import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core/'
 import { ListComponent } from './ListComponent'
 import { getTopTags, getTagInfoFromName } from '../axiosCalls'
-
-const useStyles = makeStyles(() => ({
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      //alignItems: 'center',
-      margin: 'auto',
-      width: '80vw',
-    },
-    container: {
-      display: 'grid',
-      width: 'auto',
-      margin: 'auto',
-      gridTemplateColumns: `${window.innerWidth < 600 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
-    }
-
-}))
-//trackInfoState.getRecommendedTrack
+import { geoTopArtistStyle } from '../themes'
 
 const RecommendTag = ({tagState, onGetTopTags, onGetTopAlbumsTag, onGetTopArtistTag ,onGetTag, onGetTopTracksTag, onStateChange}) => {
-    const classes = useStyles();
+    const classes = geoTopArtistStyle();
     useEffect(() => {
         getTopTags(onGetTopTags, onStateChange)
     }, [])

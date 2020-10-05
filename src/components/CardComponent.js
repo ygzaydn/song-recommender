@@ -1,57 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {Link, Card, CardContent, CardMedia, Typography} from '@material-ui/core'
-import { color } from '../colors'
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
-
-
-const useStyles = makeStyles(() => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'left',
-    borderBottom: '1px solid black',
-    height: 160,
-    background: `${color.YELLOWCOLOR}`,
-    borderBottomLeftRadius: '4px',
-    borderBottomRightRadius: '4px',
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginLeft: '2vh',
-  },
-  content: {
-    flex: '1 0 auto',
-    padding: '0 0.5vw',
-    paddingRight: '1vw',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center'
-  },
-  cover: {
-    minWidth: 150,
-    fontSize: '144px',
-  },
-  subtitle1: {
-      maxWidth: '45vw',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      display:'inline-block',
-      whiteSpace: 'nowrap',
-      color: `${color.GRAYCOLOR}`,
-      textDecoration: 'underline',
-  },
-  typoColor: {
-    color: `${color.GRAYCOLOR}`
-  },
-  typoColorBold: {
-    color: `${color.GRAYCOLOR}`,
-    textShadow: `0.2px 0.2px ${color.GRAYCOLOR}`,
-  }
-}));
+import { cardComponentStyle } from '../themes'
 
 export const CardComponent = ({name, url, playcount, img, artist, icon}) => {
-  const classes = useStyles();
+  const classes = cardComponentStyle();
 
   return (
   <div>

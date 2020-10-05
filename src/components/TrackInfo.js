@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Typography, Collapse, GridList } from '@material-ui/core/'
 import 'fontsource-roboto';
 import { mapDispatchToProps, mapStateToProps } from '../store'
@@ -7,72 +6,13 @@ import { connect } from 'react-redux'
 import { BigCard } from './BigCard-Component/BigCard'
 import { BigCardwithoutIteration } from './BigCard-Component/BigCardwithoutIteration'
 import { ConnectedSmallCard } from './SmallCard'
-import { color } from '../colors'
 import { StyledTextField } from './StyledTextField'
 import { StyledButton } from './StyledButtonComponent'
 import { getTrackFromSearchwithNameandArtist, getTagInfoFromName } from '../axiosCalls'
-
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexGrow: 1,
-    margin: '1vh 0.2vw 5vh 0.2vw',
-    flexDirection: 'column'
-  },
-  paper: {
-    padding: theme.spacing(2),
-    margin: 'auto',
-    maxWidth: '90vw',
-    background: `${color.PINKCOLOR}`,
-  },
-  title: {
-    maxWidth: 'inherit',
-    height: 'auto',
-    textAlign: 'center',
-    color: `${color.WHITECOLOR}`,
-    fontWeight: 'bold',
-    fontSize: '150%',
-    background: `${color.BLACKCOLOR}`,
-    padding: '1%',
-    borderRadius: '15px'
-  },
-  bioTitle: {
-    maxWidth: 'inherit',
-    height: 'auto',
-    textAlign: 'center',
-    color: `${color.WHITECOLOR}`,
-    background: `${color.BLACKCOLOR}`,
-  },
-  bio: {
-    textAlign: 'center',
-    color: `${color.BLACKCOLOR}`,
-    border: `2px solid ${color.BLACKCOLOR}`,
-    padding: '1%',
-    background: `${color.YELLOWCOLOR}`,
-  },
-  gridList: {
-    flexWrap: 'nowrap',
-    padding: 0,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  collapseStyle: {
-    border: `2px solid ${color.BLACKCOLOR}`, 
-    padding: 0
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    //alignItems: 'center',
-    margin: 'auto',
-    width: '80vw',
-    },
-
-}));
+import { artistInfoStyle } from '../themes'
 
 const TrackInfo = ({trackInfoState, onGetTrack, onGetSimilarTrack, onStateChange, onGetTag,onGetTopAlbumsTag,onGetTopArtistTag, onGetTopTracksTag}) => {
-    const classes = useStyles();
+    const classes = artistInfoStyle();
     const [checked, setChecked] = useState(false);
     const [trackName, setTrackName] = useState('');
     const [trackArtist, setTrackArtist] = useState('');
