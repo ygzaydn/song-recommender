@@ -24,8 +24,10 @@ const GET_SIMILAR_TRACK = 'GET_SIMILAR_TRACK'
 const RESET_TRACK_STATE = 'RESET_TRACK_STATE'
 const RESET_ARTIST_STATE = 'RESET_ARTIST_STATE'
 const RESET_TAG_STATE = 'RESET_TAG_STATE'
+const RESET_GEO_STATE = 'RESET_GEO_STATE'
 
-
+const GET_GEO_TOP_ARTISTS = 'GET_GEO_TOP_ARTISTS'
+const GET_GEO_TOP_TRACKS = 'GET_GEO_TOP_TRACKS'
 
 //reducers
 
@@ -102,6 +104,20 @@ const tagReducer = (state= [], action) => {
     }
 }
 
+const geoReducer = (state= [], action) => {
+    switch (action.type) {
+        case GET_GEO_TOP_ARTISTS: {
+            return applyGetGeoTopArtists(state,action)
+        }
+        case GET_GEO_TOP_TRACKS: {
+            return applyGetGetoTopTracks(state, action)
+        }
+        case RESET_GEO_STATE: {
+            return applyResetGeoState(state, action)
+        }
+        default: return state;
+    }
+}
 //actions
     //artistState actions
 const applyRecommendArtist = (state, action) => {
@@ -163,6 +179,20 @@ const applyGetTopTags = (state, action) => {
 const applyResetTagState = (state, action) => {
     return []
 }
+
+    //geoState actions
+const applyGetGeoTopArtists = (state, action) => {
+    return {...state, getGeoTopArtists: [...action.geo]}
+}
+
+const applyGetGetoTopTracks = (state, action) => {
+    return {...state, getGeoTopTracks: [...action.geo]}
+}
+
+const applyResetGeoState = (state, action) => {
+    return []
+}
+
 //action creators
     //artistState action creators
 const doRecommendArtist = (similarartists) => {
@@ -219,7 +249,7 @@ const doGetSimilarTrack = (track) => {
 
 const doResetTrackState = () => {
     return {
-        type: RESET_TRACK_STATE
+        type: RESET_GEO_STATE
     }
 }
 
@@ -264,6 +294,28 @@ const doResetTagState = () => {
         type: RESET_TAG_STATE
     }
 }
+
+    //artistState action creators
+
+const doGetGeoTopArtists = (geo) => {
+    return {
+        type: GET_GEO_TOP_ARTISTS,
+        geo: geo.data.topartists.artist
+    }
+}
+
+const doGetGeoTopTracks = (geo) => {
+    return {
+        type: GET_GEO_TOP_TRACKS,
+        geo: geo.data.tracks.track
+    }
+}
+
+const doResetGeoState = () => {
+    return {
+        type: RESET_GEO_STATE
+    }
+}
     //renderState action creators
 const doStateChange = (id) => {
     return {
@@ -279,7 +331,8 @@ const rootReducer = combineReducers({
     trackInfoState: trackInfoReducer,
     artistState: artistReducer,
     renderState: renderReducer,
-    tagState: tagReducer
+    tagState: tagReducer,
+    geoState: geoReducer
 })
 export const store = createStore(rootReducer, undefined, applyMiddleware(logger));
 
@@ -289,7 +342,8 @@ export const mapStateToProps = (state) => {
         trackInfoState: state.trackInfoState,
         artistState: state.artistState,
         renderState: state.renderState,
-        tagState: state.tagState
+        tagState: state.tagState,
+        geoState: state.geoState
     }
 }
 
@@ -313,8 +367,12 @@ export const mapDispatchToProps = (dispatch) => {
 
         onGetSimilarTrack: tracks => dispatch(doGetSimilarTrack(tracks)),
 
+        onGetGeoTopArtists: geo => dispatch(doGetGeoTopArtists(geo)),
+        onGetGeoTopTracks: geo => dispatch(doGetGeoTopTracks(geo)),
+
         onResetTrackState: () => dispatch(doResetTrackState()),
         onResetArtistState: () => dispatch(doResetArtistState()),
         onResetTagState: () => dispatch(doResetTagState()),
+        onResetGeoState: () => dispatch(doResetGeoState()),
     }
 }

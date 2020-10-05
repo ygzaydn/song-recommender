@@ -1,19 +1,6 @@
 import axios from 'axios'
 import dotenv from 'dotenv'
 
-const url = 'https://ipapi.co/json/'
-
-export const getGeoInfo = async () => {
-   const res = await axios.get(url);
-   try {
-    return res;
-   } catch (error) {
-    console.log(error);
-    return error;
-   }
-   
-}
-
 export const searchByArtistName = async (input, dispatcherMethod) => {
     try {
       const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${input}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
@@ -133,5 +120,26 @@ export const getTopTags = async (dispatcherMethod, stateMethod) => {
       stateMethod('TagRecommend')
    } catch (err) {
       console.log(err);
+   }
+}
+
+export const getGeoTopTracks = async (country, dispatcherMethod, stateMethod) => {
+   const res = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+   try {
+      dispatcherMethod(res)
+      stateMethod('GeoTopTracks')
+   } catch (err) {
+      console.log(err)
+   }
+}
+
+export const getGeoTopArtists = async (country, dispatcherMethod, stateMethod) => {
+   const res = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+   try {
+      dispatcherMethod(res)
+      console.log(res)
+      stateMethod('GeoTopArtist')
+   } catch (err) {
+      console.log(err)
    }
 }
