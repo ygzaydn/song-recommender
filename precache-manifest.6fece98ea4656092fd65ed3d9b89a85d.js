@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a4c612d8a1f700f60e0031536e3b62fe",
+    "revision": "3540d28274fa68bfbf29ba890c7ba52e",
     "url": "/song-recommender/index.html"
   },
   {
-    "revision": "a718cb96dc87e66110d7",
+    "revision": "62a726546175a144a4e6",
     "url": "/song-recommender/static/css/2.fea0eb96.chunk.css"
   },
   {
-    "revision": "95e2ecdb0aa5d8ad7afc",
-    "url": "/song-recommender/static/css/main.cc8ef7f4.chunk.css"
+    "revision": "dbb5fed929d42238fe18",
+    "url": "/song-recommender/static/css/main.8617a860.chunk.css"
   },
   {
-    "revision": "a718cb96dc87e66110d7",
-    "url": "/song-recommender/static/js/2.db73efb1.chunk.js"
+    "revision": "62a726546175a144a4e6",
+    "url": "/song-recommender/static/js/2.bfc54f7f.chunk.js"
   },
   {
     "revision": "afcffdf4ebf1780e0970711996cdd7dd",
-    "url": "/song-recommender/static/js/2.db73efb1.chunk.js.LICENSE.txt"
+    "url": "/song-recommender/static/js/2.bfc54f7f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "95e2ecdb0aa5d8ad7afc",
-    "url": "/song-recommender/static/js/main.e8596580.chunk.js"
+    "revision": "dbb5fed929d42238fe18",
+    "url": "/song-recommender/static/js/main.a77984ce.chunk.js"
   },
   {
     "revision": "59d2261602141d9db63a",
