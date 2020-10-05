@@ -51,7 +51,7 @@ export const artistInfoStyle = makeStyles((theme) => ({
     margin: 'auto',
     width: '80vw',
     },
-collapseStyle: {
+  collapseStyle: {
     border: `2px solid ${color.BLACKCOLOR}`, 
     padding: 0
   },
@@ -215,7 +215,6 @@ export const smallCardStyle = makeStyles({
     padding: 0,
     borderColor: `${color.BLACKCOLOR}`,
     backgroundColor: `${color.YELLOWCOLOR}`,
-    
   },
   rootTitle1: {
     padding: 0,
@@ -256,6 +255,12 @@ export const smallCardStyle = makeStyles({
     display:'flex',
     justifyContent:'space-between',
     margin: '0 2vw'
+  },
+  arrow: {
+    alignSelf: 'center',
+    '&:hover': {
+      fontSize: '300%',
+    },
   }
 });
 

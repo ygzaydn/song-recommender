@@ -26,7 +26,7 @@ const SmallCard = ({ title, data1, data2, par1, par2, clickInfo, stats, clickInf
           <Typography style={{alignSelf:'center'}}>
             {el.name}
           </Typography>
-          <ChevronRightIcon style={{alignSelf:'center'}} fontSize="large" onClick={() => clickInfoFunction(el.name)}/>
+          <ChevronRightIcon className={classes.arrow} fontSize="large" onClick={() => clickInfoFunction(el.name)}/>
             </div>
           )
         })
