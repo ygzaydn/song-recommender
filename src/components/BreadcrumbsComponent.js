@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
       color: 'white',
       display: 'flex',
       justifyContent: 'center',
+      fontSize: '80%',
       '&:hover': {
         textDecoration: 'underline',
     }
@@ -26,6 +27,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     textDecoration: 'underline',
+    fontSize: '80%',
     color: `${color.PINKCOLOR}`,
   },
   menuStyle: {
@@ -74,19 +76,19 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
             <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">
                 <Typography id="header" className={classnames==='ArtistRecommend'? classes.underlineTypo: classes.root} aria-controls="artist-menu" color="inherit" onClick={ handleClickMenu(setanchorElArtists)}> 
                     Artists
-                    <ExpandMoreIcon color="white" />
+                    <ExpandMoreIcon color="white" fontSize="small"/>
                 </Typography>
                 <Typography id="header1" className={classnames==='TrackSearch'? classes.underlineTypo: classes.root} aria-controls="track-menu" color="inherit" onClick={handleClickMenu(setanchorElTracks)}>
                     Tracks
-                    <ExpandMoreIcon color="white" />
+                    <ExpandMoreIcon color="white" fontSize="small"/>
                 </Typography>
                 <Typography id="header2" className={classnames==='TagRecommend'? classes.underlineTypo: classes.root} aria-controls="tag-menu" color="inherit" onClick={handleClickMenu(setanchorElTags)}>
                     Tags
-                    <ExpandMoreIcon color="white" />
+                    <ExpandMoreIcon color="white" fontSize="small"/>
                 </Typography>
                 <Typography id="header3" className={classnames==='GeoRecommend'? classes.underlineTypo: classes.root} color="inherit" aria-controls="geo-menu" onClick={handleClickMenu(setanchorElGeos)}>
                     Geo
-                    <ExpandMoreIcon color="white" />
+                    <ExpandMoreIcon color="white" fontSize="small"/>
                 </Typography>
             </Breadcrumbs>
             
@@ -150,7 +152,7 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                 <MenuItem className={classes.menuItemTitle}>
                     <ListItemText primary="Tracks Menu" />
                 </MenuItem >
-                <MenuItem className={classes.menuItemStyle}>
+                <MenuItem className={classes.menuItemStyle} onClick={handleClick('Track','TrackInfo')}>
                     <ListItemIcon >
                         <AlbumSharpIcon style={{color:'white'}} />
                     </ListItemIcon>

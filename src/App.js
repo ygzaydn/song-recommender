@@ -10,7 +10,7 @@ import { ConnectedBreadcrumbsComponent } from './components/BreadcrumbsComponent
 import { mapDispatchToProps, mapStateToProps } from './store'
 
 
-const App = ({onStateChange}) => {
+const App = ({onStateChange,onResetTrackInfo}) => {
 
   const [background, setBackground] = useState(true);
   const [mainpageClass, setMainpageClass] = useState('main-page main-page-animation')
@@ -23,6 +23,7 @@ const App = ({onStateChange}) => {
     }, 900);
     if(pageEvent) onStateChange(pageEvent)
     setSection(input);
+    onResetTrackInfo();
     event.preventDefault();
   }
 

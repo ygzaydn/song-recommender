@@ -86,6 +86,8 @@ export const getTrackFromSearchwithNameandArtist = async (track, artist, dispatc
       dispatcherMethod1(responseOne);
       dispatcherMethod2(responseTwo);
       stateMethod1('TrackInfo')
+      console.log(responseOne);
+      console.log(responseTwo)
    } catch (error) {
       console.log(error)
    }
@@ -95,7 +97,6 @@ export const searchTrackByNameAndArtist = async (trackName, trackArtist, dispatc
    const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=track.getSimilar&track=${trackName}&artist=${trackArtist}&autocorrect=1&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
    try {
       dispatcherMethod(res);
-      console.log(res)
    } catch (error) {
       console.log(error)
    }

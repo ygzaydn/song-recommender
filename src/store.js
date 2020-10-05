@@ -15,6 +15,8 @@ const GET_TOP_TRACKS = 'GET_TOP_TRACKS'
 
 const GET_SIMILAR_TRACK= 'GET_SIMILAR_TRACK'
 
+const RESET_TRACK_INFO= 'RESET_TRACK_INFO'
+
 
 //reducers
 
@@ -28,6 +30,9 @@ const trackInfoReducer = (state = [], action) => {
         }
         case GET_SIMILAR_TRACK: {
             return applyGetSimilarTrack(state, action)
+        }
+        case RESET_TRACK_INFO : {
+            return applyResetTrackInfo(state, action)
         }
         default: return state;
     }
@@ -88,6 +93,9 @@ const applyGetTrack = (state, action) => {
 const applyGetSimilarTrack = (state, action) => {
     return {...state, getSimilarTrack: [...action.track]}
 }
+const applyResetTrackInfo = (state, action) => {
+    return []
+}
 
 //action creators
     //artistState action creators
@@ -136,6 +144,12 @@ const doGetSimilarTrack = (track) => {
         track: track.data.similartracks.track
     }
 }
+
+const doResetTrackInfo = () => {
+    return {
+        type: RESET_TRACK_INFO
+    }
+}
     //renderState action creators
 const doStateChange = (id) => {
     return {
@@ -177,5 +191,7 @@ export const mapDispatchToProps = (dispatch) => {
         onGetTopTracks: tracks => dispatch(doGetTopTracks(tracks)),
 
         onGetSimilarTrack: tracks => dispatch(doGetSimilarTrack(tracks)),
+
+        onResetTrackInfo: () => dispatch(doResetTrackInfo()),
     }
 }
