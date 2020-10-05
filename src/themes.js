@@ -155,7 +155,7 @@ export const geoTopArtistStyle = makeStyles((width) => ({
       width: '80vw',
     },
     container: {
-      display: 'grid',
+      display: 'grid !important',
       width: 'auto',
       margin: 'auto',
       gridTemplateColumns: `${width < 800 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
@@ -217,7 +217,7 @@ export const smallCardStyle = makeStyles({
     padding: 0,
     borderColor: `${color.BLACKCOLOR}`,
     backgroundColor: `${color.YELLOWCOLOR}`,
-    overflowY:'scroll',
+    overflowY:'scroll !important',
   },
   rootTitle1: {
     padding: 0,
