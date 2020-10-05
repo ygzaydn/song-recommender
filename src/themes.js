@@ -221,7 +221,7 @@ export const smallCardStyle = makeStyles({
     borderColor: `${color.BLACKCOLOR}`,
     display: 'grid',
     height: '100%',
-    gridTemplateRows: '15% 15% 15% 15% 15% 15%',
+    //gridTemplateRows: '15% 15% 15% 15% 15% 15%',
   },
   rootTitle2: {
     padding: 0,
@@ -231,7 +231,7 @@ export const smallCardStyle = makeStyles({
     gridTemplateRows: '15% 65%',
   },
   title: {
-    fontSize: '2vh',
+    fontSize: '1rem',
     fontWeight: 'bold',
     color: `${color.WHITECOLOR}`,
     textAlign: 'center',
@@ -245,11 +245,18 @@ export const smallCardStyle = makeStyles({
     color: `${color.BLACKCOLOR}`,
     textDecoration : 'underline',
     fontSize: 20,
+    textAlign: 'center'
   },
   moreInfo: {
     color: `${color.BLACKCOLOR}`,
     fontSize: 16,
-    textAlign:'center'
+    textAlign:'center',
+  },
+  singerInfo: {
+    color: `${color.BLACKCOLOR}`,
+    fontSize: '1rem',
+    display: 'flex',
+    alignItems: 'center'
   },
   similarArtistLine: {
     display:'flex',
@@ -258,8 +265,9 @@ export const smallCardStyle = makeStyles({
   },
   arrow: {
     alignSelf: 'center',
-    '&:hover': {
-      fontSize: '300%',
+    fontSize: '1.5rem',
+    '&:active': {
+      fontSize: '2rem',
     },
   }
 });

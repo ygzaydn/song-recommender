@@ -20,7 +20,8 @@ const useStyles = makeStyles(() => ({
       textAlign: 'center',
       background: `${color.BLACKCOLOR}`,
       color: `${color.WHITECOLOR}`,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      fontSize: '1rem'
     },
     gridList: {
       flexWrap: 'nowrap',

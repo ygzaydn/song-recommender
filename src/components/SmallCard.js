@@ -23,7 +23,7 @@ const SmallCard = ({ title, data1, data2, par1, par2, clickInfo, stats, clickInf
         ? data1.map(el => {
           return (
             <div className={classes.similarArtistLine}>
-          <Typography style={{alignSelf:'center'}}>
+          <Typography className={classes.singerInfo}>
             {el.name}
           </Typography>
           <ChevronRightIcon className={classes.arrow} fontSize="large" onClick={() => clickInfoFunction(el.name)}/>
@@ -36,7 +36,7 @@ const SmallCard = ({ title, data1, data2, par1, par2, clickInfo, stats, clickInf
         <Typography className={classes.pos} >
           {par1}
         </Typography>
-        <Typography  className={classes.moreInfo} >
+        <Typography className={classes.moreInfo} >
           {data1}
         </Typography>
         <Typography className={classes.pos} >
