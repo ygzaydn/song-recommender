@@ -7,7 +7,6 @@ import { color } from '../colors';
 import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { getArtistInfoFromName } from '../axiosCalls'
 
 const useStyles = makeStyles({
   root: {
@@ -60,10 +59,11 @@ const useStyles = makeStyles({
   }
 });
 
-const SmallCard = ({ title, data1, data2, par1, par2, clickInfo, stats, clickInfoFunction}) => {
+const SmallCard = ({ title, data1, data2, par1, par2, clickInfo, stats, clickInfoFunction }) => {
   const classes = useStyles();
-  const classNameForContent = clickInfo? classes.rootTitle1 : classes.rootTitle2;
   
+  const classNameForContent = clickInfo? classes.rootTitle1 : classes.rootTitle2;
+
   return (
     <Card className={classes.root} variant="outlined" >
       <CardContent className={classNameForContent}>

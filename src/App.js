@@ -10,7 +10,7 @@ import { ConnectedBreadcrumbsComponent } from './components/BreadcrumbsComponent
 import { mapDispatchToProps, mapStateToProps } from './store'
 
 
-const App = ({onStateChange, onResetTrackState, onResetArtistState, onResetTagState}) => {
+const App = ({onStateChange, onResetTrackState, onResetArtistState, onResetTagState, onResetGeoState}) => {
 
   const [background, setBackground] = useState(true);
   const [mainpageClass, setMainpageClass] = useState('main-page main-page-animation')
@@ -26,6 +26,7 @@ const App = ({onStateChange, onResetTrackState, onResetArtistState, onResetTagSt
     onResetTrackState();
     onResetArtistState();
     onResetTagState();
+    onResetGeoState();
     event.preventDefault();
   }
 

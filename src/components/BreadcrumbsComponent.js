@@ -74,19 +74,19 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
     return (
         <div className={classTrigger}>
             <Breadcrumbs classes={{ol: classes.ol}} aria-label="breadcrumb">
-                <Typography id="header" className={classnames==='ArtistRecommend'? classes.underlineTypo: classes.root} aria-controls="artist-menu" color="inherit" onClick={ handleClickMenu(setanchorElArtists)}> 
+                <Typography id="header" className={classnames==='ArtistInfo' || classnames==='ArtistRecommend'? classes.underlineTypo: classes.root} aria-controls="artist-menu" color="inherit" onClick={ handleClickMenu(setanchorElArtists)}> 
                     Artists
                     <ExpandMoreIcon color="white" fontSize="small"/>
                 </Typography>
-                <Typography id="header1" className={classnames==='TrackSearch'? classes.underlineTypo: classes.root} aria-controls="track-menu" color="inherit" onClick={handleClickMenu(setanchorElTracks)}>
+                <Typography id="header1" className={classnames==='TrackInfo' || classnames==='TrackSearch' ? classes.underlineTypo: classes.root} aria-controls="track-menu" color="inherit" onClick={handleClickMenu(setanchorElTracks)}>
                     Tracks
                     <ExpandMoreIcon color="white" fontSize="small"/>
                 </Typography>
-                <Typography id="header2" className={classnames==='TagRecommend'? classes.underlineTypo: classes.root} aria-controls="tag-menu" color="inherit" onClick={handleClickMenu(setanchorElTags)}>
+                <Typography id="header2" className={classnames==='TagInfo' || classnames==='TagRecommend'? classes.underlineTypo: classes.root} aria-controls="tag-menu" color="inherit" onClick={handleClickMenu(setanchorElTags)}>
                     Tags
                     <ExpandMoreIcon color="white" fontSize="small"/>
                 </Typography>
-                <Typography id="header3" className={classnames==='GeoRecommend'? classes.underlineTypo: classes.root} color="inherit" aria-controls="geo-menu" onClick={handleClickMenu(setanchorElGeos)}>
+                <Typography id="header3" className={classnames==='GeoTopArtist' || classnames==='GeoTopTrack'? classes.underlineTypo: classes.root} color="inherit" aria-controls="geo-menu" onClick={handleClickMenu(setanchorElGeos)}>
                     Geo
                     <ExpandMoreIcon color="white" fontSize="small"/>
                 </Typography>

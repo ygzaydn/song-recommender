@@ -6,7 +6,7 @@ import { mapDispatchToProps, mapStateToProps } from '../store'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core/'
 import { ListComponent } from './ListComponent'
-import { getGeoTopTracks, getArtistInfoFromSearch, getArtistInfoFromName, getTrackFromSearch, getTrackFromSearchwithNameandArtist } from '../axiosCalls'
+import { getGeoTopTracks, getTrackFromSearch, getTrackFromSearchwithNameandArtist } from '../axiosCalls'
 
 const useStyles = makeStyles(() => ({
     form: {

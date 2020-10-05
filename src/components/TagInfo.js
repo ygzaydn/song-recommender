@@ -10,6 +10,7 @@ import { color } from '../colors'
 import { getTagInfoFromName } from '../axiosCalls'
 import { StyledButton } from './StyledButtonComponent'
 import { StyledTextField } from './StyledTextField'
+import { getArtistInfoFromName } from '../axiosCalls'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,7 +69,7 @@ collapseStyle: {
 
 }));
 
-const TagInfo = ({tagState, onGetTag, onStateChange, onGetTopArtistTag, onGetTopTracksTag, onGetTopAlbumsTag}) => {
+const TagInfo = ({tagState, onGetTag, onStateChange, onGetTopArtistTag, onGetTopTracksTag, onGetTopAlbumsTag, onGetArtist,onGetTopTracks,onGetTopAlbums}) => {
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -110,7 +111,7 @@ const TagInfo = ({tagState, onGetTag, onStateChange, onGetTopArtistTag, onGetTop
                     </Grid>
                     <Grid item xs={6}>
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard data1={tagState.getTopArtistTags} title="Related Artists" clickInfo={true} />
+                            <ConnectedSmallCard data1={tagState.getTopArtistTags} title="Related Artists" clickInfo={true} clickInfoFunction={(name) => getArtistInfoFromName(name,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)}/>
                         </GridList>
                     </Grid>
                     <Grid item xs={12}>

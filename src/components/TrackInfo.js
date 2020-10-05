@@ -10,7 +10,7 @@ import { ConnectedSmallCard } from './SmallCard'
 import { color } from '../colors'
 import { StyledTextField } from './StyledTextField'
 import { StyledButton } from './StyledButtonComponent'
-import { getTrackFromSearchwithNameandArtist } from '../axiosCalls'
+import { getTrackFromSearchwithNameandArtist, getTagInfoFromName } from '../axiosCalls'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const TrackInfo = ({trackInfoState, onGetTrack, onGetSimilarTrack, onStateChange}) => {
+const TrackInfo = ({trackInfoState, onGetTrack, onGetSimilarTrack, onStateChange, onGetTag,onGetTopAlbumsTag,onGetTopArtistTag, onGetTopTracksTag}) => {
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     const [trackName, setTrackName] = useState('');
@@ -118,7 +118,7 @@ const TrackInfo = ({trackInfoState, onGetTrack, onGetSimilarTrack, onStateChange
                 </Grid>
                 <Grid item xs={6}>
                     <GridList className={classes.gridList} cols={1}>
-                        <ConnectedSmallCard clickInfo={true} title="Top Tags" data1={trackInfoState.getTrack.toptags.tag}/>
+                        <ConnectedSmallCard clickInfo={true} title="Top Tags" data1={trackInfoState.getTrack.toptags.tag} clickInfoFunction={(name) => getTagInfoFromName(name,onGetTag,onGetTopAlbumsTag,onGetTopArtistTag, onGetTopTracksTag, onStateChange)}/>
                     </GridList>
                 </Grid>
                 {<Grid item xs={12}>

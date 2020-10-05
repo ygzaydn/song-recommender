@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { StyledButton } from './StyledButtonComponent';
-import { StyledTextField } from './StyledTextField';
 import { connect } from 'react-redux'
 import { mapDispatchToProps, mapStateToProps } from '../store'
 import { makeStyles } from '@material-ui/core/styles'
