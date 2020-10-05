@@ -124,7 +124,7 @@ export const getTopTags = async (dispatcherMethod, stateMethod) => {
 }
 
 export const getGeoTopTracks = async (country, dispatcherMethod, stateMethod) => {
-   const res = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+   const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
    try {
       dispatcherMethod(res)
       stateMethod('GeoTopTrack')
@@ -134,7 +134,7 @@ export const getGeoTopTracks = async (country, dispatcherMethod, stateMethod) =>
 }
 
 export const getGeoTopArtists = async (country, dispatcherMethod, stateMethod) => {
-   const res = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
+   const res = await axios.get(`https://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
    try {
       dispatcherMethod(res)
       console.log(res)

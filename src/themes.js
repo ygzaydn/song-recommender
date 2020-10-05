@@ -130,8 +130,8 @@ export const cardComponentStyle =  makeStyles(() => ({
       maxWidth: '45vw',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      display:'inline-block',
       whiteSpace: 'nowrap',
+      display:'inline-block',
       color: `${color.GRAYCOLOR}`,
       textDecoration: 'underline',
   },
@@ -156,7 +156,7 @@ export const geoTopArtistStyle = makeStyles(() => ({
       display: 'grid',
       width: 'auto',
       margin: 'auto',
-      gridTemplateColumns: `${window.innerWidth < 600 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
+      gridTemplateColumns: `${window.innerWidth < 800 ? '45vw 45vw' : '22.5vw 22.5vw 22.5vw 22.5vw'}`,
     }
 
 }))
@@ -210,11 +210,12 @@ export const listComponentStyle = makeStyles((theme) => ({
 
 export const smallCardStyle = makeStyles({
   root: {
-    width: '40vw',
+    width: '35vw',
     minHeight: '35vh',
     padding: 0,
     borderColor: `${color.BLACKCOLOR}`,
     backgroundColor: `${color.YELLOWCOLOR}`,
+    overflowY:'scroll',
   },
   rootTitle1: {
     padding: 0,
