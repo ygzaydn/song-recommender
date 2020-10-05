@@ -127,7 +127,7 @@ export const getGeoTopTracks = async (country, dispatcherMethod, stateMethod) =>
    const res = await axios.get(`http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`)
    try {
       dispatcherMethod(res)
-      stateMethod('GeoTopTracks')
+      stateMethod('GeoTopTrack')
    } catch (err) {
       console.log(err)
    }

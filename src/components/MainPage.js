@@ -10,6 +10,7 @@ import { ConnectedTrackInfo } from './TrackInfo'
 import { ConnectedTagInfo } from './TagInfo'
 import { ConnectedRecommendTag } from './RecommendTag'
 import { ConnectedGeoTopArtist } from './GeoTopArtist'
+import { ConnectedGeoTopTrack } from './GeoTopTrack'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,6 +48,9 @@ const MainPage = ({renderState}) => {
           : null}
       {renderState==='GeoTopArtist'
           ? <ConnectedGeoTopArtist />
+          : null}
+      {renderState==='GeoTopTrack'
+          ? <ConnectedGeoTopTrack />
           : null}
     </div>
   );

@@ -234,7 +234,7 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                         </ListItemIcon>
                         <ListItemText primary="Find top artist for your country" />
                     </MenuItem >
-                    <MenuItem onClick={handleClick('Geo','GeoRecommend')}
+                    <MenuItem onClick={handleClick('Geo','GeoTopTrack')}
                             className={classes.menuItemStyle}>
                         <ListItemIcon >
                             <AlbumSharpIcon style={{color:'white'}}  />
