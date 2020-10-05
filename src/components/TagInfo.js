@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { BigCard } from './BigCard-Component/BigCard'
 import { ConnectedSmallCard } from './SmallCard'
 import { color } from '../colors'
-import { getArtistInfoFromName } from '../axiosCalls'
+import { getTagInfoFromName } from '../axiosCalls'
 import { StyledButton } from './StyledButtonComponent'
 import { StyledTextField } from './StyledTextField'
 
@@ -68,7 +68,7 @@ collapseStyle: {
 
 }));
 
-const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, onGetTopTracks, onRecommendArtist}) => {
+const TagInfo = ({tagState, onGetTag, onStateChange, onGetTopArtistTag, onGetTopTracksTag, onGetTopAlbumsTag}) => {
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -80,51 +80,50 @@ const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, on
     const unCollapse = () => {
         setChecked((prev) => !prev)
     }
-    const getArtistInfoFromNamewithInput = (name) => getArtistInfoFromName(name,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)
+
     return(
         <div className={classes.root}>
-        {artistState.getArtist && artistState.getTopAlbums && artistState.getTopTracks
+        {tagState.getTag && tagState.getTopAlbumTags && tagState.getTopArtistTags && tagState.getTopTrackTags
         ?
         <Paper className={classes.paper}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Paper className={classes.title}>
-                            {artistState.getArtist.name}
+                            {tagState.getTag.name}
                         </Paper>
                     </Grid>
                     <Grid item xs={12} className={classes.collapseStyle} >
                         <Typography variant="subtitle1" className={classes.bioTitle} onClick={unCollapse}>
-                            {checked ?  'Click to close bio!' : 'Click here for bio!'}
+                            {checked ?  'Click to close !' : 'Click here for more info!'}
                         </Typography>
                         <Collapse in={checked} collapsedSize={150}>
                             <Typography className={classes.bio}>
-                                {artistState.getArtist.bio.content.split('<a hr')[0]
+                                {tagState.getTag.wiki.content.split('<a hr')[0]
                                 }
                             </Typography>
                         </Collapse>
                     </Grid>
                     <Grid item xs={6} >
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard clickInfo={false} title="Stats" data1={artistState.getArtist.stats.listeners} data2={artistState.getArtist.stats.playcount} par1="Listeners" par2="Playcount" stats={true}/>
+                            <ConnectedSmallCard clickInfo={false} title="Stats" data1={tagState.getTag.reach} data2={tagState.getTag.total} par1="Reach" par2="Total" stats={true}/>
                         </GridList>
                     </Grid>
                     <Grid item xs={6}>
                         <GridList className={classes.gridList} cols={1}>
-                            <ConnectedSmallCard clickInfo={true} title="Similar Artists" data1={artistState.getArtist.similar.artist} clickInfoFunction={getArtistInfoFromNamewithInput}/>
+                            <ConnectedSmallCard data1={tagState.getTopArtistTags} title="Similar Artists" clickInfo={true} />
                         </GridList>
                     </Grid>
                     <Grid item xs={12}>
-                        <BigCard data={artistState.getTopTracks.track} icon={true} title="Best Songs"/>
+                        <BigCard data={tagState.getTopTrackTags} icon={true} title="Similar Tracks" playcount={false}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <BigCard data={artistState.getTopAlbums.album} title="Best Albums"/>
+                        <BigCard data={tagState.getTopArtistTags} title="Similar Albums" playcount={false}/>
                     </Grid>
                 </Grid>
             </Paper>
-            :
-            <form className={classes.form} noValidate autoComplete="off">
-                <StyledTextField label="Artist Name" onChange={setTextField}/>
-                <StyledButton color="primary" variant="outlined" onClick={()=> getArtistInfoFromName(searchText,onGetArtist,onGetTopTracks,onGetTopAlbums,onStateChange)}>
+            : <form className={classes.form} noValidate autoComplete="off">
+                <StyledTextField label="Tag Name" onChange={setTextField}/>
+                <StyledButton color="primary" variant="outlined" onClick={()=> getTagInfoFromName(searchText,onGetTag,onGetTopAlbumsTag,onGetTopArtistTag, onGetTopTracksTag, onStateChange)}>
                 Search
                 </StyledButton>
              </form>
@@ -134,4 +133,4 @@ const ArtistInfo = ({artistState, onGetArtist, onStateChange, onGetTopAlbums, on
     )
 }
 
-export const ConnectedArtistInfo = connect(mapStateToProps,mapDispatchToProps)(ArtistInfo)
+export const ConnectedTagInfo = connect(mapStateToProps,mapDispatchToProps)(TagInfo)

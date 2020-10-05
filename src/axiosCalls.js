@@ -101,3 +101,28 @@ export const searchTrackByNameAndArtist = async (trackName, trackArtist, dispatc
       console.log(error)
    }
 }
+
+export const getTagInfoFromName = async (tag, dispatcherMethod1, dispatcherMethod2, dispatcherMethod3, dispatcherMethod4, stateMethod) => {
+   const requestOne = axios.get(`https://ws.audioscrobbler.com/2.0/?method=tag.getInfo&api_key=${process.env.REACT_APP_API_KEY}&tag=${tag}&format=json`)
+   const requestTwo = axios.get(`https://ws.audioscrobbler.com/2.0/?method=tag.getTopAlbums&api_key=${process.env.REACT_APP_API_KEY}&tag=${tag}&format=json`)
+   const requestThree = axios.get(`https://ws.audioscrobbler.com/2.0/?method=tag.getTopArtists&limit=5&api_key=${process.env.REACT_APP_API_KEY}&tag=${tag}&format=json`)
+   const requestFour = axios.get(`https://ws.audioscrobbler.com/2.0/?method=tag.getTopTracks&api_key=${process.env.REACT_APP_API_KEY}&tag=${tag}&format=json`)
+   const responses = await axios.all([requestOne, requestTwo, requestThree, requestFour])
+   try {
+      const responseOne = responses[0]
+      const responseTwo = responses[1]
+      const responseThree = responses[2]
+      const responseFour = responses[3]
+
+      dispatcherMethod1(responseOne);
+      dispatcherMethod2(responseTwo);
+      dispatcherMethod3(responseThree);
+      dispatcherMethod4(responseFour);
+
+      stateMethod('TagInfo')
+
+   } catch (error) {
+      console.log(error)
+   }
+
+}

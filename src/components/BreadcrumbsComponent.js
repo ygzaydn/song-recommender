@@ -190,13 +190,13 @@ const BreadcrumbsComponent = ({onStateChange, handleClick, classTrigger, renderS
                     <MenuItem className={classes.menuItemTitle}>
                         <ListItemText primary="Tag Menu" />
                     </MenuItem >
-                    <MenuItem className={classes.menuItemStyle}>
+                    <MenuItem className={classes.menuItemStyle} onClick={handleClick('Tag','TagInfo')}>
                         <ListItemIcon >
                             <QueueMusicIcon style={{color:'white'}} />
                         </ListItemIcon>
                         <ListItemText primary="Find a tag" />
                     </MenuItem >
-                    <MenuItem onClick={handleClick('Tag','TagRecommend')}
+                    <MenuItem 
                             className={classes.menuItemStyle}>
                         <ListItemIcon >
                             <LibraryMusicIcon style={{color:'white'}}  />

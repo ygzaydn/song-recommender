@@ -23,7 +23,10 @@ const useStyles = makeStyles(() => ({
   content: {
     flex: '1 0 auto',
     padding: '0 0.5vw',
-    paddingRight: '1vw'
+    paddingRight: '1vw',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
   cover: {
     minWidth: 150,
@@ -53,12 +56,13 @@ export const CardComponent = ({name, url, playcount, img, artist, icon}) => {
   return (
   <div>
     <Card className={classes.root}>
-      {icon
-      ?<LibraryMusicIcon
+      {icon 
+      ? icon !== 'none' ?  <LibraryMusicIcon
         className={classes.cover}
         image={img}
         title={classes.artist}
-      />
+      />  : null
+
       :<CardMedia
         className={classes.cover}
         image={img}
