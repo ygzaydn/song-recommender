@@ -211,7 +211,7 @@ export const listComponentStyle = makeStyles((theme) => ({
 export const smallCardStyle = makeStyles({
   root: {
     width: '40vw',
-    minHeight: '270px',
+    minHeight: '35vh',
     padding: 0,
     borderColor: `${color.BLACKCOLOR}`,
     backgroundColor: `${color.YELLOWCOLOR}`,
