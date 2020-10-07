@@ -16,7 +16,7 @@ const SmallCard = ({ title, data1, data2, par1, par2, clickInfo, stats, clickInf
   return (
     <Card className={classes.root} variant="outlined" >
       <CardContent className={classNameForContent}>
-        <Typography className={classes.title} gutterBottom>
+        <Typography className={classes.title} >
           {title}
         </Typography>
         {clickInfo === true

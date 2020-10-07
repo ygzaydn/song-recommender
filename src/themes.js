@@ -51,6 +51,7 @@ export const artistInfoStyle = makeStyles((theme) => ({
     //alignItems: 'center',
     margin: 'auto',
     width: '80vw',
+    maxWidth: '1000px',
     },
   collapseStyle: {
     border: `2px solid ${color.BLACKCOLOR}`, 
@@ -216,21 +217,22 @@ export const smallCardStyle = makeStyles({
     padding: 0,
     borderColor: `${color.BLACKCOLOR}`,
     backgroundColor: `${color.YELLOWCOLOR}`,
-    overflowY:'scroll !important',
+    overflowY:'auto !important',
   },
   rootTitle1: {
-    padding: 0,
+    padding: '0 !important',
     borderColor: `${color.BLACKCOLOR}`,
     display: 'grid',
     height: '100%',
     //gridTemplateRows: '15% 15% 15% 15% 15% 15%',
   },
   rootTitle2: {
-    padding: 0,
+    padding: '0 !important',
     borderColor: `${color.BLACKCOLOR}`,
     display: 'grid',
     height: '100%',
     gridTemplateRows: '15% 65%',
+    paddingBottom: '0 !important'
   },
   title: {
     fontSize: '1rem',
@@ -241,7 +243,6 @@ export const smallCardStyle = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   pos: {
     color: `${color.BLACKCOLOR}`,
