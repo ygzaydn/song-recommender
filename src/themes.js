@@ -105,11 +105,9 @@ export const cardComponentStyle =  makeStyles(() => ({
   root: {
     display: 'flex',
     justifyContent: 'left',
-    borderBottom: '1px solid black',
+    border: '1px solid black',
     height: 160,
     background: `${color.YELLOWCOLOR}`,
-    borderBottomLeftRadius: '4px',
-    borderBottomRightRadius: '4px',
   },
   details: {
     display: 'flex',
@@ -231,7 +229,7 @@ export const smallCardStyle = makeStyles({
     borderColor: `${color.BLACKCOLOR}`,
     display: 'grid',
     height: '100%',
-    gridTemplateRows: '15% 65%',
+    gridTemplateRows: '16.6666% 65%',
     paddingBottom: '0 !important'
   },
   title: {
