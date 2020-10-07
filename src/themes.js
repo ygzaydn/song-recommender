@@ -10,8 +10,9 @@ export const artistInfoStyle = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    maxWidth: '90vw',
+    maxWidth: '1000px',
     background: `${color.PINKCOLOR}`,
+    width: '90vw'
   },
   title: {
     maxWidth: 'inherit',
