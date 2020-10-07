@@ -106,6 +106,7 @@ export const cardComponentStyle =  makeStyles(() => ({
     display: 'flex',
     justifyContent: 'left',
     border: '1px solid black',
+    borderRadius: 0,
     height: 160,
     background: `${color.YELLOWCOLOR}`,
   },
@@ -151,6 +152,7 @@ export const geoTopArtistStyle = makeStyles((width) => ({
       //alignItems: 'center',
       margin: 'auto',
       width: '80vw',
+      maxWidth: '1000px',
     },
     container: {
       display: 'grid !important',
