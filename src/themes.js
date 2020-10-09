@@ -157,7 +157,7 @@ export const geoTopArtistStyle = makeStyles((width) => ({
     container: {
       display: 'grid !important',
       width: 'auto',
-      margin: 'auto',
+      margin: 'auto !important',
       gridTemplateColumns: `${window.innerWidth < 800 ? '45vw 45vw !important' : '22.5vw 22.5vw 22.5vw 22.5vw !important'}`,
     }
 
