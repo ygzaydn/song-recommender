@@ -171,12 +171,17 @@ export const listComponentStyle = makeStyles((theme) => ({
     display: 'grid',
     flexWrap: 'wrap',
     backgroundColor: `${color.BLACKCOLOR}`,
-    inHeight: '10vh',
+    minHeight: '10vh',
     maxHeight: 250,
     overflow: 'hidden',
     textAlign: 'center',
     '&:hover':{
-        backgroundColor: `${color.PINKCOLOR}`,
+      transition: '0.5s',
+      boxShadow: `inset 0px 0px 0px 3px ${color.PINKCOLOR}`,
+    },
+    '&:active': {
+      transform: 'scale(0.9)',
+      transition: '0.7s',
     },
   },
   label: {
@@ -271,6 +276,7 @@ export const smallCardStyle = makeStyles({
     fontSize: '1.5rem',
     '&:active': {
       fontSize: '2rem',
+      transition: '0.1s'
     },
   }
 });
