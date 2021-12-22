@@ -1,11 +1,18 @@
-import React from 'react';
-import { TextField } from '@material-ui/core/'
-import 'fontsource-roboto';
-import { styledTextFieldStyle } from '../themes'
+import React from "react";
+import { TextField } from "@material-ui/core/";
+import "fontsource-roboto";
+import { styledTextFieldStyle } from "../themes";
 
-export const StyledTextField = ({label, onChange}) => {
+export const StyledTextField = ({ label, onChange }) => {
     const classes = styledTextFieldStyle();
     return (
-        <TextField id="standard-basic" className={classes.searchField} color={"secondary" } label={label} variant="filled" onChange={onChange}/>
-    )
-}
+        <TextField
+            id="standard-basic"
+            className={classes.searchField}
+            color={"secondary"}
+            label={label}
+            variant="filled"
+            onChange={onChange}
+        />
+    );
+};

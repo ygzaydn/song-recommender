@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 html {
 	background-color: #323232;
+	font-family: 'Bebas Neue', cursive;
 }
 
 ::-webkit-scrollbar {
@@ -27,41 +30,50 @@ background: #ff1e56;
 
 .main-page {
   display: flex;
-  flex-direction: column;
   width: 100vw;
-  height: 95vh;
+  height: 100vh;
   justify-content: center;
   align-content: center;
 }
 
-.main-page-animation {
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
+.main-page-video {
+	position:fixed;
+	z-index: -1;
+	height: 100vh;
+	width: 100vw;
+	object-fit: cover;
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	filter: grayscale(100%) brightness(25%);
 }
 
-.main-page-animation-out {
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	animation: closeModal 2s ease-out forwards;
+.main-page-grid-sm-12-md-6 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+.main-page-image {
+	height:40vh;
+	width:auto;
 }
 
-@keyframes closeModal {
-	0% { opacity: 1; }
-	25% { opacity: 0.5; }
-	50% { opacity: 0.25; }
-	75% { opacity: 0.15; }
-	100% { opacity: 0; }
+.main-page-grid {
+	display: grid;
+	grid-column-gap: 50px;
+	grid-row-gap: 50px;
+	grid-template: auto auto / auto auto;
+	justify-content: center;
+	align-content: center;
 }
+
+.main-page-h3-text {
+	text-align:center;
+}
+
+.main-page-image {
+	height: 60vh;
+}
+
