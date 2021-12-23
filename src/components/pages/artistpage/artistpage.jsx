@@ -13,36 +13,17 @@ import { mapDispatchToProps, mapStateToProps } from "../../../store";
 import BackgroundImage from "../../../assets/images/resultpage.jpg";
 import { getArtistInfoFromName } from "../../../axiosCalls";
 
-const useStyles = () => ({
-    "@global": {
-        "@keyframes fromLeft": {
-            "0%": {
-                transform: "translateX(-50rem)",
-            },
-            "90%": {
-                transform: "translateX(2rem)",
-            },
-            "100%": {
-                transform: "translateX(0rem)",
-            },
-        },
-        "@keyframes fadeIn": {
-            "0%": {
-                opacity: 0,
-            },
-            "100%": {
-                opacity: 1,
-            },
-        },
-    },
+import Albumgrid from "../../utils/albumGrid/albumGrid";
+import Songgrid from "../../utils/songGrid/songGrid";
 
+const useStyles = () => ({
     artistPageContainer: {
         backgroundImage: `url(${BackgroundImage})`,
-        height: "100vh",
         backgroundSize: "cover",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        minHeight: "100vh",
     },
     artistPageContentContainer: {
         maxWidth: "1400px",
@@ -51,6 +32,7 @@ const useStyles = () => ({
     artistPageUpperContainer: {
         background: "black",
         padding: "3rem 0.5rem",
+        margin: "3rem 2rem",
         display: "flex",
         justifyContent: "center",
     },
@@ -107,9 +89,17 @@ const useStyles = () => ({
         height: "25rem",
         overflow: "hidden",
     },
-    albumGridItem:{
-        display:'flex',
-    }
+    albumGrid: {
+        display: "grid",
+        padding: "0 1.5rem",
+        gridTemplateColumns: "auto auto",
+        gridTemplateRows: "auto auto",
+    },
+    artistPageAlbumGrid: {
+        padding: "0 1.5rem",
+        display: "flex",
+        flexDirection: "column",
+    },
 });
 
 const Artistpage = ({
@@ -152,7 +142,9 @@ const Artistpage = ({
         window.open(artistState.getArtist.bio.links.link.href);
     };
 
-    return Object.keys(artistState).length > 0 && artistState.getTopTracks && artistState.getTopAlbums ? (
+    return Object.keys(artistState).length > 0 &&
+        artistState.getTopTracks &&
+        artistState.getTopAlbums ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid
@@ -228,84 +220,35 @@ const Artistpage = ({
                         {artistState.getTopTracks.track
                             .filter((el, ind) => ind < 8)
                             .map((el, ind) => (
-                                <Grid
-                                    item
-                                    xs={12}
+                                <Songgrid
                                     key={el.name}
-                                    className={classes.songBarGrid}
-                                    style={{
-                                        padding: "1%",
-                                        animationDelay: `${
-                                            parseInt(ind) * 50
-                                        }ms`,
-                                    }}
-                                >
-                                    <Grid item xs={7}>
-                                        <Typography variant="subtitle1">
-                                            {el.name}{" "}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={5}
-                                        style={{
-                                            background: "gray",
-                                            border: "0.1px solid gray",
-                                            borderRadius: "5px",
-                                        }}
-                                    >
-                                        <Typography
-                                            variant="subtitle1"
-                                            style={{
-                                                width: `${
-                                                    (100 *
-                                                        parseInt(
-                                                            el.playcount
-                                                        )) /
-                                                    parseInt(maxListen)
-                                                }%`,
-                                                display: "inline-block",
-                                                background: "#3f51b5",
-                                                border: "0.1px solid #3f51b5",
-                                                borderRadius: "5px",
-                                                height: "100%",
-                                            }}
-                                        >
-                                            {el.playcount}&nbsp;
-                                            {ind === 0 ? "listeners" : null}
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
+                                    item={el}
+                                    ind={ind}
+                                    maxListen={maxListen}
+                                />
                             ))}
                     </Grid>
                 </Grid>
                 <Grid item xs={6} className={classes.artistPageRightGrid}>
-                    
+                    <Grid item xs={12} className={classes.artistPageAlbumGrid}>
+                        <Typography
+                            variant="h6"
+                            className={classes.bestSongText}
+                        >
+                            Best albums
+                        </Typography>
+                        <Grid item xs={12} className={classes.albumGrid}>
+                            {artistState.getTopAlbums.album
+                                .filter((el, ind) => ind < 5)
+                                .map((el) => (
+                                    <Albumgrid item={el} key={el.name} />
+                                ))}
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
 
-        <Grid container>
-        <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                            <Typography
-                                variant="h6"
-                                className={classes.bestSongText}
-                            >
-                                Best albums
-                            </Typography>
-                        <Grid item xs={12} className={classes.albumGrid}>
-                            {artistState.getTopAlbums.album.filter((el,ind) => ind <5 ).map(el => <Grid key={el.name} item xs={12} className={classes.albumGridItem}> 
-                                    <img src={el.image[1].["#text"]} alt={el.image[1].["#text"]}/>
-                                    <Typography
-                                variant="h6"
-                                className={classes.bestSongText}
-                                onClick={() => window.open(el.url)}
-                            >
-                               {el.name}
-                            </Typography>
-                                </Grid>)}
-                        </Grid>
-                    </Grid>
-        </Grid>
+            <Grid container></Grid>
         </Grid>
     ) : null;
 };
