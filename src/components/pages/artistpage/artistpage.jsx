@@ -26,6 +26,14 @@ const useStyles = () => ({
                 transform: "translateX(0rem)",
             },
         },
+        "@keyframes fadeIn": {
+            "0%": {
+                opacity: 0,
+            },
+            "100%": {
+                opacity: 1,
+            },
+        },
     },
 
     artistPageContainer: {
@@ -38,7 +46,7 @@ const useStyles = () => ({
     },
     artistPageContentContainer: {
         maxWidth: "1400px",
-        padding: "10rem 2rem",
+        padding: "2rem 2rem 4rem 2rem",
     },
     artistPageUpperContainer: {
         background: "black",
@@ -82,6 +90,10 @@ const useStyles = () => ({
     bestSongText: {
         color: "white",
         paddingBottom: "1rem",
+        opacity: 0,
+        animationName: "fadeIn",
+        animationDuration: "3s",
+        animationFillMode: "forwards",
     },
     songBarGrid: {
         display: "flex",
@@ -93,8 +105,11 @@ const useStyles = () => ({
     },
     songListGrid: {
         height: "25rem",
-        overflowX: "scroll",
+        overflow: "hidden",
     },
+    albumGridItem:{
+        display:'flex',
+    }
 });
 
 const Artistpage = ({
@@ -137,7 +152,7 @@ const Artistpage = ({
         window.open(artistState.getArtist.bio.links.link.href);
     };
 
-    return Object.keys(artistState).length > 0 && artistState.getTopTracks ? (
+    return Object.keys(artistState).length > 0 && artistState.getTopTracks && artistState.getTopAlbums ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid
@@ -227,7 +242,7 @@ const Artistpage = ({
                                 >
                                     <Grid item xs={7}>
                                         <Typography variant="subtitle1">
-                                            {el.name}
+                                            {el.name}{" "}
                                         </Typography>
                                     </Grid>
                                     <Grid
@@ -256,19 +271,41 @@ const Artistpage = ({
                                                 height: "100%",
                                             }}
                                         >
-                                            {el.playcount}
+                                            {el.playcount}&nbsp;
+                                            {ind === 0 ? "listeners" : null}
                                         </Typography>
                                     </Grid>
                                 </Grid>
                             ))}
                     </Grid>
                 </Grid>
-                <Grid
-                    item
-                    xs={6}
-                    className={classes.artistPageRightGrid}
-                ></Grid>
+                <Grid item xs={6} className={classes.artistPageRightGrid}>
+                    
+                </Grid>
             </Grid>
+
+        <Grid container>
+        <Grid item xs={12} className={classes.artistPageAlbumGrid}>
+                            <Typography
+                                variant="h6"
+                                className={classes.bestSongText}
+                            >
+                                Best albums
+                            </Typography>
+                        <Grid item xs={12} className={classes.albumGrid}>
+                            {artistState.getTopAlbums.album.filter((el,ind) => ind <5 ).map(el => <Grid key={el.name} item xs={12} className={classes.albumGridItem}> 
+                                    <img src={el.image[1].["#text"]} alt={el.image[1].["#text"]}/>
+                                    <Typography
+                                variant="h6"
+                                className={classes.bestSongText}
+                                onClick={() => window.open(el.url)}
+                            >
+                               {el.name}
+                            </Typography>
+                                </Grid>)}
+                        </Grid>
+                    </Grid>
+        </Grid>
         </Grid>
     ) : null;
 };
