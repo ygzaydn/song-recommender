@@ -30,12 +30,13 @@ const useStyles = () => ({
 
     homepagecardGrid: {
         maxWidth: "200px",
-        padding: "2rem 1.5rem 4rem 1.5rem",
+        padding: "2rem 1.5rem",
         border: "2px solid white",
         borderRadius: "20px",
         transition: "all 0.2s",
         position: "relative",
         opacity: 0,
+        textAlign: "center",
         animationName: (props) =>
             props.pos === "top" ? "topCard" : "bottomCard ",
         animationDuration: "2s",
@@ -78,10 +79,14 @@ const useStyles = () => ({
     },
 });
 
-const HomepageCard = ({ classes, link, icon, text }) => {
+const HomepageCard = ({ classes, icon, text, link }) => {
     const navigate = useNavigate();
     const clickCard = () => {
-        navigate("/search", { state: Math.floor(Math.random() * 10) % 4 });
+        navigate(`${link}`, {
+            state: {
+                backgroundId: Math.floor(Math.random() * 10) % 4,
+            },
+        });
     };
     return (
         <Grid

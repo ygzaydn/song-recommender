@@ -1,24 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
 
-import { mapDispatchToProps, mapStateToProps } from "../../store";
 import { Grid, Typography } from "@material-ui/core";
 
-import HomepageVideo from "../../assets/videos/video2.mp4";
-import HomepageCard from "../HomepageCard/homepagecard";
+import HomepageVideo from "../../../assets/videos/video2.mp4";
+import HomepageCard from "../../utils/HomepageCard/homepagecard";
 
 import MusicVideoIcon from "@mui/icons-material/MusicVideo";
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import ReplayIcon from "@mui/icons-material/Replay";
 
-const Homepage = ({
-    onStateChange,
-    onResetTrackState,
-    onResetArtistState,
-    onResetTagState,
-    onResetGeoState,
-}) => {
+const Homepage = () => {
     return (
         <Grid container style={{ height: "100vh" }}>
             <video className="main-page-video" autoPlay loop muted>
@@ -47,22 +39,23 @@ const Homepage = ({
                 >
                     <HomepageCard
                         icon={<MusicVideoIcon />}
-                        text="Artist"
+                        text="Find similar artists"
                         pos="top"
+                        link="/search/artist"
                     />
                     <HomepageCard
                         icon={<QueueMusicIcon />}
-                        text="Album"
+                        text="Find similar albums"
                         pos="top"
                     />
                     <HomepageCard
                         icon={<LibraryMusicIcon />}
-                        text="Song"
+                        text="Find similar songs"
                         pos="bot"
                     />
                     <HomepageCard
                         icon={<ReplayIcon />}
-                        text="Location"
+                        text="Hit songs by location"
                         pos="bot"
                     />
                 </Grid>
@@ -71,4 +64,4 @@ const Homepage = ({
     );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default Homepage;
