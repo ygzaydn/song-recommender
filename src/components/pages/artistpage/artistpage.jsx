@@ -39,7 +39,6 @@ const useStyles = () => ({
         backgroundImage: `linear-gradient(to right, #000000b6,#000000b6), url(${ResultBackground})`,
         backgroundPosition: "center",
         padding: "3rem 0.5rem",
-        margin: "3rem 0",
         display: "flex",
         justifyContent: "center",
         backgroundSize: "cover",
