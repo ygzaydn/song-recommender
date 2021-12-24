@@ -224,15 +224,3 @@ export const getGeoTopArtists = async (
         console.log(err);
     }
 };
-
-export const searchSingerImage = (text, setFunction) =>
-    axios
-        .get(`http://musicbrainz.org/ws/2/recording/?query=artist:${text}`)
-        .then((res) => {
-            let id = res.data.recordings[0].releases[0].id;
-            axios
-                .get(
-                    `https://fierce-basin-47502.herokuapp.com/http://coverartarchive.org/release/${id}?inc=url-rels`
-                )
-                .then((res) => setFunction(res.data.images[0].image));
-        });

@@ -28,7 +28,6 @@ const useStyles = () => ({
 
     songBarGrid: {
         display: "flex",
-        color: "white",
         transform: "translateX(-50rem)",
         animationName: "fromLeft",
         animationDuration: "1.5s",
@@ -71,6 +70,7 @@ const Songgrid = ({ classes, item, ind, maxListen }) => {
                         background: "#3f51b5",
                         borderRadius: "5px",
                         height: "100%",
+                        color: "white",
                     }}
                 >
                     {playcount}&nbsp;

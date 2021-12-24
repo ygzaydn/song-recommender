@@ -15,7 +15,6 @@ const useStyles = () => ({
         }
     },
     bestAlbumText: {
-        color: "white",
         paddingBottom: "1rem",
         textAlign:'center',
         textDecoration:"underline",

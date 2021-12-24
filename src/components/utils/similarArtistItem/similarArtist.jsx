@@ -1,20 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { Grid, Typography } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
 
-import { searchSingerImage } from "../../../axiosCalls";
+import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = () => ({
-    albumGridItem: {
+    "@global": {
+        "@keyframes fadeIn": {
+            "0%": {
+                opacity: 0,
+            },
+            "100%": {
+                opacity: 1,
+            },
+        },
+    },
+    similarArtistItem: {
         display: "flex",
         maxWidth: 200,
         padding: "0.5rem",
+        flexDirection: "column",
+        alignItems: "center",
+        animationName: "fadeIn",
+        animationDuration: "2s",
+        opacity: 0,
+        animationFillMode: "forwards",
+        "& svg": {
+            color: "black",
+        },
     },
-    bestAlbumText: {
-        color: "white",
+
+    similarArtistText: {
         paddingBottom: "1rem",
         textAlign: "center",
         textDecoration: "underline",
@@ -25,19 +45,19 @@ const useStyles = () => ({
 });
 
 const Similarartist = ({ item, classes }) => {
-    const [imageUrl, setImageUrl] = useState("");
-    const { name, url } = item;
+    const { name } = item;
+    const navigate = useNavigate();
+    useEffect(() => {}, [item]);
 
-    useEffect(() => {
-        searchSingerImage(name, setImageUrl);
-    }, []);
-    console.log(imageUrl);
     return (
-        <Grid key={name} item xs={12} className={classes.albumGridItem}>
+        <Grid key={name} item xs={12} className={classes.similarArtistItem}>
+            <LibraryMusicIcon />
             <Typography
                 variant="subtitle2"
-                className={classes.bestAlbumText}
-                onClick={() => window.open(url)}
+                className={classes.similarArtistText}
+                onClick={() => {
+                    navigate(`/artist/artistname=${name}`);
+                }}
             >
                 {name}
             </Typography>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Grid, Typography, Chip } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 import { compose } from "recompose";
@@ -11,15 +11,18 @@ import { useParams } from "react-router-dom";
 import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import BackgroundImage from "../../../assets/images/resultpage.jpg";
+import ResultBackground from "../../../assets/images/resultbackground.jpg";
 import { getArtistInfoFromName } from "../../../axiosCalls";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Songgrid from "../../utils/songGrid/songGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
+import ArtistpageHeader from "../../utils/artistpageHeader/artistpageHeader";
+import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
 
 const useStyles = () => ({
     artistPageContainer: {
-        backgroundImage: `url(${BackgroundImage})`,
+        backgroundColor: "white",
         backgroundSize: "cover",
         display: "flex",
         justifyContent: "center",
@@ -27,60 +30,23 @@ const useStyles = () => ({
         minHeight: "100vh",
     },
     artistPageContentContainer: {
-        maxWidth: "1400px",
+        maxWidth: "1250px",
         padding: "2rem 2rem 4rem 2rem",
+        borderRight: "0.1px solid lightgray",
+        borderLeft: "0.1px solid lightgray",
     },
     artistPageUpperContainer: {
-        background: "black",
+        backgroundImage: `linear-gradient(to right, #000000b6,#000000b6), url(${ResultBackground})`,
+        backgroundPosition: "center",
         padding: "3rem 0.5rem",
-        margin: "3rem 2rem",
+        margin: "3rem 0",
         display: "flex",
         justifyContent: "center",
-    },
-    artistPageUpperContentGrid: {
-        maxWidth: "900px",
-        padding: "0 2%",
-        display: "flex",
-        alignItems: "center",
-    },
-    artistPageUpperGridTitle: {
-        marginBottom: "0.5rem",
-    },
-    artistPageUpperGridBio: {
-        color: "lightGray",
-        textDecoration: "underline",
-        cursor: "pointer",
-        paddingLeft: "2rem",
-    },
-    artistPageUpperGridStats: {
-        display: "inline-block",
-        color: "gray",
-        paddingRight: "5rem",
-        paddingTop: "1.5rem",
-        fontWeight: 600,
-        paddingLeft: "2rem",
-    },
-    artistPageUpperGridTags: {
-        margin: "0.5rem",
-        transition: "all 0.5s",
-        borderRadius: 0,
-        fontSize: "1rem",
-        "&:hover": {
-            backgroundColor: "#3f51b5 !important",
-            color: "white !important",
-        },
-    },
-    bestSongText: {
-        color: "white",
-        paddingBottom: "1rem",
-        opacity: 0,
-        animationName: "fadeIn",
-        animationDuration: "3s",
-        animationFillMode: "forwards",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
     },
     songBarGrid: {
         display: "flex",
-        color: "white",
         transform: "translateX(-50rem)",
         animationName: "fromLeft",
         animationDuration: "1.5s",
@@ -121,9 +87,11 @@ const Artistpage = ({
     onGetTopAlbums,
 }) => {
     const { artistId } = useParams();
+    const [myArtist, setMyArtist] = useState("");
     const [maxListen, setMaxListen] = useState(0);
     useEffect(() => {
-        if (artistState.length === 0) {
+        if (artistState.length === 0 || myArtist !== artistId.split("=")[1]) {
+            setMyArtist(artistId.split("=")[1]);
             getArtistInfoFromName(
                 artistId.split("=")[1],
                 onGetArtist,
@@ -144,81 +112,19 @@ const Artistpage = ({
         onGetTopTracks,
         onGetTopAlbums,
         artistState.getTopTracks,
+        myArtist,
     ]);
-
-    const routeToBio = () => {
-        window.open(artistState.getArtist.bio.links.link.href);
-    };
 
     return Object.keys(artistState).length > 0 &&
         artistState.getTopTracks &&
         artistState.getTopAlbums ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
-                <Grid
-                    item
-                    xs={12}
-                    className={classes.artistPageUpperContentGrid}
-                >
-                    <Grid item xs={8}>
-                        <Typography
-                            color="primary"
-                            variant="h2"
-                            className={classes.artistPageUpperGridTitle}
-                        >
-                            {artistState.getArtist.name.toUpperCase()}
-                        </Typography>
-                        <Typography
-                            variant="subtitle2"
-                            className={classes.artistPageUpperGridBio}
-                            onClick={() => {
-                                routeToBio();
-                            }}
-                        >
-                            Click for bio
-                        </Typography>
-                        <Typography
-                            variant="subtitle2"
-                            className={classes.artistPageUpperGridStats}
-                        >
-                            Listeners:
-                            <br />
-                            <strong style={{ color: "white" }}>
-                                {artistState.getArtist.stats.listeners}
-                            </strong>
-                            <br />
-                        </Typography>
-                        <Typography
-                            variant="subtitle2"
-                            className={classes.artistPageUpperGridStats}
-                        >
-                            Play count:
-                            <br />
-                            <strong style={{ color: "white" }}>
-                                {artistState.getArtist.stats.playcount}
-                            </strong>
-                            <br />
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        {artistState.getArtist.tags.tag.map((el) => (
-                            <Chip
-                                color="primary"
-                                label={el.name}
-                                key={el.name}
-                                variant="outlined"
-                                onClick={() => window.open(el.url)}
-                                className={classes.artistPageUpperGridTags}
-                            />
-                        ))}
-                    </Grid>
-                </Grid>
+                <ArtistpageHeader artistState={artistState} />
             </Grid>
             <Grid container className={classes.artistPageContentContainer}>
                 <Grid item xs={6} className={classes.artistPageLeftGrid}>
-                    <Typography variant="h6" className={classes.bestSongText}>
-                        Best songs
-                    </Typography>
+                    <FadeInTitle text="Best songs" />
 
                     <Grid item xs={12} className={classes.songListGrid}>
                         {artistState.getTopTracks.track
@@ -235,12 +141,7 @@ const Artistpage = ({
                 </Grid>
                 <Grid item xs={6} className={classes.artistPageRightGrid}>
                     <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                        <Typography
-                            variant="h6"
-                            className={classes.bestSongText}
-                        >
-                            Best albums
-                        </Typography>
+                        <FadeInTitle text="Best albums" />
                         <Grid item xs={12} className={classes.albumGrid}>
                             {artistState.getTopAlbums.album
                                 .filter((el, ind) => ind < 5)
@@ -254,9 +155,7 @@ const Artistpage = ({
 
             <Grid container className={classes.artistPageSimilarContainer}>
                 <Grid item xs={12} className={classes.artistPageSimilarGrid}>
-                    <Typography variant="h6" className={classes.bestSongText}>
-                        Similar artists
-                    </Typography>
+                    <FadeInTitle text="Similar artists" />
                     <Grid item xs={12} className={classes.similarArtistGrid}>
                         {artistState.getArtist.similar.artist.map((el) => (
                             <Similarartist item={el} key={el.name} />
