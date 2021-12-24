@@ -64,12 +64,11 @@ const Songgrid = ({ classes, item, ind, maxListen }) => {
                 <Typography
                     variant="subtitle1"
                     style={{
-                        width: `${
+                        width: `min(${
                             (100 * parseInt(playcount)) / parseInt(maxListen)
-                        }%`,
+                        }%,100%)`,
                         display: "inline-block",
                         background: "#3f51b5",
-                        border: "0.1px solid #3f51b5",
                         borderRadius: "5px",
                         height: "100%",
                     }}

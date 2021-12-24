@@ -80,6 +80,9 @@ const useStyles = () => ({
         animationDuration: "1.2s",
         animationDelay: "1.5s",
         "animation-fill-mode": "forwards",
+        position: "relative",
+        right: "1rem",
+        zIndex: 2,
     },
 });
 

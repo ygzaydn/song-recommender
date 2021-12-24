@@ -15,6 +15,7 @@ import { getArtistInfoFromName } from "../../../axiosCalls";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Songgrid from "../../utils/songGrid/songGrid";
+import Similarartist from "../../utils/similarArtistItem/similarArtist";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -100,6 +101,16 @@ const useStyles = () => ({
         display: "flex",
         flexDirection: "column",
     },
+    artistPageSimilarContainer: {
+        maxWidth: 1600,
+        display: "flex",
+        justifyContent: "center",
+        padding: "1rem 3rem",
+    },
+    similarArtistGrid: {
+        display: "flex",
+    },
+    artistPageSimilarGrid: {},
 });
 
 const Artistpage = ({
@@ -134,9 +145,6 @@ const Artistpage = ({
         onGetTopAlbums,
         artistState.getTopTracks,
     ]);
-    console.log(artistState);
-
-    console.log(maxListen);
 
     const routeToBio = () => {
         window.open(artistState.getArtist.bio.links.link.href);
@@ -208,14 +216,10 @@ const Artistpage = ({
             </Grid>
             <Grid container className={classes.artistPageContentContainer}>
                 <Grid item xs={6} className={classes.artistPageLeftGrid}>
-                    <Grid item xs={12}>
-                        <Typography
-                            variant="h6"
-                            className={classes.bestSongText}
-                        >
-                            Best songs
-                        </Typography>
-                    </Grid>
+                    <Typography variant="h6" className={classes.bestSongText}>
+                        Best songs
+                    </Typography>
+
                     <Grid item xs={12} className={classes.songListGrid}>
                         {artistState.getTopTracks.track
                             .filter((el, ind) => ind < 8)
@@ -248,7 +252,18 @@ const Artistpage = ({
                 </Grid>
             </Grid>
 
-            <Grid container></Grid>
+            <Grid container className={classes.artistPageSimilarContainer}>
+                <Grid item xs={12} className={classes.artistPageSimilarGrid}>
+                    <Typography variant="h6" className={classes.bestSongText}>
+                        Similar artists
+                    </Typography>
+                    <Grid item xs={12} className={classes.similarArtistGrid}>
+                        {artistState.getArtist.similar.artist.map((el) => (
+                            <Similarartist item={el} key={el.name} />
+                        ))}
+                    </Grid>
+                </Grid>
+            </Grid>
         </Grid>
     ) : null;
 };
