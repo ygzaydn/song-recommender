@@ -7,6 +7,7 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Homepage from "./components/pages/homepage/homepage";
 import Searchpage from "./components/pages/searchpage/searchpage";
 import Artistpage from "./components/pages/artistpage/artistpage";
+import Trackpage from "./components/pages/trackpage/trackpage";
 
 const App = () => {
     return (
@@ -20,8 +21,18 @@ const App = () => {
                 />
                 <Route
                     exact
+                    path="/search/track/"
+                    element={<Searchpage title="Find similar tracks" />}
+                />
+                <Route
+                    exact
                     path="/artist/:artistId"
                     element={<Artistpage />}
+                />
+                <Route
+                    exact
+                    path="/track/:trackName/:trackArtist"
+                    element={<Trackpage />}
                 />
             </Routes>
         </BrowserRouter>

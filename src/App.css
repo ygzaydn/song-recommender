@@ -77,3 +77,8 @@ background: #ff1e56;
 	height: 60vh;
 }
 
+.container {
+	@media only screen and (min-width: 1000px) {
+		margin:auto
+	  }
+}

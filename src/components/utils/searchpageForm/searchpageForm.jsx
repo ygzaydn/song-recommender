@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../../../store";
 import { compose } from "recompose";
+import BackgroundImage from "../../../assets/images/searchboxbackground.jpg";
 
 const useStyles = () => ({
     searchpageFormPaperContainer: {
@@ -30,15 +31,21 @@ const useStyles = () => ({
     },
 
     searchpageFormPaperBackgroundGrid: {
-        border: "0.1px solid #FAFF7F",
         borderRadius: 150,
-        background: "#FAFF7F",
+        backgroundImage: `linear-gradient(#ffffffd1, #ffffffd1), url(${BackgroundImage})`,
         height: "35rem",
         width: "20rem",
         transform: "rotate(12deg)",
         position: "absolute",
         overflow: "hidden",
         zIndex: 1,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        "@media only screen and (max-width:1000px)": {
+            transform: "rotate(0deg)",
+            height: "25rem",
+            borderRadius: 20,
+        },
     },
 });
 
@@ -52,14 +59,17 @@ const SearchpageForm = ({ classes, title, properties }) => {
 
     const makeQuery = useCallback(
         (input, state) => {
-            let url = properties.toLink;
+            let parsedInput = Object.values(input).map((el) =>
+                el.replace(/ /g, "%20")
+            );
 
-            Object.keys(state).forEach((el) => {
-                url += el + "=" + state[el] + "/";
+            let url = properties.toLink;
+            Object.keys(state).forEach((el, key) => {
+                url += el + "=" + parsedInput[key] + "/";
             });
 
             properties
-                .function(input, ...properties.dispatcher)
+                .function(...parsedInput, ...properties.dispatcher)
                 .then(navigate(url));
         },
         [navigate, properties]
@@ -72,6 +82,13 @@ const SearchpageForm = ({ classes, title, properties }) => {
                 <Typography color="primary" variant="h6">
                     {title}
                 </Typography>
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                className={classes.searchpageFormPaperGrid}
+                style={{ justifyContent: "flex-start" }}
+            >
                 {properties.inputFields.map((el) => (
                     <TextField
                         label={el.name}

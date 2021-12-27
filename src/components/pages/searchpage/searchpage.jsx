@@ -17,7 +17,10 @@ import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import { compose } from "recompose";
 
-import { getArtistInfoFromName } from "../../../axiosCalls";
+import {
+    getArtistInfoFromName,
+    getTrackFromSearchwithNameandArtist,
+} from "../../../axiosCalls";
 
 const useStyles = () => ({
     "@global": {
@@ -56,6 +59,10 @@ const useStyles = () => ({
         animationDelay: ".5s",
         "animation-fill-mode": "forwards",
         zIndex: 2,
+        "@media only screen and (max-width: 1000px)": {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 80%)",
+        },
+
         "& svg": {
             fill: "white",
             stroke: "white",
@@ -83,6 +90,9 @@ const useStyles = () => ({
         position: "relative",
         right: "1rem",
         zIndex: 2,
+        "@media only screen and (max-width:1000px)": {
+            right: 0,
+        },
     },
 });
 
@@ -93,6 +103,9 @@ const Searchpage = ({
     onGetArtist,
     onGetTopTracks,
     onGetTopAlbums,
+    onGetTrack,
+    onGetSimilarTrack,
+    onStateChange,
 }) => {
     const [properties, setProperties] = useState(null);
 
@@ -115,7 +128,27 @@ const Searchpage = ({
                 toLink: "/artist/",
             });
         }
-    }, [goBackHomepage, state, onGetArtist, onGetTopTracks, onGetTopAlbums]);
+        if (window.location.href.includes("/track")) {
+            setProperties({
+                function: getTrackFromSearchwithNameandArtist,
+                dispatcher: [onGetTrack, onGetSimilarTrack, onStateChange],
+                inputFields: [
+                    { name: "Track Name", key: "trackName" },
+                    { name: "Artist", key: "trackArtist" },
+                ],
+                toLink: "/track/",
+            });
+        }
+    }, [
+        goBackHomepage,
+        state,
+        onGetArtist,
+        onGetTopTracks,
+        onGetTopAlbums,
+        onGetTrack,
+        onGetSimilarTrack,
+        onStateChange,
+    ]);
 
     return state ? (
         <Grid container className={classes.searchpageContainer}>

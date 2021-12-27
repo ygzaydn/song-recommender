@@ -66,8 +66,7 @@ const useStyles = () => ({
         marginBottom: "1.5rem",
         "& svg": {
             color: "white",
-            height: 60,
-            width: 60,
+            height: "min(60,5rem)",
         },
     },
     textGrid: {
@@ -75,6 +74,7 @@ const useStyles = () => ({
         justifyContent: "center",
         "& h6": {
             color: "white",
+            fontSize: "min(5vw, 1.25rem)",
         },
     },
 });

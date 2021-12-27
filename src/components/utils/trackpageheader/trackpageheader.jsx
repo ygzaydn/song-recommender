@@ -37,19 +37,19 @@ const useStyles = () => ({
         borderRadius: 0,
         fontSize: "1rem",
         maxWidth: "100%",
-        backgroundColor: "white",
+        backgroundColor: "transparent",
+        color: "gray",
         "&:hover": {
             backgroundColor: "#3f51b5 !important",
             color: "white !important",
+            borderRadius: 5,
         },
     },
 });
 
-const ArtistpageHeader = ({ artistState, classes }) => {
-    const { getArtist } = artistState;
-
+const TrackpageHeader = ({ trackState, classes }) => {
     const routeToBio = () => {
-        window.open(getArtist.bio.links.link.href);
+        window.open(trackState.wiki);
     };
 
     return (
@@ -60,7 +60,7 @@ const ArtistpageHeader = ({ artistState, classes }) => {
                     variant="h2"
                     className={classes.artistPageUpperGridTitle}
                 >
-                    {getArtist.name.toUpperCase()}
+                    {trackState.name.toUpperCase()}
                 </Typography>
                 <Typography
                     variant="subtitle2"
@@ -69,7 +69,7 @@ const ArtistpageHeader = ({ artistState, classes }) => {
                         routeToBio();
                     }}
                 >
-                    Click for bio
+                    Click for more info
                 </Typography>
                 <Typography
                     variant="subtitle2"
@@ -78,7 +78,7 @@ const ArtistpageHeader = ({ artistState, classes }) => {
                     Listeners:
                     <br />
                     <strong style={{ color: "white" }}>
-                        {getArtist.stats.listeners}
+                        {trackState.listeners}
                     </strong>
                     <br />
                 </Typography>
@@ -89,13 +89,13 @@ const ArtistpageHeader = ({ artistState, classes }) => {
                     Play count:
                     <br />
                     <strong style={{ color: "white" }}>
-                        {getArtist.stats.playcount}
+                        {trackState.playcount}
                     </strong>
                     <br />
                 </Typography>
             </Grid>
             <Grid item xs={4}>
-                {getArtist.tags.tag.map((el) => (
+                {trackState.toptags.tag.map((el) => (
                     <Chip
                         color="primary"
                         label={el.name}
@@ -111,4 +111,4 @@ const ArtistpageHeader = ({ artistState, classes }) => {
     );
 };
 
-export default compose(withStyles(useStyles))(ArtistpageHeader);
+export default compose(withStyles(useStyles))(TrackpageHeader);

@@ -13,13 +13,13 @@ import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
-import { getArtistInfoFromName } from "../../../axiosCalls";
+import { getTrackFromSearchwithNameandArtist } from "../../../axiosCalls";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Songgrid from "../../utils/songGrid/songGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
-import ArtistpageHeader from "../../utils/artistpageHeader/artistpageHeader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
+import Trackpageheader from "../../utils/trackpageheader/trackpageheader";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -61,8 +61,6 @@ const useStyles = () => ({
     albumGrid: {
         display: "grid",
         padding: "0 1.5rem",
-        gridTemplateColumns: "auto auto",
-        gridTemplateRows: "auto auto",
     },
     artistPageAlbumGrid: {
         padding: "0 1.5rem",
@@ -98,109 +96,104 @@ const useStyles = () => ({
     },
 });
 
-const Artistpage = ({
+const Trackpage = ({
     classes,
-    artistState,
-    onGetArtist,
-    onGetTopTracks,
-    onGetTopAlbums,
+    trackInfoState,
+    onGetTrack,
+    onGetSimilarTrack,
+    onStateChange,
 }) => {
-    const { artistId } = useParams();
+    const { trackName, trackArtist } = useParams();
     const [myArtist, setMyArtist] = useState("");
-    const [maxListen, setMaxListen] = useState(0);
+    const [myTrack, setMyTrack] = useState("");
     const navigate = useNavigate();
+
+    const { getSimilarTrack, getTrack } = trackInfoState;
+
     useEffect(() => {
-        if (artistState.length === 0 || myArtist !== artistId.split("=")[1]) {
-            setMyArtist(artistId.split("=")[1]);
-            getArtistInfoFromName(
-                artistId.split("=")[1],
-                onGetArtist,
-                onGetTopTracks,
-                onGetTopAlbums
-            );
+        if (trackName.length === 0 || myTrack !== trackName.split("=")[1]) {
+            setMyTrack(trackName.split("=")[1]);
         }
         if (
-            artistState.getTopTracks &&
-            artistState.getTopTracks.track.length > 0
+            trackArtist.length === 0 ||
+            myArtist !== trackArtist.split("=")[1]
         ) {
-            setMaxListen(artistState.getTopTracks.track[0].playcount);
+            setMyArtist(trackArtist.split("=")[1]);
+        }
+        if (
+            trackName.split("=")[1].length > 0 &&
+            trackArtist.split("=")[1].length > 0 &&
+            myArtist.length === 0 &&
+            myTrack.length === 0
+        ) {
+            getTrackFromSearchwithNameandArtist(
+                trackName.split("=")[1],
+                trackArtist.split("=")[1],
+                onGetTrack,
+                onGetSimilarTrack,
+                onStateChange
+            );
         }
     }, [
-        artistId,
-        artistState.length,
-        onGetArtist,
-        onGetTopTracks,
-        onGetTopAlbums,
-        artistState.getTopTracks,
+        trackInfoState,
         myArtist,
+        myTrack,
+        onGetSimilarTrack,
+        onGetTrack,
+        onStateChange,
+        trackArtist,
+        trackName,
     ]);
 
-    return Object.keys(artistState).length > 0 &&
-        artistState.getTopTracks &&
-        artistState.getTopAlbums ? (
+    return Object.keys(trackInfoState).length > 1 ? (
         <Grid container className={classes.artistPageContainer}>
-            <Grid container className={classes.artistPageUpperContainer}>
+            <Grid container className={classes.artistPageUpperContainer} style={{backgroundImage: `linear-gradient(to right, #000000b6,#000000b6), url(${getTrack.album.image.[3]["#text"]})`,}}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
                     <ArrowBackOutlinedIcon onClick={() => navigate(-1)} />
                 </Grid>
-                <ArtistpageHeader artistState={artistState} />
+                <Trackpageheader trackState={getTrack} />
             </Grid>
             <Grid container className={classes.artistPageContentContainer}>
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={classes.artistPageLeftGrid}
-                >
-                    <FadeInTitle text="Best songs" />
-
-                    <Grid item xs={12} className={classes.songListGrid}>
-                        {artistState.getTopTracks.track
-                            .filter((el, ind) => ind < 8)
-                            .map((el, ind) => (
-                                <Songgrid
-                                    key={el.name}
-                                    item={el}
-                                    ind={ind}
-                                    maxListen={maxListen}
-                                />
-                            ))}
-                    </Grid>
-                </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={classes.artistPageRightGrid}
-                >
-                    <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                        <FadeInTitle text="Best albums" />
-                        <Grid item xs={12} className={classes.albumGrid}>
-                            {artistState.getTopAlbums.album
-                                .filter((el, ind) => ind < 5)
-                                .map((el) => (
-                                    <Albumgrid item={el} key={el.name} />
-                                ))}
-                        </Grid>
-                    </Grid>
+            <Grid item xs={12} sm={6} className={classes.artistPageLeftGrid}>
+                <FadeInTitle text="Similar songs" />
+                <Grid item xs={12} className={classes.songListGrid}>
+                    {getSimilarTrack
+                        .filter((el, ind) => ind < 8)
+                        .map((el, ind) => (
+                            <Songgrid
+                                key={el.name}
+                                item={el}
+                                ind={ind}
+                                maxListen={1}
+                            />
+                        ))}
                 </Grid>
             </Grid>
-
-            <Grid container className={classes.artistPageSimilarContainer}>
-                <Grid item xs={12} className={classes.artistPageSimilarGrid}>
-                    <FadeInTitle text="Similar artists" />
+            <Grid
+                item
+                xs={12}
+                sm={6}
+                className={classes.artistPageRightGrid}
+            >
+                <Grid item xs={12} className={classes.artistPageAlbumGrid}>
+                    <FadeInTitle text="Album Info" />
+                    <Grid item xs={12} className={classes.albumGrid}>
+                        <Albumgrid item={{name:getTrack.album.title, image: getTrack.album.image, url: getTrack.album.url,}} key={getTrack.album.name} />
+                    </Grid>
+                </Grid>
+                <Grid item xs={12} className={classes.artistPageAlbumGrid}>
+                    <FadeInTitle text="Artist Info" />
                     <Grid container className={classes.similarArtistGrid}>
-                        {artistState.getArtist.similar.artist.map((el) => (
-                            <Similarartist item={el} key={el.name} />
-                        ))}
+                        <Similarartist item={getTrack.artist} key={getTrack.artist.name} />
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
+    </Grid>
     ) : null;
 };
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withStyles(useStyles)
-)(Artistpage);
+)(Trackpage);

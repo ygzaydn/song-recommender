@@ -115,8 +115,6 @@ export const getTrackFromSearchwithNameandArtist = async (
         dispatcherMethod1(responseOne);
         dispatcherMethod2(responseTwo);
         stateMethod1("TrackInfo");
-        console.log(responseOne);
-        console.log(responseTwo);
     } catch (error) {
         console.log(error);
     }

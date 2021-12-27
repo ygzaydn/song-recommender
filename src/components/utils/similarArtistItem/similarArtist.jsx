@@ -50,7 +50,14 @@ const Similarartist = ({ item, classes }) => {
     useEffect(() => {}, [item]);
 
     return (
-        <Grid key={name} item xs={12} className={classes.similarArtistItem}>
+        <Grid
+            key={name}
+            item
+            xs={6}
+            sm={4}
+            md={3}
+            className={classes.similarArtistItem}
+        >
             <LibraryMusicIcon />
             <Typography
                 variant="subtitle2"

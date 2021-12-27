@@ -16,15 +16,13 @@ const Homepage = () => {
             <video className="main-page-video" autoPlay loop muted>
                 <source src={HomepageVideo} type="video/mp4" />
             </video>
-            <Grid
-                container
-                style={{ maxWidth: 1440, margin: "auto", padding: "0 2rem" }}
-            >
+            <Grid container style={{ padding: "0 2rem" }}>
                 <Grid item md={6} sm={12} className="main-page-grid-sm-12-md-6">
                     <Typography
                         variant="h3"
                         color="primary"
                         className="main-page-h3-text"
+                        style={{ fontSize: "min(15vw, 3rem)" }}
                     >
                         Find the best&nbsp;
                         <strong style={{ color: "lightgray" }}>music</strong>
@@ -45,8 +43,9 @@ const Homepage = () => {
                     />
                     <HomepageCard
                         icon={<QueueMusicIcon />}
-                        text="Find similar albums"
+                        text="Find similar tracks"
                         pos="top"
+                        link="/search/track"
                     />
                     <HomepageCard
                         icon={<LibraryMusicIcon />}

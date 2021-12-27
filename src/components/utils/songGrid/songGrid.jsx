@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
+
+import { getTrackFromSearch } from "../../../axiosCalls";
+import { connect } from "react-redux";
+import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 const useStyles = () => ({
     "@global": {
@@ -35,8 +39,28 @@ const useStyles = () => ({
     },
 });
 
-const Songgrid = ({ classes, item, ind, maxListen }) => {
-    const { name, playcount } = item;
+const Songgrid = ({
+    classes,
+    item,
+    ind,
+    maxListen,
+    onGetTrack,
+    onGetSimilarTrack,
+    onStateChange,
+}) => {
+    const [pageProperty, setPageProperty] = useState(
+        window.location.href.includes("trackArtist=" ? "Track" : "Artist")
+    );
+    const { name, playcount, match, mbid } = item;
+    const getSong = () => {
+        getTrackFromSearch(mbid, onGetTrack, onGetSimilarTrack, onStateChange);
+    };
+
+    const width =
+        pageProperty === "Artist"
+            ? (100 * parseInt(playcount)) / parseInt(maxListen)
+            : parseFloat(match) * 100;
+
     return (
         <Grid
             item
@@ -49,7 +73,9 @@ const Songgrid = ({ classes, item, ind, maxListen }) => {
             }}
         >
             <Grid item xs={7}>
-                <Typography variant="subtitle1">{name} </Typography>
+                <Typography variant="subtitle1" onClick={() => getSong()}>
+                    {name}{" "}
+                </Typography>
             </Grid>
             <Grid
                 item
@@ -63,9 +89,7 @@ const Songgrid = ({ classes, item, ind, maxListen }) => {
                 <Typography
                     variant="subtitle1"
                     style={{
-                        width: `min(${
-                            (100 * parseInt(playcount)) / parseInt(maxListen)
-                        }%,100%)`,
+                        width: `min(${width}%,100%)`,
                         display: "inline-block",
                         background: "#3f51b5",
                         borderRadius: "5px",
@@ -73,12 +97,21 @@ const Songgrid = ({ classes, item, ind, maxListen }) => {
                         color: "white",
                     }}
                 >
-                    {playcount}&nbsp;
-                    {ind === 0 ? "listeners" : null}
+                    {pageProperty === "Artist"
+                        ? playcount
+                        : parseInt(match * 100) + "%"}{" "}
+                    {ind === 0
+                        ? pageProperty === "Artist"
+                            ? "listeners"
+                            : "match"
+                        : null}
                 </Typography>
             </Grid>
         </Grid>
     );
 };
 
-export default compose(withStyles(useStyles))(Songgrid);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withStyles(useStyles)
+)(Songgrid);
