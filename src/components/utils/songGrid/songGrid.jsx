@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
@@ -6,6 +6,7 @@ import { compose } from "recompose";
 import { getTrackFromSearch } from "../../../axiosCalls";
 import { connect } from "react-redux";
 import { mapDispatchToProps, mapStateToProps } from "../../../store";
+import { useNavigate } from "react-router";
 
 const useStyles = () => ({
     "@global": {
@@ -37,6 +38,17 @@ const useStyles = () => ({
         animationDuration: "1.5s",
         animationFillMode: "forwards",
     },
+
+    songNameTypo: {
+        display: "inline-block",
+        textDecoration: "underline",
+        transition: "all .5s",
+        "&:hover": {
+            cursor: "pointer",
+            textDecoration: "none",
+            paddingLeft: "1rem",
+        },
+    },
 });
 
 const Songgrid = ({
@@ -48,12 +60,22 @@ const Songgrid = ({
     onGetSimilarTrack,
     onStateChange,
 }) => {
-    const [pageProperty, setPageProperty] = useState(
-        window.location.href.includes("trackArtist=" ? "Track" : "Artist")
-    );
-    const { name, playcount, match, mbid } = item;
+    const pageProperty = window.location.href.includes("trackArtist=")
+        ? "Track"
+        : "Artist";
+
+    const { name, playcount, match, mbid, artist } = item;
+    const navigate = useNavigate();
+
     const getSong = () => {
-        getTrackFromSearch(mbid, onGetTrack, onGetSimilarTrack, onStateChange);
+        getTrackFromSearch(
+            mbid,
+            onGetTrack,
+            onGetSimilarTrack,
+            onStateChange
+        ).then(() => {
+            navigate(`/track/trackName=${name}/trackArtist=${artist.name}/`);
+        });
     };
 
     const width =
@@ -72,8 +94,13 @@ const Songgrid = ({
                 animationDelay: `${parseInt(ind) * 50}ms`,
             }}
         >
-            <Grid item xs={7}>
-                <Typography variant="subtitle1" onClick={() => getSong()}>
+            <Grid item xs={7} style={{ position: "relative" }}>
+                <div className={classes.animationDiv} />
+                <Typography
+                    variant="subtitle1"
+                    onClick={() => getSong()}
+                    className={classes.songNameTypo}
+                >
                     {name}{" "}
                 </Typography>
             </Grid>

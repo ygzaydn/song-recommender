@@ -41,6 +41,12 @@ const useStyles = () => ({
         padding: "0.5rem",
         cursor: "pointer",
         margin: "auto",
+        transition: "all .5s",
+        "&:hover": {
+            cursor: "pointer",
+            textDecoration: "none",
+            paddingLeft: "1rem",
+        },
     },
 });
 

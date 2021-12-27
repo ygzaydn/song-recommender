@@ -21,6 +21,12 @@ const useStyles = () => ({
         textDecoration: "underline",
         cursor: "pointer",
         paddingLeft: "2rem",
+        transition: "all .5s",
+        "&:hover": {
+            cursor: "pointer",
+            textDecoration: "none",
+            paddingLeft: "1rem",
+        },
     },
     artistPageUpperGridStats: {
         display: "inline-block",
@@ -37,7 +43,7 @@ const useStyles = () => ({
         borderRadius: 0,
         fontSize: "1rem",
         maxWidth: "100%",
-        backgroundColor: "white",
+        color: "gray",
         "&:hover": {
             backgroundColor: "#3f51b5 !important",
             color: "white !important",

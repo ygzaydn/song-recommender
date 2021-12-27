@@ -29,7 +29,13 @@ const useStyles = () => ({
         textDecoration:"underline",
         padding:"0.5rem",
         cursor:"pointer",
-        margin:"auto"
+        margin:"auto",
+        transition: "all .5s",
+        "&:hover": {
+            cursor: "pointer",
+            textDecoration: "none",
+            paddingLeft: "0.2rem",
+        },
     },
 })
 

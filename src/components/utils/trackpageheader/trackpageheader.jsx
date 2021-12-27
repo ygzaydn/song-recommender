@@ -21,6 +21,13 @@ const useStyles = () => ({
         textDecoration: "underline",
         cursor: "pointer",
         paddingLeft: "2rem",
+        transition: "all .5s",
+        display: "inline-block",
+        "&:hover": {
+            cursor: "pointer",
+            textDecoration: "none",
+            paddingLeft: "1rem",
+        },
     },
     artistPageUpperGridStats: {
         display: "inline-block",
@@ -62,15 +69,17 @@ const TrackpageHeader = ({ trackState, classes }) => {
                 >
                     {trackState.name.toUpperCase()}
                 </Typography>
-                <Typography
-                    variant="subtitle2"
-                    className={classes.artistPageUpperGridBio}
-                    onClick={() => {
-                        routeToBio();
-                    }}
-                >
-                    Click for more info
-                </Typography>
+                <Grid item xs={12}>
+                    <Typography
+                        variant="subtitle2"
+                        className={classes.artistPageUpperGridBio}
+                        onClick={() => {
+                            routeToBio();
+                        }}
+                    >
+                        Click for more info
+                    </Typography>
+                </Grid>
                 <Typography
                     variant="subtitle2"
                     className={classes.artistPageUpperGridStats}
