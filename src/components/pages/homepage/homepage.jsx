@@ -49,8 +49,9 @@ const Homepage = () => {
                     />
                     <HomepageCard
                         icon={<LibraryMusicIcon />}
-                        text="Find similar songs"
+                        text="Find country hits"
                         pos="bot"
+                        link="/search/geo"
                     />
                     <HomepageCard
                         icon={<ReplayIcon />}

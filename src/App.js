@@ -26,6 +26,11 @@ const App = () => {
                 />
                 <Route
                     exact
+                    path="/search/geo/"
+                    element={<Searchpage title="Find country hits" />}
+                />
+                <Route
+                    exact
                     path="/artist/:artistId"
                     element={<Artistpage />}
                 />

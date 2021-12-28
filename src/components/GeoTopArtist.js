@@ -15,10 +15,11 @@ import { geoTopArtistStyle } from "../themes";
 const GeoTopArtist = ({
     geoState,
     onGetGeoTopArtists,
-    onStateChange,
-    onGetArtist,
+    onGetGeoTopTracks,
     onGetTopTracks,
     onGetTopAlbums,
+    onStateChange,
+    onGetArtist,
 }) => {
     const classes = geoTopArtistStyle(window.innerWidth);
     const [searchText, setSearchText] = useState("");

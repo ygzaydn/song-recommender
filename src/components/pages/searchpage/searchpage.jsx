@@ -20,6 +20,7 @@ import { compose } from "recompose";
 import {
     getArtistInfoFromName,
     getTrackFromSearchwithNameandArtist,
+    getGeoInfo,
 } from "../../../axiosCalls";
 
 const useStyles = () => ({
@@ -106,6 +107,8 @@ const Searchpage = ({
     onGetTrack,
     onGetSimilarTrack,
     onStateChange,
+    onGetGeoTopArtists,
+    onGetGeoTopTracks,
 }) => {
     const [properties, setProperties] = useState(null);
 
@@ -127,8 +130,7 @@ const Searchpage = ({
                 inputFields: [{ name: "Artist Name", key: "artistname" }],
                 toLink: "/artist/",
             });
-        }
-        if (window.location.href.includes("/track")) {
+        } else if (window.location.href.includes("/track")) {
             setProperties({
                 function: getTrackFromSearchwithNameandArtist,
                 dispatcher: [onGetTrack, onGetSimilarTrack, onStateChange],
@@ -137,6 +139,13 @@ const Searchpage = ({
                     { name: "Artist", key: "trackArtist" },
                 ],
                 toLink: "/track/",
+            });
+        } else if (window.location.href.includes("/geo")) {
+            setProperties({
+                function: getGeoInfo,
+                dispatcher: [onGetGeoTopArtists, onGetGeoTopTracks],
+                inputFields: [{ name: "Country", key: "country" }],
+                toLink: "/geo/",
             });
         }
     }, [
@@ -148,6 +157,8 @@ const Searchpage = ({
         onGetTrack,
         onGetSimilarTrack,
         onStateChange,
+        onGetGeoTopArtists,
+        onGetGeoTopTracks,
     ]);
 
     return state ? (
