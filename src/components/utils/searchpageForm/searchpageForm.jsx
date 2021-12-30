@@ -70,7 +70,7 @@ const SearchpageForm = ({
             switch (properties.toLink) {
                 case "/artist/":
                     navigate(
-                        `/artist/${artistState.getArtist.name}/${artistState.getArtist.mbid}`
+                        `/artist/${artistState.getArtist.name}`
                     );
                     break;
                 case "/track/":

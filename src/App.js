@@ -12,41 +12,37 @@ import Geopage from "./components/pages/geopage/geopage";
 import Tagpage from "./components/pages/tagpage/tagpage";
 
 const App = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/song-recommender" element={<Homepage />} />
-                <Route
-                    exact
-                    path="/search/artist/"
-                    element={<Searchpage title="Find similar artists" />}
-                />
-                <Route
-                    exact
-                    path="/search/track/"
-                    element={<Searchpage title="Find similar tracks" />}
-                />
-                <Route
-                    exact
-                    path="/search/geo/"
-                    element={<Searchpage title="Find country hits" />}
-                />
-                <Route
-                    exact
-                    path="/search/tag/"
-                    element={<Searchpage title="Search similar tags" />}
-                />
-                <Route
-                    exact
-                    path="/artist/:artistName"
-                    element={<Artistpage />}
-                />
-                <Route exact path="/track/:trackMbid" element={<Trackpage />} />
-                <Route exact path="/geo/:countryId" element={<Geopage />} />
-                <Route exact path="/tag/:tagId" element={<Tagpage />} />
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route
+          exact
+          path="/search/artist/"
+          element={<Searchpage title="Find similar artists" />}
+        />
+        <Route
+          exact
+          path="/search/track/"
+          element={<Searchpage title="Find similar tracks" />}
+        />
+        <Route
+          exact
+          path="/search/geo/"
+          element={<Searchpage title="Find country hits" />}
+        />
+        <Route
+          exact
+          path="/search/tag/"
+          element={<Searchpage title="Search similar tags" />}
+        />
+        <Route exact path="/artist/:artistName" element={<Artistpage />} />
+        <Route exact path="/track/:trackMbid" element={<Trackpage />} />
+        <Route exact path="/geo/:countryId" element={<Geopage />} />
+        <Route exact path="/tag/:tagId" element={<Tagpage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;

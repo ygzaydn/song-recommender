@@ -1,6 +1,5 @@
 {
   "name": "song-recommender",
-  "homepage": "https://ygzaydn.github.io/song-recommender/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,6 +15,7 @@
     "axios": "^0.24.0",
     "cors-anywhere": "^0.4.4",
     "dotenv": "^8.6.0",
+    "firebase": "^9.6.1",
     "fontsource-roboto": "^3.1.5",
     "material-ui-icons": "^1.0.0-beta.36",
     "passport-spotify": "^1.1.0",

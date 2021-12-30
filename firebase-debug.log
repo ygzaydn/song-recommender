@@ -1,0 +1,31 @@
+[debug] [2021-12-30T20:55:12.844Z] ----------------------------------------------------------------------
+[debug] [2021-12-30T20:55:12.846Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Yağız Aydın\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2021-12-30T20:55:12.846Z] CLI Version:   10.0.1
+[debug] [2021-12-30T20:55:12.846Z] Platform:      win32
+[debug] [2021-12-30T20:55:12.846Z] Node Version:  v12.18.4
+[debug] [2021-12-30T20:55:12.847Z] Time:          Thu Dec 30 2021 23:55:12 GMT+0300 (GMT+03:00)
+[debug] [2021-12-30T20:55:12.847Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-12-30T20:55:12.898Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-12-30T20:55:12.899Z] > authorizing via signed-in user (ygzaydns@gmail.com)
+[debug] [2021-12-30T20:55:12.899Z] [iam] checking project song-recommender-001 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-12-30T20:55:12.901Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/song-recommender-001:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2021-12-30T20:55:13.978Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 30 Dec 2021 20:55:12 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=766","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-12-30T20:55:13.980Z] > refreshing access token with scopes: []
+[debug] [2021-12-30T20:55:13.980Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-12-30T20:55:14.397Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","date":"Thu, 30 Dec 2021 20:55:13 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-12-30T20:55:14.418Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/song-recommender-001 [none]
+[debug] [2021-12-30T20:55:14.854Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/song-recommender-001 200
+[debug] [2021-12-30T20:55:14.855Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/song-recommender-001 {"projectId":"song-recommender-001","projectNumber":"758983915844","displayName":"song-recommender-001","name":"projects/song-recommender-001","resources":{"hostingSite":"song-recommender-001"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'song-recommender-001'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2021-12-30T20:55:14.859Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-12-30T20:55:14.859Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-12-30T20:55:15.222Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","date":"Thu, 30 Dec 2021 20:55:14 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-12-30T20:55:15.243Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/song-recommender-001/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
