@@ -1,5 +1,6 @@
 {
   "name": "song-recommender",
+  "homepage": "https://ygzaydn.github.io/song-recommender/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

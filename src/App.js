@@ -15,7 +15,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route exact path="/" element={<Homepage />} />
+                <Route path="/song-recommender" element={<Homepage />} />
                 <Route
                     exact
                     path="/search/artist/"
