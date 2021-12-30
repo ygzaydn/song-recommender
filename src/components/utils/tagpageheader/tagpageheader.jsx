@@ -14,6 +14,7 @@ const useStyles = () => ({
         maxWidth: "900px",
         padding: "2rem",
         alignItems: "center",
+        display:'flex',
     },
     artistPageUpperGridBio: {
         color: "lightGray",

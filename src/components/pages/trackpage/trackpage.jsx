@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import HomeIcon from '@mui/icons-material/Home';
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 import { getTrackFromSearch } from "../../../axiosCalls";
 
@@ -127,7 +128,8 @@ const Trackpage = ({
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer} style={{backgroundImage: `linear-gradient(to right, #000000b6,#000000b6), url(${getTrack.album.image[3]["#text"]})`,}}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
-                    <ArrowBackOutlinedIcon onClick={() => navigate(-1)} />
+                    <ArrowBackOutlinedIcon onClick={() => navigate(-1)} style={{padding: "0 2rem"}}/>
+                    <HomeIcon onClick={()=>navigate("/")}/>
                 </Grid>
                 <Trackpageheader trackState={getTrack} />
             </Grid>

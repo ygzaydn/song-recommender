@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import HomeIcon from '@mui/icons-material/Home';
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 import { getTagInfoFromName } from "../../../axiosCalls";
 
@@ -138,7 +139,8 @@ const Tagpage = ({
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
-                    <ArrowBackOutlinedIcon onClick={() => navigate(-1)} />
+                    <ArrowBackOutlinedIcon onClick={() => navigate(-1)} style={{padding: "0 2rem"}}/>
+                    <HomeIcon onClick={()=>navigate("/")}/>
                 </Grid>
                 <Tagpageheader tagState={getTag} />
             </Grid>

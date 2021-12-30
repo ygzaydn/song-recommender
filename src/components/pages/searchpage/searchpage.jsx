@@ -7,6 +7,7 @@ import Background3 from "../../../assets/images/search-3.jpg";
 import Background4 from "../../../assets/images/search-4.jpg";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import HomeIcon from '@mui/icons-material/Home';
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -66,12 +67,12 @@ const useStyles = () => ({
         },
 
         "& svg": {
+            margin:"2rem",
             fill: "white",
             stroke: "white",
             height: 50,
             width: 50,
             cursor: "pointer",
-            position: "absolute",
             top: "5%",
             left: "5%",
             transition: "all .4s",
@@ -198,7 +199,8 @@ const Searchpage = ({
                             : `url(${Background4})`,
                 }}
             >
-                <ArrowBackOutlinedIcon onClick={() => goBackHomepage()} />
+                <ArrowBackOutlinedIcon onClick={() => navigate(-1)} style={{padding: "0 2rem"}}/>
+                <HomeIcon onClick={()=>navigate("/")}/>
             </Grid>
             <Grid item xs={12} md={4} className={classes.searchpageFromGrid}>
                 <SearchpageForm title={title} properties={properties} />
