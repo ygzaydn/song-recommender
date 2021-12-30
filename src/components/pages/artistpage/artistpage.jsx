@@ -20,6 +20,7 @@ import Songgrid from "../../utils/songGrid/songGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
 import ArtistpageHeader from "../../utils/artistpageHeader/artistpageHeader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
+import Loading from '../../utils/loading/loading'
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -201,7 +202,7 @@ const Artistpage = ({
                 </Grid>
             </Grid>
         </Grid>
-    ) : null;
+    ) : <Loading />;
 };
 
 export default compose(

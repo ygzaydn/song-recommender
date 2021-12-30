@@ -16,12 +16,11 @@ import ResultBackground from "../../../assets/images/resultbackground.jpg";
 import { getTagInfoFromName } from "../../../axiosCalls";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
-import Songgrid from "../../utils/songGrid/songGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
-import Trackpageheader from "../../utils/trackpageheader/trackpageheader";
 import Tagpageheader from "../../utils/tagpageheader/tagpageheader";
 import HitGrid from "../../utils/hitGrid/hitGrid";
+import Loading from '../../utils/loading/loading'
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -202,7 +201,7 @@ const Tagpage = ({
                 </Grid>
             </Grid>
         </Grid>
-    ) : null;
+    ) : <Loading />;
 };
 
 export default compose(

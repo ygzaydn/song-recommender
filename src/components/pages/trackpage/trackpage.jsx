@@ -20,6 +20,7 @@ import Songgrid from "../../utils/songGrid/songGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
 import Trackpageheader from "../../utils/trackpageheader/trackpageheader";
+import Loading from '../../utils/loading/loading'
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -124,7 +125,7 @@ const Trackpage = ({
 
     return Object.keys(trackInfoState).length > 1 ? (
         <Grid container className={classes.artistPageContainer}>
-            <Grid container className={classes.artistPageUpperContainer} style={{backgroundImage: `linear-gradient(to right, #000000b6,#000000b6), url(${getTrack.album.image.[3]["#text"]})`,}}>
+            <Grid container className={classes.artistPageUpperContainer} style={{backgroundImage: `linear-gradient(to right, #000000b6,#000000b6), url(${getTrack.album.image[3]["#text"]})`,}}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
                     <ArrowBackOutlinedIcon onClick={() => navigate(-1)} />
                 </Grid>
@@ -167,7 +168,9 @@ const Trackpage = ({
             </Grid>
         </Grid>
     </Grid>
-    ) : null;
+    ) : 
+        <Loading />;
+   
 };
 
 export default compose(

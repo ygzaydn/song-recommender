@@ -19,6 +19,7 @@ import { getGeoInfo } from "../../../axiosCalls";
 import GeopageHeader from "../../utils/geopageheader/geopageheader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
 import HitGrid from "../../utils/hitGrid/hitGrid";
+import Loading from '../../utils/loading/loading'
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -171,7 +172,7 @@ const Geopage = ({
                 </Grid>
             </Grid>
         </Grid>
-    ) : null;
+    ) : <Loading />;
 };
 
 export default compose(
