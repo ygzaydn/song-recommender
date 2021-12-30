@@ -54,7 +54,6 @@ const Similarartist = ({ item, classes }) => {
     const { name } = item;
     const navigate = useNavigate();
     useEffect(() => {}, [item]);
-
     return (
         <Grid
             key={name}
@@ -69,7 +68,7 @@ const Similarartist = ({ item, classes }) => {
                 variant="subtitle2"
                 className={classes.similarArtistText}
                 onClick={() => {
-                    navigate(`/artist/artistname=${name}`);
+                    navigate(`/artist/${name.replace(/ /g, "%20")}`);
                 }}
             >
                 {name}

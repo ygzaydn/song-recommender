@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -13,13 +13,15 @@ import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
-import { getArtistInfoFromName } from "../../../axiosCalls";
+import { getTagInfoFromName } from "../../../axiosCalls";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Songgrid from "../../utils/songGrid/songGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
-import ArtistpageHeader from "../../utils/artistpageHeader/artistpageHeader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
+import Trackpageheader from "../../utils/trackpageheader/trackpageheader";
+import Tagpageheader from "../../utils/tagpageheader/tagpageheader";
+import HitGrid from "../../utils/hitGrid/hitGrid";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -56,18 +58,20 @@ const useStyles = () => ({
     },
     songListGrid: {
         height: "25rem",
-        overflow: "hidden",
+        overflowX: "hidden",
     },
     albumGrid: {
-        display: "grid",
-        padding: "0 1.5rem",
-        gridTemplateColumns: "auto auto",
-        gridTemplateRows: "auto auto",
-    },
-    artistPageAlbumGrid: {
         padding: "0 1.5rem",
         display: "flex",
+        flexWrap: "wrap",
+        overflowY: "scroll",
+        height: "25rem",
+    },
+    artistPageAlbumGrid: {
+        padding: "1.5rem .5rem",
+        display: "flex",
         flexDirection: "column",
+        maxHeight: "30rem",
     },
     artistPageSimilarContainer: {
         maxWidth: 1600,
@@ -98,57 +102,48 @@ const useStyles = () => ({
     },
 });
 
-const Artistpage = ({
+const Tagpage = ({
     classes,
-    artistState,
-    onGetArtist,
-    onGetTopTracks,
-    onGetTopAlbums,
+    tagState,
+    onGetTag,
+    onGetTopAlbumsTag,
+    onGetTopArtistTag,
+    onGetTopTracksTag,
 }) => {
-    const [maxListen, setMaxListen] = useState(0);
-    const [myArtist, setMyArtist] = useState("");
+    const { tagId } = useParams();
     const navigate = useNavigate();
-    const { artistName } = useParams();
+
+    const { getTag, getTopAlbumTags, getTopArtistTags, getTopTrackTags } =
+        tagState;
 
     useEffect(() => {
-        if (artistState.length === 0 || myArtist !== artistName) {
-            getArtistInfoFromName(
-                artistName,
-                onGetArtist,
-                onGetTopTracks,
-                onGetTopAlbums
+        if (tagState.length === 0) {
+            getTagInfoFromName(
+                tagId,
+                onGetTag,
+                onGetTopAlbumsTag,
+                onGetTopArtistTag,
+                onGetTopTracksTag
             );
         }
-        if (
-            artistState.length > 0 &&
-            artistState.getTopTracks &&
-            artistState.getTopTracks.track.length > 0
-        ) {
-            setMaxListen(artistState.getTopTracks.track[0].playcount);
-        }
-        if (artistState.getArtist) {
-            setMyArtist(artistState.getArtist.name);
-        }
     }, [
-        artistState,
-        artistState.length,
-        onGetArtist,
-        onGetTopTracks,
-        onGetTopAlbums,
-        artistName,
-        myArtist,
+        tagState,
+        tagId,
+        onGetTag,
+        onGetTopAlbumsTag,
+        onGetTopArtistTag,
+        onGetTopTracksTag,
     ]);
 
-    return Object.keys(artistState).length > 2 &&
-        artistState.getTopTracks &&
-        artistState.getTopAlbums ? (
+    return Object.keys(tagState).length > 3 ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
                     <ArrowBackOutlinedIcon onClick={() => navigate(-1)} />
                 </Grid>
-                <ArtistpageHeader artistState={artistState} />
+                <Tagpageheader tagState={getTag} />
             </Grid>
+
             <Grid container className={classes.artistPageContentContainer}>
                 <Grid
                     item
@@ -156,19 +151,16 @@ const Artistpage = ({
                     sm={6}
                     className={classes.artistPageLeftGrid}
                 >
-                    <FadeInTitle text="Best songs" />
-
+                    <FadeInTitle text="Top songs" />
                     <Grid item xs={12} className={classes.songListGrid}>
-                        {artistState.getTopTracks.track
-                            .filter((el, ind) => ind < 8)
-                            .map((el, ind) => (
-                                <Songgrid
-                                    key={el.name}
-                                    item={el}
-                                    ind={ind}
-                                    maxListen={maxListen}
-                                />
-                            ))}
+                        {getTopTrackTags.map((el, ind) => (
+                            <HitGrid
+                                key={el.name}
+                                item={el}
+                                ind={ind}
+                                mode={"tagSong"}
+                            />
+                        ))}
                     </Grid>
                 </Grid>
                 <Grid
@@ -178,24 +170,33 @@ const Artistpage = ({
                     className={classes.artistPageRightGrid}
                 >
                     <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                        <FadeInTitle text="Best albums" />
+                        <FadeInTitle text="Top Albums" />
                         <Grid item xs={12} className={classes.albumGrid}>
-                            {artistState.getTopAlbums.album
-                                .filter((el, ind) => ind < 5)
-                                .map((el) => (
-                                    <Albumgrid item={el} key={el.name} />
-                                ))}
+                            {getTopAlbumTags.map((el, ind) => (
+                                <Albumgrid
+                                    key={el.mbid + ind}
+                                    item={el}
+                                    mode="tag"
+                                />
+                            ))}
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-
-            <Grid container className={classes.artistPageSimilarContainer}>
-                <Grid item xs={12} className={classes.artistPageSimilarGrid}>
-                    <FadeInTitle text="Similar artists" />
+            <Grid
+                container
+                style={{ display: "flex", justifyContent: "center" }}
+            >
+                <Grid
+                    item
+                    xs={12}
+                    sm={10}
+                    className={classes.artistPageAlbumGrid}
+                >
+                    <FadeInTitle text="Top Artists" />
                     <Grid container className={classes.similarArtistGrid}>
-                        {artistState.getArtist.similar.artist.map((el) => (
-                            <Similarartist item={el} key={el.name} />
+                        {getTopArtistTags.map((el) => (
+                            <Similarartist item={el} key={el.mbid} />
                         ))}
                     </Grid>
                 </Grid>
@@ -207,4 +208,4 @@ const Artistpage = ({
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withStyles(useStyles)
-)(Artistpage);
+)(Tagpage);

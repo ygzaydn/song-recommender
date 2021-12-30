@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -13,7 +13,7 @@ import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
-import { getTrackFromSearchwithNameandArtist } from "../../../axiosCalls";
+import { getTrackFromSearch } from "../../../axiosCalls";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Songgrid from "../../utils/songGrid/songGrid";
@@ -101,48 +101,25 @@ const Trackpage = ({
     trackInfoState,
     onGetTrack,
     onGetSimilarTrack,
-    onStateChange,
 }) => {
-    const { trackName, trackArtist } = useParams();
-    const [myArtist, setMyArtist] = useState("");
-    const [myTrack, setMyTrack] = useState("");
+    const { trackMbid } = useParams();
     const navigate = useNavigate();
 
     const { getSimilarTrack, getTrack } = trackInfoState;
 
     useEffect(() => {
-        if (trackName.length === 0 || myTrack !== trackName.split("=")[1]) {
-            setMyTrack(trackName.split("=")[1]);
-        }
-        if (
-            trackArtist.length === 0 ||
-            myArtist !== trackArtist.split("=")[1]
-        ) {
-            setMyArtist(trackArtist.split("=")[1]);
-        }
-        if (
-            trackName.split("=")[1].length > 0 &&
-            trackArtist.split("=")[1].length > 0 &&
-            myArtist.length === 0 &&
-            myTrack.length === 0
-        ) {
-            getTrackFromSearchwithNameandArtist(
-                trackName.split("=")[1],
-                trackArtist.split("=")[1],
+        if (trackInfoState.length === 0) {
+            getTrackFromSearch(
+                trackMbid,
                 onGetTrack,
                 onGetSimilarTrack,
-                onStateChange
             );
         }
     }, [
         trackInfoState,
-        myArtist,
-        myTrack,
+        trackMbid,
         onGetSimilarTrack,
         onGetTrack,
-        onStateChange,
-        trackArtist,
-        trackName,
     ]);
 
     return Object.keys(trackInfoState).length > 1 ? (

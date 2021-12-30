@@ -21,6 +21,7 @@ import {
     getArtistInfoFromName,
     getTrackFromSearchwithNameandArtist,
     getGeoInfo,
+    getTagInfoFromName,
 } from "../../../axiosCalls";
 
 const useStyles = () => ({
@@ -106,9 +107,12 @@ const Searchpage = ({
     onGetTopAlbums,
     onGetTrack,
     onGetSimilarTrack,
-    onStateChange,
     onGetGeoTopArtists,
     onGetGeoTopTracks,
+    onGetTag,
+    onGetTopAlbumsTag,
+    onGetTopArtistTag,
+    onGetTopTracksTag,
 }) => {
     const [properties, setProperties] = useState(null);
 
@@ -133,7 +137,7 @@ const Searchpage = ({
         } else if (window.location.href.includes("/track")) {
             setProperties({
                 function: getTrackFromSearchwithNameandArtist,
-                dispatcher: [onGetTrack, onGetSimilarTrack, onStateChange],
+                dispatcher: [onGetTrack, onGetSimilarTrack],
                 inputFields: [
                     { name: "Track Name", key: "trackName" },
                     { name: "Artist", key: "trackArtist" },
@@ -143,9 +147,21 @@ const Searchpage = ({
         } else if (window.location.href.includes("/geo")) {
             setProperties({
                 function: getGeoInfo,
-                dispatcher: [onGetGeoTopArtists, onGetGeoTopTracks],
+                dispatcher: [onGetGeoTopTracks, onGetGeoTopArtists],
                 inputFields: [{ name: "Country", key: "country" }],
                 toLink: "/geo/",
+            });
+        } else if (window.location.href.includes("/tag")) {
+            setProperties({
+                function: getTagInfoFromName,
+                dispatcher: [
+                    onGetTag,
+                    onGetTopAlbumsTag,
+                    onGetTopArtistTag,
+                    onGetTopTracksTag,
+                ],
+                inputFields: [{ name: "Tag", key: "tag" }],
+                toLink: "/tag/",
             });
         }
     }, [
@@ -156,9 +172,12 @@ const Searchpage = ({
         onGetTopAlbums,
         onGetTrack,
         onGetSimilarTrack,
-        onStateChange,
         onGetGeoTopArtists,
         onGetGeoTopTracks,
+        onGetTag,
+        onGetTopAlbumsTag,
+        onGetTopArtistTag,
+        onGetTopTracksTag,
     ]);
 
     return state ? (

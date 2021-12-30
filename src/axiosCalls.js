@@ -17,8 +17,7 @@ export const getArtistInfoFromSearch = async (
     mbid,
     dispatcherMethod1,
     dispatcherMethod2,
-    dispatcherMethod3,
-    stateMethod1
+    dispatcherMethod3
 ) => {
     const requestOne = axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`
@@ -34,10 +33,10 @@ export const getArtistInfoFromSearch = async (
         const responseOne = responses[0];
         const responseTwo = responses[1];
         const responseThree = responses[2];
+        console.log(responses);
         dispatcherMethod1(responseOne);
         dispatcherMethod2(responseTwo);
         dispatcherMethod3(responseThree);
-        stateMethod1("ArtistInfo");
     } catch (error) {
         console.log(error);
     }
@@ -74,8 +73,7 @@ export const getArtistInfoFromName = async (
 export const getTrackFromSearch = async (
     mbid,
     dispatcherMethod1,
-    dispatcherMethod2,
-    stateMethod1
+    dispatcherMethod2
 ) => {
     const requestOne = axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${process.env.REACT_APP_API_KEY}&mbid=${mbid}&format=json`
@@ -89,7 +87,6 @@ export const getTrackFromSearch = async (
         const responseTwo = responses[1];
         dispatcherMethod1(responseOne);
         dispatcherMethod2(responseTwo);
-        stateMethod1("TrackInfo");
     } catch (error) {
         console.log(error);
     }
@@ -99,8 +96,7 @@ export const getTrackFromSearchwithNameandArtist = async (
     track,
     artist,
     dispatcherMethod1,
-    dispatcherMethod2,
-    stateMethod1
+    dispatcherMethod2
 ) => {
     const requestOne = axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${process.env.REACT_APP_API_KEY}&track=${track}&artist=${artist}&format=json`
@@ -114,7 +110,6 @@ export const getTrackFromSearchwithNameandArtist = async (
         const responseTwo = responses[1];
         dispatcherMethod1(responseOne);
         dispatcherMethod2(responseTwo);
-        stateMethod1("TrackInfo");
     } catch (error) {
         console.log(error);
     }
@@ -140,8 +135,7 @@ export const getTagInfoFromName = async (
     dispatcherMethod1,
     dispatcherMethod2,
     dispatcherMethod3,
-    dispatcherMethod4,
-    stateMethod
+    dispatcherMethod4
 ) => {
     const requestOne = axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=tag.getInfo&api_key=${process.env.REACT_APP_API_KEY}&tag=${tag}&format=json`
@@ -171,20 +165,17 @@ export const getTagInfoFromName = async (
         dispatcherMethod2(responseTwo);
         dispatcherMethod3(responseThree);
         dispatcherMethod4(responseFour);
-
-        stateMethod("TagInfo");
     } catch (error) {
         console.log(error);
     }
 };
 
-export const getTopTags = async (dispatcherMethod, stateMethod) => {
+export const getTopTags = async (dispatcherMethod) => {
     const res = await axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=tag.getTopTags&api_key=${process.env.REACT_APP_API_KEY}&format=json`
     );
     try {
         dispatcherMethod(res);
-        stateMethod("TagRecommend");
     } catch (err) {
         console.log(err);
     }
@@ -193,8 +184,7 @@ export const getTopTags = async (dispatcherMethod, stateMethod) => {
 export const getGeoInfo = async (
     country,
     dispatcherMethod,
-    dispatcherMethod2,
-    stateMethod
+    dispatcherMethod2
 ) => {
     const res = await axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`
@@ -206,24 +196,18 @@ export const getGeoInfo = async (
     try {
         dispatcherMethod(responses[0]);
         dispatcherMethod2(responses[1]);
-        stateMethod("Geo");
     } catch (err) {
         console.log(err);
     }
 };
 
-export const getGeoTopArtists = async (
-    country,
-    dispatcherMethod,
-    stateMethod
-) => {
+export const getGeoTopArtists = async (country, dispatcherMethod) => {
     const res = await axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=geo.getTopArtists&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`
     );
     try {
         dispatcherMethod(res);
         console.log(res);
-        stateMethod("GeoTopArtist");
     } catch (err) {
         console.log(err);
     }

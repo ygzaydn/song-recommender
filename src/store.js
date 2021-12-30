@@ -6,8 +6,6 @@ import { createLogger } from "redux-logger";
 const RECOMMEND_ARTIST = "RECOMMEND_ARTIST";
 const RECOMMEND_TRACK = "RECOMMEND_TRACK";
 
-const STATE_CHANGE = "STATE_CHANGE";
-
 const GET_TRACK = "GET_TRACK";
 const GET_ARTIST = "GET_ARTIST";
 const GET_TAG = "GET_TAG";
@@ -66,16 +64,6 @@ const artistReducer = (state = [], action) => {
         }
         case RESET_ARTIST_STATE: {
             return applyResetArtistState(state, action);
-        }
-        default:
-            return state;
-    }
-};
-
-const renderReducer = (state = "", action) => {
-    switch (action.type) {
-        case STATE_CHANGE: {
-            return action.id;
         }
         default:
             return state;
@@ -317,26 +305,12 @@ const doGetGeoTopTracks = (geo) => {
     };
 };
 
-const doResetGeoState = () => {
-    return {
-        type: RESET_GEO_STATE,
-    };
-};
-//renderState action creators
-const doStateChange = (id) => {
-    return {
-        type: STATE_CHANGE,
-        id,
-    };
-};
-
 //store initialization
 const logger = createLogger();
 
 const rootReducer = combineReducers({
     trackInfoState: trackInfoReducer,
     artistState: artistReducer,
-    renderState: renderReducer,
     tagState: tagReducer,
     geoState: geoReducer,
 });
@@ -351,7 +325,6 @@ export const mapStateToProps = (state) => {
     return {
         trackInfoState: state.trackInfoState,
         artistState: state.artistState,
-        renderState: state.renderState,
         tagState: state.tagState,
         geoState: state.geoState,
     };
@@ -366,8 +339,6 @@ export const mapDispatchToProps = (dispatch) => {
         onGetArtist: (artist) => dispatch(doGetRecommendedArtist(artist)),
         onGetTrack: (track) => dispatch(doGetRecommendedTrack(track)),
         onGetTag: (tag) => dispatch(doGetTag(tag)),
-
-        onStateChange: (id) => dispatch(doStateChange(id)),
 
         onGetTopAlbums: (artist) => dispatch(doGetTopAlbums(artist)),
         onGetTopTracks: (tracks) => dispatch(doGetTopTracks(tracks)),
@@ -384,6 +355,5 @@ export const mapDispatchToProps = (dispatch) => {
         onResetTrackState: () => dispatch(doResetTrackState()),
         onResetArtistState: () => dispatch(doResetArtistState()),
         onResetTagState: () => dispatch(doResetTagState()),
-        onResetGeoState: () => dispatch(doResetGeoState()),
     };
 };

@@ -58,23 +58,17 @@ const Songgrid = ({
     maxListen,
     onGetTrack,
     onGetSimilarTrack,
-    onStateChange,
 }) => {
-    const pageProperty = window.location.href.includes("trackArtist=")
+    const pageProperty = window.location.href.includes("track/")
         ? "Track"
         : "Artist";
 
-    const { name, playcount, match, mbid, artist } = item;
+    const { name, playcount, match, mbid } = item;
     const navigate = useNavigate();
 
     const getSong = () => {
-        getTrackFromSearch(
-            mbid,
-            onGetTrack,
-            onGetSimilarTrack,
-            onStateChange
-        ).then(() => {
-            navigate(`/track/trackName=${name}/trackArtist=${artist.name}/`);
+        getTrackFromSearch(mbid, onGetTrack, onGetSimilarTrack).then(() => {
+            navigate(`/track/${mbid}`);
         });
     };
 

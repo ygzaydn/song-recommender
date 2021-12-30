@@ -11,7 +11,8 @@ const useStyles = () => ({
         maxWidth:250,
         padding:"1rem",
         "& img":{
-            width:"50%",
+            width:"100%",
+            height:"fit-content"
         },
         "@media only screen and (max-width: 1000px)":{
             flexDirection:"column",
@@ -40,14 +41,19 @@ const useStyles = () => ({
 })
 
 
-const Albumgrid = ({item, classes}) => {
+const Albumgrid = ({item, classes, mode, key}) => {
     const {name, image, url} = item
     return (
-            <Grid key={name} item xs={12} className={classes.albumGridItem}> 
+            <Grid key={url} item xs={12} sm={6} className={classes.albumGridItem}> 
                 <img src={image[1].["#text"]} alt={image[3].["#text"]}/>
-                <Typography variant="subtitle2" className={classes.bestAlbumText} onClick={() => window.open(url)}>
-                    {name}
-                </Typography>
+                <Grid item xs={12}>
+                    <Typography variant="subtitle1" className={classes.bestAlbumText} onClick={() => window.open(url)}>
+                        <strong>{name}</strong> 
+                    </Typography>
+                    {mode === "tag" && <Typography variant="subtitle2" style={{textAlign:'center'}}>
+                        {item.artist.name}
+                    </Typography>}
+                </Grid>
            </Grid>
     )
 }

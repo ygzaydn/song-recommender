@@ -13,13 +13,12 @@ import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
-import { getArtistInfoFromName } from "../../../axiosCalls";
 
-import Albumgrid from "../../utils/albumGrid/albumGrid";
-import Songgrid from "../../utils/songGrid/songGrid";
-import Similarartist from "../../utils/similarArtistItem/similarArtist";
-import ArtistpageHeader from "../../utils/artistpageHeader/artistpageHeader";
+import { getGeoInfo } from "../../../axiosCalls";
+
+import GeopageHeader from "../../utils/geopageheader/geopageheader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
+import HitGrid from "../../utils/hitGrid/hitGrid";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -55,14 +54,13 @@ const useStyles = () => ({
         animationFillMode: "forwards",
     },
     songListGrid: {
-        height: "25rem",
-        overflow: "hidden",
+        height: "35rem",
+        overflowY: "scroll",
+        overflowX: "hidden",
     },
     albumGrid: {
         display: "grid",
         padding: "0 1.5rem",
-        gridTemplateColumns: "auto auto",
-        gridTemplateRows: "auto auto",
     },
     artistPageAlbumGrid: {
         padding: "0 1.5rem",
@@ -98,56 +96,35 @@ const useStyles = () => ({
     },
 });
 
-const Artistpage = ({
+const Geopage = ({
     classes,
-    artistState,
-    onGetArtist,
-    onGetTopTracks,
-    onGetTopAlbums,
+    geoState,
+    onGetGeoTopArtists,
+    onGetGeoTopTracks,
 }) => {
-    const [maxListen, setMaxListen] = useState(0);
-    const [myArtist, setMyArtist] = useState("");
+    const [countryName, setCountryName] = useState("");
+
     const navigate = useNavigate();
-    const { artistName } = useParams();
+    const { countryId } = useParams();
+
+    const { getGeoTopArtists, getGeoTopTracks } = geoState;
 
     useEffect(() => {
-        if (artistState.length === 0 || myArtist !== artistName) {
-            getArtistInfoFromName(
-                artistName,
-                onGetArtist,
-                onGetTopTracks,
-                onGetTopAlbums
-            );
+        if (countryId.length === 0 || countryName !== countryId) {
+            setCountryName(countryId);
         }
-        if (
-            artistState.length > 0 &&
-            artistState.getTopTracks &&
-            artistState.getTopTracks.track.length > 0
-        ) {
-            setMaxListen(artistState.getTopTracks.track[0].playcount);
+        if (countryId.length > 0 && countryName.length === 0) {
+            getGeoInfo(countryId, onGetGeoTopTracks, onGetGeoTopArtists);
         }
-        if (artistState.getArtist) {
-            setMyArtist(artistState.getArtist.name);
-        }
-    }, [
-        artistState,
-        artistState.length,
-        onGetArtist,
-        onGetTopTracks,
-        onGetTopAlbums,
-        artistName,
-        myArtist,
-    ]);
+    }, [countryId, countryName, onGetGeoTopArtists, onGetGeoTopTracks]);
 
-    return Object.keys(artistState).length > 2 &&
-        artistState.getTopTracks &&
-        artistState.getTopAlbums ? (
+    return Object.keys(geoState).length > 1 ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
                     <ArrowBackOutlinedIcon onClick={() => navigate(-1)} />
                 </Grid>
-                <ArtistpageHeader artistState={artistState} />
+                <GeopageHeader countryName={countryName} />
             </Grid>
             <Grid container className={classes.artistPageContentContainer}>
                 <Grid
@@ -155,18 +132,18 @@ const Artistpage = ({
                     xs={12}
                     sm={6}
                     className={classes.artistPageLeftGrid}
+                    style={{ padding: "2%" }}
                 >
-                    <FadeInTitle text="Best songs" />
-
+                    <FadeInTitle text="Hit songs" />
                     <Grid item xs={12} className={classes.songListGrid}>
-                        {artistState.getTopTracks.track
-                            .filter((el, ind) => ind < 8)
+                        {getGeoTopTracks
+                            .filter((el, ind) => ind < 25)
                             .map((el, ind) => (
-                                <Songgrid
+                                <HitGrid
                                     key={el.name}
                                     item={el}
                                     ind={ind}
-                                    maxListen={maxListen}
+                                    maxListen={1}
                                 />
                             ))}
                     </Grid>
@@ -175,28 +152,21 @@ const Artistpage = ({
                     item
                     xs={12}
                     sm={6}
-                    className={classes.artistPageRightGrid}
+                    className={classes.artistPageLeftGrid}
+                    style={{ padding: "2%" }}
                 >
-                    <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                        <FadeInTitle text="Best albums" />
-                        <Grid item xs={12} className={classes.albumGrid}>
-                            {artistState.getTopAlbums.album
-                                .filter((el, ind) => ind < 5)
-                                .map((el) => (
-                                    <Albumgrid item={el} key={el.name} />
-                                ))}
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
-
-            <Grid container className={classes.artistPageSimilarContainer}>
-                <Grid item xs={12} className={classes.artistPageSimilarGrid}>
-                    <FadeInTitle text="Similar artists" />
-                    <Grid container className={classes.similarArtistGrid}>
-                        {artistState.getArtist.similar.artist.map((el) => (
-                            <Similarartist item={el} key={el.name} />
-                        ))}
+                    <FadeInTitle text="Hit bands" />
+                    <Grid item xs={12} className={classes.songListGrid}>
+                        {getGeoTopArtists
+                            .filter((el, ind) => ind < 25)
+                            .map((el, ind) => (
+                                <HitGrid
+                                    key={el.name}
+                                    item={el}
+                                    ind={ind}
+                                    mode="artist"
+                                />
+                            ))}
                     </Grid>
                 </Grid>
             </Grid>
@@ -207,4 +177,4 @@ const Artistpage = ({
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withStyles(useStyles)
-)(Artistpage);
+)(Geopage);

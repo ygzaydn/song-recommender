@@ -5,9 +5,30 @@ import { useNavigate } from "react-router-dom";
 
 const useStyles = () => ({
     "@global": {
-        "@keyframes topCard": {
+        "@keyframes topLeftCard": {
             "0%": {
-                transform: "translateY(-50%)",
+                transform: "translateY(-50%) translateX(-50%)",
+                opacity: 0,
+            },
+            "100%": {
+                transform: "translateY(0%) translateX(0%)",
+                opacity: 1,
+            },
+        },
+        "@keyframes topRightCard": {
+            "0%": {
+                transform: "translateY(-50%) translateX(50%)",
+                opacity: 0,
+            },
+            "100%": {
+                transform: "translateY(0%) translateX(0%)",
+                opacity: 1,
+            },
+        },
+
+        "@keyframes bottomLeftCard": {
+            "0%": {
+                transform: "translateY(50%) translateX(-50%)",
                 opacity: 0,
             },
             "100%": {
@@ -16,9 +37,9 @@ const useStyles = () => ({
             },
         },
 
-        "@keyframes bottomCard": {
+        "@keyframes bottomRightCard": {
             "0%": {
-                transform: "translateY(50%)",
+                transform: "translateY(50%) translateX(50%)",
                 opacity: 0,
             },
             "100%": {
@@ -32,20 +53,37 @@ const useStyles = () => ({
         maxWidth: "200px",
         padding: "2rem 1.5rem",
         border: "2px solid white",
-        borderRadius: "20px",
-        transition: "all 0.2s",
+        borderTopLeftRadius: (props) =>
+            props.pos === "top-left" ? "20%" : null,
+        borderTopRightRadius: (props) =>
+            props.pos === "top-right" ? "20%" : null,
+        borderBottomLeftRadius: (props) =>
+            props.pos === "bot-left" ? "20%" : null,
+        borderBottomRightRadius: (props) =>
+            props.pos === "bot-right" ? "20%" : null,
+        transition: "all .5s",
         position: "relative",
         opacity: 0,
         textAlign: "center",
         animationName: (props) =>
-            props.pos === "top" ? "topCard" : "bottomCard ",
+            props.pos === "top-left"
+                ? "topLeftCard"
+                : props.pos === "top-right"
+                ? "topRightCard"
+                : props.pos === "bot-left"
+                ? "bottomLeftCard"
+                : "bottomRightCard",
         animationDuration: "2s",
         animationDelay: ".5s",
         "animation-fill-mode": "forwards",
+        right: 0,
+        bottom: 0,
         "&:hover": {
             cursor: "pointer",
-            transform: "scale(1.1)",
+            right: (props) => (props.pos.includes("left") ? "4%" : "-4%"),
+            bottom: (props) => (props.pos.includes("top") ? "4%" : "-4%"),
             backgroundColor: "white",
+            transition: "all .2s",
             "& svg": {
                 color: "black",
             },

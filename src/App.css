@@ -62,8 +62,8 @@ background: #ff1e56;
 
 .main-page-grid {
 	display: grid;
-	grid-column-gap: 50px;
-	grid-row-gap: 50px;
+	grid-column-gap: 2px;
+	grid-row-gap: 2px;
 	grid-template: auto auto / auto auto;
 	justify-content: center;
 	align-content: center;
@@ -80,5 +80,12 @@ background: #ff1e56;
 .container {
 	@media only screen and (min-width: 1000px) {
 		margin:auto
+	  }
+}
+
+.container-bottom {
+	position: "fixed";
+	@media only screen and (max-width: 1000px) {
+		position:unset;
 	  }
 }

@@ -8,6 +8,8 @@ import Homepage from "./components/pages/homepage/homepage";
 import Searchpage from "./components/pages/searchpage/searchpage";
 import Artistpage from "./components/pages/artistpage/artistpage";
 import Trackpage from "./components/pages/trackpage/trackpage";
+import Geopage from "./components/pages/geopage/geopage";
+import Tagpage from "./components/pages/tagpage/tagpage";
 
 const App = () => {
     return (
@@ -31,14 +33,17 @@ const App = () => {
                 />
                 <Route
                     exact
-                    path="/artist/:artistId"
-                    element={<Artistpage />}
+                    path="/search/tag/"
+                    element={<Searchpage title="Search similar tags" />}
                 />
                 <Route
                     exact
-                    path="/track/:trackName/:trackArtist"
-                    element={<Trackpage />}
+                    path="/artist/:artistName"
+                    element={<Artistpage />}
                 />
+                <Route exact path="/track/:trackMbid" element={<Trackpage />} />
+                <Route exact path="/geo/:countryId" element={<Geopage />} />
+                <Route exact path="/tag/:tagId" element={<Tagpage />} />
             </Routes>
         </BrowserRouter>
     );

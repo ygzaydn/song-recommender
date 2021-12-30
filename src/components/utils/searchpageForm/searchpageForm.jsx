@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 import { Paper, Grid, Typography, TextField, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -49,7 +49,15 @@ const useStyles = () => ({
     },
 });
 
-const SearchpageForm = ({ classes, title, properties }) => {
+const SearchpageForm = ({
+    classes,
+    title,
+    properties,
+    trackInfoState,
+    artistState,
+    tagState,
+    geoState,
+}) => {
     const [text, setText] = useState("");
 
     const handleChange = (event) => {
@@ -57,23 +65,42 @@ const SearchpageForm = ({ classes, title, properties }) => {
     };
     const navigate = useNavigate();
 
+    const navigateMbid = useCallback(() => {
+        if (properties !== null) {
+            switch (properties.toLink) {
+                case "/artist/":
+                    navigate(
+                        `/artist/${artistState.getArtist.name}/${artistState.getArtist.mbid}`
+                    );
+                    break;
+                case "/track/":
+                    navigate(`/track/${trackInfoState.getTrack.mbid}`);
+                    break;
+                case "/geo/":
+                    navigate(`/geo/${text.country}`);
+                    break;
+                case "/tag/":
+                    navigate(`/tag/${text.tag}`);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }, [artistState, navigate, properties, text, trackInfoState]);
+
     const makeQuery = useCallback(
         (input, state) => {
             let parsedInput = Object.values(input).map((el) =>
                 el.replace(/ /g, "%20")
             );
-
-            let url = properties.toLink;
-            Object.keys(state).forEach((el, key) => {
-                url += el + "=" + parsedInput[key] + "/";
-            });
-
-            properties
-                .function(...parsedInput, ...properties.dispatcher)
-                .then(navigate(url));
+            properties.function(...parsedInput, ...properties.dispatcher);
         },
-        [navigate, properties]
+        [properties]
     );
+
+    useEffect(() => {
+        navigateMbid();
+    }, [artistState, tagState, geoState, trackInfoState]);
 
     return properties ? (
         <Paper className={classes.searchpageFormPaperContainer}>
