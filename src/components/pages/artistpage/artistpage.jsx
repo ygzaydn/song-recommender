@@ -11,11 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 import * as artistSelectors from "../../../redux/selectors/artistSelectors";
 import * as artistActionCreators from "../../../redux/actionCreators/artistActionCreators";
+import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
-import { getArtistInfoFromName } from "../../../axiosCalls";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Songgrid from "../../utils/songGrid/songGrid";
@@ -101,13 +101,7 @@ const useStyles = () => ({
     },
 });
 
-const Artistpage = ({
-    classes,
-    artistState,
-    onGetArtist,
-    onGetTopTracks,
-    onGetTopAlbums,
-}) => {
+const Artistpage = ({ classes, artistState, searchArtist, loadingState }) => {
     const [maxListen, setMaxListen] = useState(0);
     const [myArtist, setMyArtist] = useState("");
     const navigate = useNavigate();
@@ -115,13 +109,11 @@ const Artistpage = ({
 
     useEffect(() => {
         if (artistState.length === 0 || myArtist !== artistName) {
-            getArtistInfoFromName(
-                artistName,
-                onGetArtist,
-                onGetTopTracks,
-                onGetTopAlbums
-            );
+            searchArtist(artistName);
         }
+    }, [artistName, searchArtist, artistState.length, myArtist]);
+
+    useEffect(() => {
         if (
             artistState.length > 0 &&
             artistState.getTopTracks &&
@@ -132,19 +124,9 @@ const Artistpage = ({
         if (artistState.getArtist) {
             setMyArtist(artistState.getArtist.name);
         }
-    }, [
-        artistState,
-        artistState.length,
-        onGetArtist,
-        onGetTopTracks,
-        onGetTopAlbums,
-        artistName,
-        myArtist,
-    ]);
+    }, [artistState]);
 
-    return Object.keys(artistState).length > 2 &&
-        artistState.getTopTracks &&
-        artistState.getTopAlbums ? (
+    return !loadingState && Object.keys(artistState).length >= 3 ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
@@ -218,15 +200,12 @@ const mapStateToProps = (state) => ({
     getTopTracks: artistSelectors.artistTopTracks(state),
     getTopAlbums: artistSelectors.artistTopAlbums(state),
     getArtist: artistSelectors.artistInfo(state),
+    loadingState: loadingSelectors.loadingState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onGetArtist: (artist) =>
-        dispatch(artistActionCreators.doGetRecommendedArtist(artist)),
-    onGetTopAlbums: (artist) =>
-        dispatch(artistActionCreators.doGetTopAlbums(artist)),
-    onGetTopTracks: (tracks) =>
-        dispatch(artistActionCreators.doGetTopTracks(tracks)),
+    searchArtist: (artist) =>
+        dispatch(artistActionCreators.searchArtist(artist)),
 });
 
 export default compose(

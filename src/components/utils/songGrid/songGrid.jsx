@@ -3,7 +3,6 @@ import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
 
-import { getTrackFromSearch } from "../../../axiosCalls";
 import { connect } from "react-redux";
 
 import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
@@ -53,14 +52,7 @@ const useStyles = () => ({
     },
 });
 
-const Songgrid = ({
-    classes,
-    item,
-    ind,
-    maxListen,
-    onGetTrack,
-    onGetSimilarTrack,
-}) => {
+const Songgrid = ({ classes, item, ind, maxListen, searchTrackByMbid }) => {
     const pageProperty = window.location.href.includes("track/")
         ? "Track"
         : "Artist";
@@ -69,9 +61,8 @@ const Songgrid = ({
     const navigate = useNavigate();
 
     const getSong = () => {
-        getTrackFromSearch(mbid, onGetTrack, onGetSimilarTrack).then(() => {
-            navigate(`/track/${mbid}`);
-        });
+        searchTrackByMbid(mbid);
+        navigate(`/track/${mbid}`);
     };
 
     const width =
@@ -135,10 +126,8 @@ const Songgrid = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    onGetTrack: (track) =>
-        dispatch(trackActionCreators.doGetRecommendedTrack(track)),
-    onGetSimilarTrack: (tracks) =>
-        dispatch(trackActionCreators.doGetSimilarTrack(tracks)),
+    searchTrackByMbid: (mbid) =>
+        dispatch(trackActionCreators.searchTrackByMbid(mbid)),
 });
 
 export default compose(

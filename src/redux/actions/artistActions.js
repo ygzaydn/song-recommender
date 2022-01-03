@@ -14,5 +14,5 @@ export const applyGetTopTracks = (state, action) => {
 };
 
 export const applyResetArtistState = (state, action) => {
-    return [];
+    return {};
 };

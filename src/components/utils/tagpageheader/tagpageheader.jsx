@@ -12,9 +12,9 @@ const useStyles = () => ({
     },
     artistPageUpperContentGrid: {
         maxWidth: "900px",
-        padding: "2rem",
+        padding: "0.2rem 1.5rem",
         alignItems: "center",
-        display:'flex',
+        display: "flex",
     },
     artistPageUpperGridBio: {
         color: "lightGray",
@@ -56,7 +56,7 @@ const useStyles = () => ({
 
 const Tagpageheader = ({ tagState, classes }) => {
     return (
-        <Grid item xs={12} className={classes.artistPageUpperContentGrid}>
+        <Grid container className={classes.artistPageUpperContentGrid}>
             <Grid item xs={12} sm={6}>
                 <Typography
                     color="primary"

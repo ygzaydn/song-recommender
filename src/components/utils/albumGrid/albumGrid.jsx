@@ -44,7 +44,7 @@ const useStyles = () => ({
 const Albumgrid = ({item, classes, mode, key}) => {
     const {name, image, url} = item
     return (
-            <Grid key={url} item xs={12} sm={6} className={classes.albumGridItem}> 
+            <Grid key={url} item xs={6} className={classes.albumGridItem}> 
                 <img src={image[1].["#text"]} alt={image[3].["#text"]}/>
                 <Grid item xs={12}>
                     <Typography variant="subtitle1" className={classes.bestAlbumText} onClick={() => window.open(url)}>

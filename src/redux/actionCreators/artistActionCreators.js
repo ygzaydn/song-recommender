@@ -1,5 +1,7 @@
 import * as Actions from "../actionTypes/actionTypes";
 
+import { getArtistInfoFromName } from "../../axiosCalls";
+
 export const doRecommendArtist = (similarartists) => {
     return {
         type: Actions.RECOMMEND_ARTIST,
@@ -31,4 +33,15 @@ export const doResetArtistState = () => {
     return {
         type: Actions.RESET_ARTIST_STATE,
     };
+};
+
+export const searchArtist = (name) => (dispatch) => {
+    dispatch({ type: Actions.TOGGLE_LOADING });
+    dispatch(doResetArtistState());
+    getArtistInfoFromName(name).then((res) => {
+        dispatch(doGetRecommendedArtist(res[0]));
+        dispatch(doGetTopTracks(res[1]));
+        dispatch(doGetTopAlbums(res[2]));
+        dispatch({ type: Actions.TOGGLE_LOADING });
+    });
 };

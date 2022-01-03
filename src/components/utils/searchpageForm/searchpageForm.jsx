@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { Paper, Grid, Typography, TextField, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -9,9 +9,15 @@ import * as geoSelectors from "../../../redux/selectors/geoSelectors";
 import * as trackSelectors from "../../../redux/selectors/trackSelectors";
 import * as artistSelectors from "../../../redux/selectors/artistSelectors";
 import * as tagSelectors from "../../../redux/selectors/tagSelectors";
+import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
 
 import { compose } from "recompose";
 import BackgroundImage from "../../../assets/images/searchboxbackground.jpg";
+
+import * as artistActionCreators from "../../../redux/actionCreators/artistActionCreators";
+import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
+import * as geoActionCreators from "../../../redux/actionCreators/geoActionCreators";
+import * as tagActionCreators from "../../../redux/actionCreators/tagActionCreators";
 
 const useStyles = () => ({
     searchpageFormPaperContainer: {
@@ -62,9 +68,13 @@ const SearchpageForm = ({
     artistState,
     tagState,
     geoState,
+    searchArtist,
+    searchTrack,
+    searchGeo,
+    searchTag,
+    loadingState,
 }) => {
     const [text, setText] = useState("");
-
     const handleChange = (event) => {
         setText({ ...text, [event.target.name]: event.target.value });
     };
@@ -73,37 +83,42 @@ const SearchpageForm = ({
     const navigateMbid = useCallback(() => {
         if (properties !== null) {
             switch (properties.toLink) {
-                case "/artist/":
-                    navigate(`/artist/${artistState.getArtist.name}`);
-                    break;
                 case "/track/":
                     navigate(`/track/${trackInfoState.getTrack.mbid}`);
-                    break;
-                case "/geo/":
-                    navigate(`/geo/${text.country}`);
-                    break;
-                case "/tag/":
-                    navigate(`/tag/${text.tag}`);
                     break;
                 default:
                     break;
             }
         }
-    }, [artistState, navigate, properties, text, trackInfoState]);
+    }, [trackInfoState, navigate, properties]);
 
     const makeQuery = useCallback(
         (input, state) => {
             let parsedInput = Object.values(input).map((el) =>
                 el.replace(/ /g, "%20")
             );
-            properties.function(...parsedInput, ...properties.dispatcher);
+            if (properties.toLink.includes("artist")) {
+                searchArtist(...parsedInput);
+                navigate(`/artist/${parsedInput}`);
+            }
+            if (properties.toLink.includes("track")) {
+                searchTrack(...parsedInput);
+            }
+            if (properties.toLink.includes("geo")) {
+                searchGeo(...parsedInput);
+                navigate(`/geo/${parsedInput}`);
+            }
+            if (properties.toLink.includes("tag")) {
+                searchTag(...parsedInput);
+                navigate(`/tag/${parsedInput}`);
+            }
         },
-        [properties]
+        [searchArtist, searchTrack, searchGeo, navigate, properties]
     );
 
     useEffect(() => {
         navigateMbid();
-    }, [artistState, tagState, geoState, trackInfoState]);
+    }, [trackInfoState]);
 
     return properties ? (
         <Paper className={classes.searchpageFormPaperContainer}>
@@ -148,9 +163,19 @@ const mapStateToProps = (state) => ({
     artistState: artistSelectors.artistState(state),
     tagState: tagSelectors.tagState(state),
     geoState: geoSelectors.geoState(state),
+    loadingState: loadingSelectors.loadingState(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    searchArtist: (artist) =>
+        dispatch(artistActionCreators.searchArtist(artist)),
+    searchTrack: (name, artist) =>
+        dispatch(trackActionCreators.searchTrack(name, artist)),
+    searchGeo: (country) => dispatch(geoActionCreators.searchGeo(country)),
+    searchTag: (tag) => dispatch(tagActionCreators.searchTag(tag)),
 });
 
 export default compose(
     withStyles(useStyles),
-    connect(mapStateToProps)
+    connect(mapStateToProps, mapDispatchToProps)
 )(SearchpageForm);

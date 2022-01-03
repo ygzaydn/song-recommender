@@ -1,4 +1,5 @@
 import * as Actions from "../actionTypes/actionTypes";
+import { getTagInfoFromName } from "../../axiosCalls";
 
 export const doGetTag = (tag) => {
     return {
@@ -39,4 +40,16 @@ export const doResetTagState = () => {
     return {
         type: Actions.RESET_TAG_STATE,
     };
+};
+
+export const searchTag = (tag) => (dispatch) => {
+    dispatch(doResetTagState());
+    dispatch({ type: Actions.TOGGLE_LOADING });
+    getTagInfoFromName(tag).then((res) => {
+        dispatch(doGetTag(res[0]));
+        dispatch(doGetTopAlbumTags(res[1]));
+        dispatch(doGetTopArtistTags(res[2]));
+        dispatch(doGetTopTrackTags(res[3]));
+        dispatch({ type: Actions.TOGGLE_LOADING });
+    });
 };

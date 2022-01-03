@@ -1,18 +1,5 @@
 import axios from "axios";
 
-export const searchByArtistName = async (input, dispatcherMethod) => {
-    try {
-        const res = await axios.get(
-            `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${input}&api_key=${process.env.REACT_APP_API_KEY}&format=json`
-        );
-        if (res) {
-            dispatcherMethod(res);
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 export const getArtistInfoFromSearch = async (
     mbid,
     dispatcherMethod1,
@@ -59,22 +46,19 @@ export const getArtistInfoFromName = async (
     );
     const responses = await axios.all([requestOne, requestTwo, requestThree]);
     try {
-        const responseOne = responses[0];
+        return responses;
+        /*const responseOne = responses[0];
         const responseTwo = responses[1];
         const responseThree = responses[2];
         dispatcherMethod1(responseOne);
         dispatcherMethod2(responseTwo);
-        dispatcherMethod3(responseThree);
+        dispatcherMethod3(responseThree);*/
     } catch (error) {
         console.log(error);
     }
 };
 
-export const getTrackFromSearch = async (
-    mbid,
-    dispatcherMethod1,
-    dispatcherMethod2
-) => {
+export const getTrackFromSearch = async (mbid) => {
     const requestOne = axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${process.env.REACT_APP_API_KEY}&mbid=${mbid}&format=json`
     );
@@ -83,21 +67,13 @@ export const getTrackFromSearch = async (
     );
     const responses = await axios.all([requestOne, requestTwo]);
     try {
-        const responseOne = responses[0];
-        const responseTwo = responses[1];
-        dispatcherMethod1(responseOne);
-        dispatcherMethod2(responseTwo);
+        return responses;
     } catch (error) {
         console.log(error);
     }
 };
 
-export const getTrackFromSearchwithNameandArtist = async (
-    track,
-    artist,
-    dispatcherMethod1,
-    dispatcherMethod2
-) => {
+export const getTrackFromSearchwithNameandArtist = async (track, artist) => {
     const requestOne = axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${process.env.REACT_APP_API_KEY}&track=${track}&artist=${artist}&format=json`
     );
@@ -106,10 +82,7 @@ export const getTrackFromSearchwithNameandArtist = async (
     );
     const responses = await axios.all([requestOne, requestTwo]);
     try {
-        const responseOne = responses[0];
-        const responseTwo = responses[1];
-        dispatcherMethod1(responseOne);
-        dispatcherMethod2(responseTwo);
+        return responses;
     } catch (error) {
         console.log(error);
     }
@@ -130,13 +103,7 @@ export const searchTrackByNameAndArtist = async (
     }
 };
 
-export const getTagInfoFromName = async (
-    tag,
-    dispatcherMethod1,
-    dispatcherMethod2,
-    dispatcherMethod3,
-    dispatcherMethod4
-) => {
+export const getTagInfoFromName = async (tag) => {
     const requestOne = axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=tag.getInfo&api_key=${process.env.REACT_APP_API_KEY}&tag=${tag}&format=json`
     );
@@ -156,15 +123,7 @@ export const getTagInfoFromName = async (
         requestFour,
     ]);
     try {
-        const responseOne = responses[0];
-        const responseTwo = responses[1];
-        const responseThree = responses[2];
-        const responseFour = responses[3];
-
-        dispatcherMethod1(responseOne);
-        dispatcherMethod2(responseTwo);
-        dispatcherMethod3(responseThree);
-        dispatcherMethod4(responseFour);
+        return responses;
     } catch (error) {
         console.log(error);
     }
@@ -181,11 +140,7 @@ export const getTopTags = async (dispatcherMethod) => {
     }
 };
 
-export const getGeoInfo = async (
-    country,
-    dispatcherMethod,
-    dispatcherMethod2
-) => {
+export const getGeoInfo = async (country) => {
     const res = await axios.get(
         `https://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=${country}&api_key=${process.env.REACT_APP_API_KEY}&format=json`
     );
@@ -194,8 +149,7 @@ export const getGeoInfo = async (
     );
     const responses = await axios.all([res, resTwo]);
     try {
-        dispatcherMethod(responses[0]);
-        dispatcherMethod2(responses[1]);
+        return responses;
     } catch (err) {
         console.log(err);
     }

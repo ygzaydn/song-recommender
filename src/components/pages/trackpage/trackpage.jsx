@@ -12,11 +12,11 @@ import { useNavigate } from "react-router-dom";
 import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
 
 import * as trackSelectors from "../../../redux/selectors/trackSelectors";
+import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
-import { getTrackFromSearch } from "../../../axiosCalls";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Songgrid from "../../utils/songGrid/songGrid";
@@ -105,19 +105,19 @@ const Trackpage = ({
     track,
     similarTracks,
     trackInfoState,
-    onGetTrack,
-    onGetSimilarTrack,
+    searchTrackByMbid,
+    isLoading,
 }) => {
     const { trackMbid } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (trackInfoState.length === 0) {
-            getTrackFromSearch(trackMbid, onGetTrack, onGetSimilarTrack);
+            searchTrackByMbid(trackMbid);
         }
-    }, [trackInfoState, trackMbid, onGetSimilarTrack, onGetTrack]);
+    }, [trackInfoState, trackMbid, searchTrackByMbid]);
 
-    return Object.keys(trackInfoState).length > 1 ? (
+    return !isLoading && Object.keys(trackInfoState).length > 1 ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid
                 container
@@ -196,13 +196,12 @@ const mapStateToProps = (state) => ({
     track: trackSelectors.track(state),
     similarTracks: trackSelectors.similarTracks(state),
     trackInfoState: trackSelectors.trackState(state),
+    isLoading: loadingSelectors.loadingState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onGetTrack: (track) =>
-        dispatch(trackActionCreators.doGetRecommendedTrack(track)),
-    onGetSimilarTrack: (tracks) =>
-        dispatch(trackActionCreators.doGetSimilarTrack(tracks)),
+    searchTrackByMbid: (mbid) =>
+        dispatch(trackActionCreators.searchTrackByMbid(mbid)),
 });
 
 export default compose(

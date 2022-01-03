@@ -12,10 +12,10 @@ import { useNavigate } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
-import { getTagInfoFromName } from "../../../axiosCalls";
 
 import * as tagSelectors from "../../../redux/selectors/tagSelectors";
 import * as tagActionCreators from "../../../redux/actionCreators/tagActionCreators";
+import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
@@ -110,34 +110,18 @@ const Tagpage = ({
     getTopArtistTags,
     getTopTrackTags,
     tagState,
-    onGetTag,
-    onGetTopAlbumsTag,
-    onGetTopArtistTag,
-    onGetTopTracksTag,
+    searchTags,
+    isLoading,
 }) => {
     const { tagId } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (tagState.length === 0) {
-            getTagInfoFromName(
-                tagId,
-                onGetTag,
-                onGetTopAlbumsTag,
-                onGetTopArtistTag,
-                onGetTopTracksTag
-            );
+            searchTags(tagId);
         }
-    }, [
-        tagState,
-        tagId,
-        onGetTag,
-        onGetTopAlbumsTag,
-        onGetTopArtistTag,
-        onGetTopTracksTag,
-    ]);
-
-    return Object.keys(tagState).length > 3 ? (
+    }, [searchTags, tagId]);
+    return Object.keys(tagState).length > 3 && !isLoading ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
@@ -219,17 +203,11 @@ const mapStateToProps = (state) => ({
     getTopArtistTags: tagSelectors.topArtistTags(state),
     getTopTrackTags: tagSelectors.topTrackTags(state),
     tagState: tagSelectors.tagState(state),
+    isLoading: loadingSelectors.loadingState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onGetTag: (tag) => dispatch(tagActionCreators.doGetTag(tag)),
-    onGetTopAlbumsTag: (tag) =>
-        dispatch(tagActionCreators.doGetTopAlbumTags(tag)),
-    onGetTopArtistTag: (tag) =>
-        dispatch(tagActionCreators.doGetTopArtistTags(tag)),
-    onGetTopTracksTag: (tag) =>
-        dispatch(tagActionCreators.doGetTopTrackTags(tag)),
-    onGetTopTags: (tag) => dispatch(tagActionCreators.doGetTopTags(tag)),
+    searchTags: (tag) => dispatch(tagActionCreators.searchTag(tag)),
 });
 
 export default compose(

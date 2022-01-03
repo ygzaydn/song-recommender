@@ -1,4 +1,8 @@
 import * as Actions from "../actionTypes/actionTypes";
+import {
+    getTrackFromSearchwithNameandArtist,
+    getTrackFromSearch,
+} from "../../axiosCalls";
 
 export const doGetRecommendedTrack = (track) => {
     return {
@@ -24,4 +28,23 @@ export const doResetTrackState = () => {
     return {
         type: Actions.RESET_GEO_STATE,
     };
+};
+
+export const searchTrack = (track, artist) => (dispatch) => {
+    dispatch({ type: Actions.TOGGLE_LOADING });
+    getTrackFromSearchwithNameandArtist(track, artist).then((res) => {
+        dispatch(doGetRecommendedTrack(res[0]));
+        dispatch(doGetSimilarTrack(res[1]));
+        dispatch({ type: Actions.TOGGLE_LOADING });
+    });
+};
+
+export const searchTrackByMbid = (mbid) => (dispatch) => {
+    dispatch(doResetTrackState());
+    dispatch({ type: Actions.TOGGLE_LOADING });
+    getTrackFromSearch(mbid).then((res) => {
+        dispatch(doGetRecommendedTrack(res[0]));
+        dispatch(doGetSimilarTrack(res[1]));
+        dispatch({ type: Actions.TOGGLE_LOADING });
+    });
 };

@@ -3,7 +3,6 @@ import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
 
-import { getTrackFromSearch, getArtistInfoFromName } from "../../../axiosCalls";
 import { connect } from "react-redux";
 
 import { useNavigate } from "react-router";
@@ -63,29 +62,21 @@ const Hitgrid = ({
     classes,
     item,
     ind,
-    onGetTrack,
-    onGetSimilarTrack,
-    onGetArtist,
-    onGetTopTracks,
-    onGetTopAlbums,
+    searchTrackByMbid,
+    searchArtist,
     mode,
 }) => {
     const { name, listeners, artist, mbid } = item;
     const navigate = useNavigate();
 
     const getSong = () => {
-        getTrackFromSearch(mbid, onGetTrack, onGetSimilarTrack).then(() => {
+        searchTrackByMbid(mbid).then(() => {
             navigate(`/track/${mbid}}`);
         });
     };
 
     const getArtist = (mbid, artistName) => {
-        getArtistInfoFromName(
-            artistName,
-            onGetArtist,
-            onGetTopTracks,
-            onGetTopAlbums
-        ).then(() => {
+        searchArtist(artistName).then(() => {
             navigate(`/artist/${artistName.replace(/ /g, "%20")}`);
         });
     };
@@ -172,16 +163,10 @@ const Hitgrid = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    onGetTrack: (track) =>
-        dispatch(trackActionCreators.doGetRecommendedTrack(track)),
-    onGetSimilarTrack: (tracks) =>
-        dispatch(trackActionCreators.doGetSimilarTrack(tracks)),
-    onGetArtist: (artist) =>
-        dispatch(artistActionCreators.doGetRecommendedArtist(artist)),
-    onGetTopAlbums: (artist) =>
-        dispatch(artistActionCreators.doGetTopAlbums(artist)),
-    onGetTopTracks: (tracks) =>
-        dispatch(artistActionCreators.doGetTopTracks(tracks)),
+    searchArtist: (artist) =>
+        dispatch(artistActionCreators.searchArtist(artist)),
+    searchTrackByMbid: (mbid) =>
+        dispatch(trackActionCreators.searchTrackByMbid(mbid)),
 });
 
 export default compose(

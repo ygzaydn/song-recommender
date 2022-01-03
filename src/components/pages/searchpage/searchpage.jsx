@@ -9,10 +9,9 @@ import Background4 from "../../../assets/images/search-4.jpg";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 
-import * as artistActionCreators from "../../../redux/actionCreators/artistActionCreators";
-import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
-import * as tagActionCreators from "../../../redux/actionCreators/tagActionCreators.js";
-import * as geoActionCreators from "../../../redux/actionCreators/geoActionCreators";
+import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
+
+import Loading from "../../utils/loading/loading";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -21,13 +20,6 @@ import SearchpageForm from "../../utils/searchpageForm/searchpageForm";
 import { connect } from "react-redux";
 
 import { compose } from "recompose";
-
-import {
-    getArtistInfoFromName,
-    getTrackFromSearchwithNameandArtist,
-    getGeoInfo,
-    getTagInfoFromName,
-} from "../../../axiosCalls";
 
 const useStyles = () => ({
     "@global": {
@@ -107,17 +99,8 @@ const Searchpage = ({
     classes,
     searchText,
     title,
-    onGetArtist,
-    onGetTopTracks,
-    onGetTopAlbums,
-    onGetTrack,
-    onGetSimilarTrack,
-    onGetGeoTopArtists,
-    onGetGeoTopTracks,
-    onGetTag,
-    onGetTopAlbumsTag,
-    onGetTopArtistTag,
-    onGetTopTracksTag,
+    searchArtist,
+    loadingState,
 }) => {
     const [properties, setProperties] = useState(null);
 
@@ -134,15 +117,11 @@ const Searchpage = ({
         }
         if (window.location.href.includes("/artist")) {
             setProperties({
-                function: getArtistInfoFromName,
-                dispatcher: [onGetArtist, onGetTopTracks, onGetTopAlbums],
                 inputFields: [{ name: "Artist Name", key: "artistname" }],
                 toLink: "/artist/",
             });
         } else if (window.location.href.includes("/track")) {
             setProperties({
-                function: getTrackFromSearchwithNameandArtist,
-                dispatcher: [onGetTrack, onGetSimilarTrack],
                 inputFields: [
                     { name: "Track Name", key: "trackName" },
                     { name: "Artist", key: "trackArtist" },
@@ -151,41 +130,18 @@ const Searchpage = ({
             });
         } else if (window.location.href.includes("/geo")) {
             setProperties({
-                function: getGeoInfo,
-                dispatcher: [onGetGeoTopTracks, onGetGeoTopArtists],
                 inputFields: [{ name: "Country", key: "country" }],
                 toLink: "/geo/",
             });
         } else if (window.location.href.includes("/tag")) {
             setProperties({
-                function: getTagInfoFromName,
-                dispatcher: [
-                    onGetTag,
-                    onGetTopAlbumsTag,
-                    onGetTopArtistTag,
-                    onGetTopTracksTag,
-                ],
                 inputFields: [{ name: "Tag", key: "tag" }],
                 toLink: "/tag/",
             });
         }
-    }, [
-        goBackHomepage,
-        state,
-        onGetArtist,
-        onGetTopTracks,
-        onGetTopAlbums,
-        onGetTrack,
-        onGetSimilarTrack,
-        onGetGeoTopArtists,
-        onGetGeoTopTracks,
-        onGetTag,
-        onGetTopAlbumsTag,
-        onGetTopArtistTag,
-        onGetTopTracksTag,
-    ]);
+    }, [goBackHomepage, state]);
 
-    return state ? (
+    return !loadingState && state ? (
         <Grid container className={classes.searchpageContainer}>
             <Grid
                 item
@@ -213,35 +169,16 @@ const Searchpage = ({
                 <SearchpageForm title={title} properties={properties} />
             </Grid>
         </Grid>
-    ) : null;
+    ) : (
+        <Loading />
+    );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    onGetArtist: (artist) =>
-        dispatch(artistActionCreators.doGetRecommendedArtist(artist)),
-    onGetTopAlbums: (artist) =>
-        dispatch(artistActionCreators.doGetTopAlbums(artist)),
-    onGetTopTracks: (tracks) =>
-        dispatch(artistActionCreators.doGetTopTracks(tracks)),
-    onGetTrack: (track) =>
-        dispatch(trackActionCreators.doGetRecommendedTrack(track)),
-    onGetSimilarTrack: (tracks) =>
-        dispatch(trackActionCreators.doGetSimilarTrack(tracks)),
-    onGetTag: (tag) => dispatch(tagActionCreators.doGetTag(tag)),
-    onGetTopAlbumsTag: (tag) =>
-        dispatch(tagActionCreators.doGetTopAlbumTags(tag)),
-    onGetTopArtistTag: (tag) =>
-        dispatch(tagActionCreators.doGetTopArtistTags(tag)),
-    onGetTopTracksTag: (tag) =>
-        dispatch(tagActionCreators.doGetTopTrackTags(tag)),
-    onGetTopTags: (tag) => dispatch(tagActionCreators.doGetTopTags(tag)),
-    onGetGeoTopArtists: (geo) =>
-        dispatch(geoActionCreators.doGetGeoTopArtists(geo)),
-    onGetGeoTopTracks: (geo) =>
-        dispatch(geoActionCreators.doGetGeoTopTracks(geo)),
+const mapStateToProps = (state) => ({
+    loadingState: loadingSelectors.loadingState(state),
 });
 
 export default compose(
     withStyles(useStyles),
-    connect(null, mapDispatchToProps)
+    connect(mapStateToProps, null)
 )(Searchpage);

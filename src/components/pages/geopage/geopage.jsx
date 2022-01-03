@@ -11,12 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 import * as geoSelectors from "../../../redux/selectors/geoSelectors";
 import * as geoActionCreators from "../../../redux/actionCreators/geoActionCreators";
+import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
-
-import { getGeoInfo } from "../../../axiosCalls";
 
 import GeopageHeader from "../../utils/geopageheader/geopageheader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
@@ -102,10 +101,10 @@ const useStyles = () => ({
 const Geopage = ({
     classes,
     geoState,
-    onGetGeoTopArtists,
-    onGetGeoTopTracks,
+    searchGeo,
     getGeoTopArtists,
     getGeoTopTracks,
+    isLoading,
 }) => {
     const [countryName, setCountryName] = useState("");
 
@@ -113,15 +112,15 @@ const Geopage = ({
     const { countryId } = useParams();
 
     useEffect(() => {
-        if (countryId.length === 0 || countryName !== countryId) {
+        if (countryName !== countryId) {
             setCountryName(countryId);
         }
-        if (countryId.length > 0 && countryName.length === 0) {
-            getGeoInfo(countryId, onGetGeoTopTracks, onGetGeoTopArtists);
+        if (countryId.length > 0 && countryName !== countryId) {
+            searchGeo(countryId);
         }
-    }, [countryId, countryName, onGetGeoTopArtists, onGetGeoTopTracks]);
+    }, [countryId, countryName, searchGeo]);
 
-    return Object.keys(geoState).length > 1 ? (
+    return !isLoading && Object.keys(geoState).length > 1 ? (
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
@@ -187,13 +186,11 @@ const mapStateToProps = (state) => ({
     geoState: geoSelectors.geoState(state),
     getGeoTopArtists: geoSelectors.geoTopArtists(state),
     getGeoTopTracks: geoSelectors.geoTopTracks(state),
+    isLoading: loadingSelectors.loadingState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onGetGeoTopArtists: (geo) =>
-        dispatch(geoActionCreators.doGetGeoTopArtists(geo)),
-    onGetGeoTopTracks: (geo) =>
-        dispatch(geoActionCreators.doGetGeoTopTracks(geo)),
+    searchGeo: (geo) => dispatch(geoActionCreators.searchGeo(geo)),
 });
 
 export default compose(

@@ -1,22 +1,29 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { createLogger } from "redux-logger";
-import thunk from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 import trackInfoReducer from "./reducers/trackReducer";
 import artistReducer from "./reducers/artistReducer";
 import tagReducer from "./reducers/tagReducer";
 import geoReducer from "./reducers/geoReducer";
+import loadingReducer from "./reducers/loadingReducer";
 
 //store initialization
 const logger = createLogger();
+
+const middlewares = [thunkMiddleware];
+if (process.env.NODE_ENV !== "production") {
+    middlewares.push(logger);
+}
 
 const rootReducer = combineReducers({
     trackInfoState: trackInfoReducer,
     artistState: artistReducer,
     tagState: tagReducer,
     geoState: geoReducer,
+    loadingState: loadingReducer,
 });
 export const store = createStore(
     rootReducer,
     undefined,
-    applyMiddleware(...[logger, thunk])
+    applyMiddleware(...middlewares)
 );
