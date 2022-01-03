@@ -19,7 +19,10 @@ const Homepage = () => {
                 <source src={HomepageVideo} type="video/mp4" />
             </video>
             <Grid container style={{ padding: "0 2rem" }}>
-                <Grid container style={{ alignSelf: "flex-end" }}>
+                <Grid
+                    container
+                    style={{ alignSelf: "flex-end", height: "78vh" }}
+                >
                     <Grid
                         item
                         md={6}

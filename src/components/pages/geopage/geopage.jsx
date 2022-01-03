@@ -184,7 +184,7 @@ const Geopage = ({
 };
 
 const mapStateToProps = (state) => ({
-    tagState: geoSelectors.geoState(state),
+    geoState: geoSelectors.geoState(state),
     getGeoTopArtists: geoSelectors.geoTopArtists(state),
     getGeoTopTracks: geoSelectors.geoTopTracks(state),
 });
