@@ -9,19 +9,20 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { mapDispatchToProps, mapStateToProps } from "../../../store";
-
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 import { getTagInfoFromName } from "../../../axiosCalls";
+
+import * as tagSelectors from "../../../redux/selectors/tagSelectors";
+import * as tagActionCreators from "../../../redux/actionCreators/tagActionCreators";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
 import Tagpageheader from "../../utils/tagpageheader/tagpageheader";
 import HitGrid from "../../utils/hitGrid/hitGrid";
-import Loading from '../../utils/loading/loading'
+import Loading from "../../utils/loading/loading";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -104,6 +105,10 @@ const useStyles = () => ({
 
 const Tagpage = ({
     classes,
+    getTag,
+    getTopAlbumTags,
+    getTopArtistTags,
+    getTopTrackTags,
     tagState,
     onGetTag,
     onGetTopAlbumsTag,
@@ -112,9 +117,6 @@ const Tagpage = ({
 }) => {
     const { tagId } = useParams();
     const navigate = useNavigate();
-
-    const { getTag, getTopAlbumTags, getTopArtistTags, getTopTrackTags } =
-        tagState;
 
     useEffect(() => {
         if (tagState.length === 0) {
@@ -139,8 +141,11 @@ const Tagpage = ({
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
-                    <ArrowBackOutlinedIcon onClick={() => navigate(-1)} style={{padding: "0 2rem"}}/>
-                    <HomeIcon onClick={()=>navigate("/")}/>
+                    <ArrowBackOutlinedIcon
+                        onClick={() => navigate(-1)}
+                        style={{ padding: "0 2rem" }}
+                    />
+                    <HomeIcon onClick={() => navigate("/")} />
                 </Grid>
                 <Tagpageheader tagState={getTag} />
             </Grid>
@@ -203,8 +208,29 @@ const Tagpage = ({
                 </Grid>
             </Grid>
         </Grid>
-    ) : <Loading />;
+    ) : (
+        <Loading />
+    );
 };
+
+const mapStateToProps = (state) => ({
+    getTag: tagSelectors.tagInfo(state),
+    getTopAlbumTags: tagSelectors.topAlbumTags(state),
+    getTopArtistTags: tagSelectors.topArtistTags(state),
+    getTopTrackTags: tagSelectors.topTrackTags(state),
+    tagState: tagSelectors.tagState(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    onGetTag: (tag) => dispatch(tagActionCreators.doGetTag(tag)),
+    onGetTopAlbumsTag: (tag) =>
+        dispatch(tagActionCreators.doGetTopAlbumTags(tag)),
+    onGetTopArtistTag: (tag) =>
+        dispatch(tagActionCreators.doGetTopArtistTags(tag)),
+    onGetTopTracksTag: (tag) =>
+        dispatch(tagActionCreators.doGetTopTrackTags(tag)),
+    onGetTopTags: (tag) => dispatch(tagActionCreators.doGetTopTags(tag)),
+});
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),

@@ -9,10 +9,11 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { mapDispatchToProps, mapStateToProps } from "../../../store";
+import * as geoSelectors from "../../../redux/selectors/geoSelectors";
+import * as geoActionCreators from "../../../redux/actionCreators/geoActionCreators";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 
 import { getGeoInfo } from "../../../axiosCalls";
@@ -20,7 +21,7 @@ import { getGeoInfo } from "../../../axiosCalls";
 import GeopageHeader from "../../utils/geopageheader/geopageheader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
 import HitGrid from "../../utils/hitGrid/hitGrid";
-import Loading from '../../utils/loading/loading'
+import Loading from "../../utils/loading/loading";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -103,13 +104,13 @@ const Geopage = ({
     geoState,
     onGetGeoTopArtists,
     onGetGeoTopTracks,
+    getGeoTopArtists,
+    getGeoTopTracks,
 }) => {
     const [countryName, setCountryName] = useState("");
 
     const navigate = useNavigate();
     const { countryId } = useParams();
-
-    const { getGeoTopArtists, getGeoTopTracks } = geoState;
 
     useEffect(() => {
         if (countryId.length === 0 || countryName !== countryId) {
@@ -124,8 +125,11 @@ const Geopage = ({
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
-                    <ArrowBackOutlinedIcon onClick={() => navigate(-1)} style={{padding: "0 2rem"}}/>
-                    <HomeIcon onClick={()=>navigate("/")}/>
+                    <ArrowBackOutlinedIcon
+                        onClick={() => navigate(-1)}
+                        style={{ padding: "0 2rem" }}
+                    />
+                    <HomeIcon onClick={() => navigate("/")} />
                 </Grid>
                 <GeopageHeader countryName={countryName} />
             </Grid>
@@ -174,8 +178,23 @@ const Geopage = ({
                 </Grid>
             </Grid>
         </Grid>
-    ) : <Loading />;
+    ) : (
+        <Loading />
+    );
 };
+
+const mapStateToProps = (state) => ({
+    tagState: geoSelectors.geoState(state),
+    getGeoTopArtists: geoSelectors.geoTopArtists(state),
+    getGeoTopTracks: geoSelectors.geoTopTracks(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    onGetGeoTopArtists: (geo) =>
+        dispatch(geoActionCreators.doGetGeoTopArtists(geo)),
+    onGetGeoTopTracks: (geo) =>
+        dispatch(geoActionCreators.doGetGeoTopTracks(geo)),
+});
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),

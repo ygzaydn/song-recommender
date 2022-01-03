@@ -7,14 +7,18 @@ import Background3 from "../../../assets/images/search-3.jpg";
 import Background4 from "../../../assets/images/search-4.jpg";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
+
+import * as artistActionCreators from "../../../redux/actionCreators/artistActionCreators";
+import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
+import * as tagActionCreators from "../../../redux/actionCreators/tagActionCreators.js";
+import * as geoActionCreators from "../../../redux/actionCreators/geoActionCreators";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
 import SearchpageForm from "../../utils/searchpageForm/searchpageForm";
 
 import { connect } from "react-redux";
-import { mapDispatchToProps, mapStateToProps } from "../../../store";
 
 import { compose } from "recompose";
 
@@ -67,7 +71,7 @@ const useStyles = () => ({
         },
 
         "& svg": {
-            margin:"2rem",
+            margin: "2rem",
             fill: "white",
             stroke: "white",
             height: 50,
@@ -199,8 +203,11 @@ const Searchpage = ({
                             : `url(${Background4})`,
                 }}
             >
-                <ArrowBackOutlinedIcon onClick={() => navigate(-1)} style={{padding: "0 2rem"}}/>
-                <HomeIcon onClick={()=>navigate("/")}/>
+                <ArrowBackOutlinedIcon
+                    onClick={() => navigate(-1)}
+                    style={{ padding: "0 2rem" }}
+                />
+                <HomeIcon onClick={() => navigate("/")} />
             </Grid>
             <Grid item xs={12} md={4} className={classes.searchpageFromGrid}>
                 <SearchpageForm title={title} properties={properties} />
@@ -209,7 +216,32 @@ const Searchpage = ({
     ) : null;
 };
 
+const mapDispatchToProps = (dispatch) => ({
+    onGetArtist: (artist) =>
+        dispatch(artistActionCreators.doGetRecommendedArtist(artist)),
+    onGetTopAlbums: (artist) =>
+        dispatch(artistActionCreators.doGetTopAlbums(artist)),
+    onGetTopTracks: (tracks) =>
+        dispatch(artistActionCreators.doGetTopTracks(tracks)),
+    onGetTrack: (track) =>
+        dispatch(trackActionCreators.doGetRecommendedTrack(track)),
+    onGetSimilarTrack: (tracks) =>
+        dispatch(trackActionCreators.doGetSimilarTrack(tracks)),
+    onGetTag: (tag) => dispatch(tagActionCreators.doGetTag(tag)),
+    onGetTopAlbumsTag: (tag) =>
+        dispatch(tagActionCreators.doGetTopAlbumTags(tag)),
+    onGetTopArtistTag: (tag) =>
+        dispatch(tagActionCreators.doGetTopArtistTags(tag)),
+    onGetTopTracksTag: (tag) =>
+        dispatch(tagActionCreators.doGetTopTrackTags(tag)),
+    onGetTopTags: (tag) => dispatch(tagActionCreators.doGetTopTags(tag)),
+    onGetGeoTopArtists: (geo) =>
+        dispatch(geoActionCreators.doGetGeoTopArtists(geo)),
+    onGetGeoTopTracks: (geo) =>
+        dispatch(geoActionCreators.doGetGeoTopTracks(geo)),
+});
+
 export default compose(
     withStyles(useStyles),
-    connect(mapStateToProps, mapDispatchToProps)
+    connect(null, mapDispatchToProps)
 )(Searchpage);

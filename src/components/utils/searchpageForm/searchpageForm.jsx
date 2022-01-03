@@ -4,7 +4,12 @@ import { Paper, Grid, Typography, TextField, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { useNavigate } from "react-router";
 import { connect } from "react-redux";
-import { mapStateToProps } from "../../../store";
+
+import * as geoSelectors from "../../../redux/selectors/geoSelectors";
+import * as trackSelectors from "../../../redux/selectors/trackSelectors";
+import * as artistSelectors from "../../../redux/selectors/artistSelectors";
+import * as tagSelectors from "../../../redux/selectors/tagSelectors";
+
 import { compose } from "recompose";
 import BackgroundImage from "../../../assets/images/searchboxbackground.jpg";
 
@@ -69,9 +74,7 @@ const SearchpageForm = ({
         if (properties !== null) {
             switch (properties.toLink) {
                 case "/artist/":
-                    navigate(
-                        `/artist/${artistState.getArtist.name}`
-                    );
+                    navigate(`/artist/${artistState.getArtist.name}`);
                     break;
                 case "/track/":
                     navigate(`/track/${trackInfoState.getTrack.mbid}`);
@@ -139,6 +142,13 @@ const SearchpageForm = ({
         </Paper>
     ) : null;
 };
+
+const mapStateToProps = (state) => ({
+    trackInfoState: trackSelectors.trackState(state),
+    artistState: artistSelectors.artistState(state),
+    tagState: tagSelectors.tagState(state),
+    geoState: geoSelectors.geoState(state),
+});
 
 export default compose(
     withStyles(useStyles),

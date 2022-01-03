@@ -9,10 +9,11 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { mapDispatchToProps, mapStateToProps } from "../../../store";
+import * as artistSelectors from "../../../redux/selectors/artistSelectors";
+import * as artistActionCreators from "../../../redux/actionCreators/artistActionCreators";
 
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 import { getArtistInfoFromName } from "../../../axiosCalls";
 
@@ -21,7 +22,7 @@ import Songgrid from "../../utils/songGrid/songGrid";
 import Similarartist from "../../utils/similarArtistItem/similarArtist";
 import ArtistpageHeader from "../../utils/artistpageHeader/artistpageHeader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
-import Loading from '../../utils/loading/loading'
+import Loading from "../../utils/loading/loading";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -147,8 +148,11 @@ const Artistpage = ({
         <Grid container className={classes.artistPageContainer}>
             <Grid container className={classes.artistPageUpperContainer}>
                 <Grid item xs={12} className={classes.searchpageImageGrid}>
-                    <ArrowBackOutlinedIcon onClick={() => navigate(-1)} style={{padding: "0 2rem"}}/>
-                    <HomeIcon onClick={()=>navigate("/")}/>
+                    <ArrowBackOutlinedIcon
+                        onClick={() => navigate(-1)}
+                        style={{ padding: "0 2rem" }}
+                    />
+                    <HomeIcon onClick={() => navigate("/")} />
                 </Grid>
                 <ArtistpageHeader artistState={artistState} />
             </Grid>
@@ -204,8 +208,26 @@ const Artistpage = ({
                 </Grid>
             </Grid>
         </Grid>
-    ) : <Loading />;
+    ) : (
+        <Loading />
+    );
 };
+
+const mapStateToProps = (state) => ({
+    artistState: artistSelectors.artistState(state),
+    getTopTracks: artistSelectors.artistTopTracks(state),
+    getTopAlbums: artistSelectors.artistTopAlbums(state),
+    getArtist: artistSelectors.artistInfo(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    onGetArtist: (artist) =>
+        dispatch(artistActionCreators.doGetRecommendedArtist(artist)),
+    onGetTopAlbums: (artist) =>
+        dispatch(artistActionCreators.doGetTopAlbums(artist)),
+    onGetTopTracks: (tracks) =>
+        dispatch(artistActionCreators.doGetTopTracks(tracks)),
+});
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),

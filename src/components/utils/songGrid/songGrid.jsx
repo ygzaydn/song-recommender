@@ -5,7 +5,9 @@ import { compose } from "recompose";
 
 import { getTrackFromSearch } from "../../../axiosCalls";
 import { connect } from "react-redux";
-import { mapDispatchToProps, mapStateToProps } from "../../../store";
+
+import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
+
 import { useNavigate } from "react-router";
 
 const useStyles = () => ({
@@ -132,7 +134,14 @@ const Songgrid = ({
     );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+    onGetTrack: (track) =>
+        dispatch(trackActionCreators.doGetRecommendedTrack(track)),
+    onGetSimilarTrack: (tracks) =>
+        dispatch(trackActionCreators.doGetSimilarTrack(tracks)),
+});
+
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(null, mapDispatchToProps),
     withStyles(useStyles)
 )(Songgrid);

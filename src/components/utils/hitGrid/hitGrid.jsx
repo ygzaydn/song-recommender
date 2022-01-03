@@ -5,8 +5,11 @@ import { compose } from "recompose";
 
 import { getTrackFromSearch, getArtistInfoFromName } from "../../../axiosCalls";
 import { connect } from "react-redux";
-import { mapDispatchToProps, mapStateToProps } from "../../../store";
+
 import { useNavigate } from "react-router";
+
+import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
+import * as artistActionCreators from "../../../redux/actionCreators/artistActionCreators";
 
 const useStyles = () => ({
     "@global": {
@@ -168,7 +171,20 @@ const Hitgrid = ({
     );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+    onGetTrack: (track) =>
+        dispatch(trackActionCreators.doGetRecommendedTrack(track)),
+    onGetSimilarTrack: (tracks) =>
+        dispatch(trackActionCreators.doGetSimilarTrack(tracks)),
+    onGetArtist: (artist) =>
+        dispatch(artistActionCreators.doGetRecommendedArtist(artist)),
+    onGetTopAlbums: (artist) =>
+        dispatch(artistActionCreators.doGetTopAlbums(artist)),
+    onGetTopTracks: (tracks) =>
+        dispatch(artistActionCreators.doGetTopTracks(tracks)),
+});
+
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(null, mapDispatchToProps),
     withStyles(useStyles)
 )(Hitgrid);
