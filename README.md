@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `npm run deploy`
 
-Deploys the app on defined homepage which you want to serve. You can check package.json for my homepage option. I've used gh-pages add-on to use that command.
+Deploys the app on google's firebase platform which you want to serve. You may need to create a new project in order to do this operation.
 
 ### `npm start`
 
