@@ -80,18 +80,6 @@ const SearchpageForm = ({
     };
     const navigate = useNavigate();
 
-    const navigateMbid = useCallback(() => {
-        if (properties !== null) {
-            switch (properties.toLink) {
-                case "/track/":
-                    navigate(`/track/${trackInfoState.getTrack.mbid}`);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }, [trackInfoState, navigate, properties]);
-
     const makeQuery = useCallback(
         (input, state) => {
             let parsedInput = Object.values(input).map((el) =>
@@ -99,26 +87,43 @@ const SearchpageForm = ({
             );
             if (properties.toLink.includes("artist")) {
                 searchArtist(...parsedInput);
-                navigate(`/artist/${parsedInput}`);
             }
             if (properties.toLink.includes("track")) {
                 searchTrack(...parsedInput);
             }
             if (properties.toLink.includes("geo")) {
                 searchGeo(...parsedInput);
-                navigate(`/geo/${parsedInput}`);
             }
             if (properties.toLink.includes("tag")) {
                 searchTag(...parsedInput);
-                navigate(`/tag/${parsedInput}`);
             }
         },
-        [searchArtist, searchTrack, searchGeo, navigate, properties]
+        [searchArtist, searchTrack, searchGeo, searchTag, properties]
     );
 
     useEffect(() => {
-        navigateMbid();
-    }, [trackInfoState]);
+        if (tagState && tagState.name) {
+            navigate(`/tag/${tagState.name}`);
+        }
+        if (
+            artistState &&
+            artistState.getArtist &&
+            artistState.getArtist.name
+        ) {
+            navigate(`/artist/${artistState.getArtist.name}`);
+        }
+        if (
+            trackInfoState &&
+            trackInfoState.getTrack &&
+            trackInfoState.getTrack.mbid
+        ) {
+            navigate(`/track/${trackInfoState.getTrack.mbid}`);
+        }
+
+        if (geoState && geoState.name) {
+            navigate(`/geo/${geoState.name}`);
+        }
+    }, [artistState, trackInfoState, tagState, geoState, navigate]);
 
     return properties ? (
         <Paper className={classes.searchpageFormPaperContainer}>

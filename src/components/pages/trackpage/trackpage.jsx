@@ -7,15 +7,12 @@ import { compose } from "recompose";
 import { connect } from "react-redux";
 
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
 
 import * as trackSelectors from "../../../redux/selectors/trackSelectors";
 import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
 
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
@@ -24,6 +21,7 @@ import Similarartist from "../../utils/similarArtistItem/similarArtist";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
 import Trackpageheader from "../../utils/trackpageheader/trackpageheader";
 import Loading from "../../utils/loading/loading";
+import Header from "../../utils/header/header";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -67,7 +65,7 @@ const useStyles = () => ({
         padding: "0 1.5rem",
     },
     artistPageAlbumGrid: {
-        padding: "0 1.5rem",
+        padding: "1.5rem",
         display: "flex",
         flexDirection: "column",
     },
@@ -109,7 +107,6 @@ const Trackpage = ({
     isLoading,
 }) => {
     const { trackMbid } = useParams();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (trackInfoState.length === 0) {
@@ -117,78 +114,86 @@ const Trackpage = ({
         }
     }, [trackInfoState, trackMbid, searchTrackByMbid]);
 
-    return !isLoading && Object.keys(trackInfoState).length > 1 ? (
-        <Grid container className={classes.artistPageContainer}>
-            <Grid
-                container
-                className={classes.artistPageUpperContainer}
-                style={{
-                    backgroundImage: `linear-gradient(to right, #000000b6,#000000b6), url(${track.album.image[3]["#text"]})`,
-                }}
-            >
-                <Grid item xs={12} className={classes.searchpageImageGrid}>
-                    <ArrowBackOutlinedIcon
-                        onClick={() => navigate(-1)}
-                        style={{ padding: "0 2rem" }}
-                    />
-                    <HomeIcon onClick={() => navigate("/")} />
-                </Grid>
-                <Trackpageheader trackState={track} />
-            </Grid>
-            <Grid container className={classes.artistPageContentContainer}>
+    return (
+        Object.keys(trackInfoState).length > 1 && (
+            <Grid container className={classes.artistPageContainer}>
+                {isLoading && <Loading />}
                 <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={classes.artistPageLeftGrid}
+                    container
+                    className={classes.artistPageUpperContainer}
+                    style={{
+                        backgroundImage: track.album
+                            ? `linear-gradient(to right, #000000b6,#000000b6), url(${track.album.image[3]["#text"]})`
+                            : "lightgray",
+                    }}
                 >
-                    <FadeInTitle text="Similar songs" />
-                    <Grid item xs={12} className={classes.songListGrid}>
-                        {similarTracks
-                            .filter((el, ind) => ind < 8)
-                            .map((el, ind) => (
-                                <Songgrid
-                                    key={el.name}
-                                    item={el}
-                                    ind={ind}
-                                    maxListen={1}
+                    <Header />
+                    <Trackpageheader trackState={track} />
+                </Grid>
+                <Grid container className={classes.artistPageContentContainer}>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classes.artistPageLeftGrid}
+                    >
+                        <FadeInTitle text="Similar songs" />
+                        <Grid item xs={12} className={classes.songListGrid}>
+                            {similarTracks
+                                .filter((el, ind) => ind < 8)
+                                .map((el, ind) => (
+                                    <Songgrid
+                                        key={el.name}
+                                        item={el}
+                                        ind={ind}
+                                        maxListen={1}
+                                    />
+                                ))}
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classes.artistPageRightGrid}
+                    >
+                        <Grid
+                            item
+                            xs={12}
+                            className={classes.artistPageAlbumGrid}
+                        >
+                            <FadeInTitle text="Album Info" />
+                            <Grid item xs={12} className={classes.albumGrid}>
+                                <Albumgrid
+                                    item={{
+                                        name: track.album.title,
+                                        image: track.album.image,
+                                        url: track.album.url,
+                                    }}
+                                    key={track.album.name}
                                 />
-                            ))}
-                    </Grid>
-                </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={classes.artistPageRightGrid}
-                >
-                    <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                        <FadeInTitle text="Album Info" />
-                        <Grid item xs={12} className={classes.albumGrid}>
-                            <Albumgrid
-                                item={{
-                                    name: track.album.title,
-                                    image: track.album.image,
-                                    url: track.album.url,
-                                }}
-                                key={track.album.name}
-                            />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                        <FadeInTitle text="Artist Info" />
-                        <Grid container className={classes.similarArtistGrid}>
-                            <Similarartist
-                                item={track.artist}
-                                key={track.artist.name}
-                            />
+                        <Grid
+                            item
+                            xs={12}
+                            className={classes.artistPageAlbumGrid}
+                        >
+                            <FadeInTitle text="Artist Info" />
+                            <Grid
+                                container
+                                className={classes.similarArtistGrid}
+                            >
+                                <Similarartist
+                                    item={track.artist}
+                                    key={track.artist.name}
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-    ) : (
-        <Loading />
+        )
     );
 };
 

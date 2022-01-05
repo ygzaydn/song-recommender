@@ -26,7 +26,7 @@ export const doGetSimilarTrack = (track) => {
 
 export const doResetTrackState = () => {
     return {
-        type: Actions.RESET_GEO_STATE,
+        type: Actions.RESET_TRACK_STATE,
     };
 };
 
@@ -40,8 +40,8 @@ export const searchTrack = (track, artist) => (dispatch) => {
 };
 
 export const searchTrackByMbid = (mbid) => (dispatch) => {
-    dispatch(doResetTrackState());
     dispatch({ type: Actions.TOGGLE_LOADING });
+
     getTrackFromSearch(mbid).then((res) => {
         dispatch(doGetRecommendedTrack(res[0]));
         dispatch(doGetSimilarTrack(res[1]));

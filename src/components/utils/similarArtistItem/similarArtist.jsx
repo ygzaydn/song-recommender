@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Grid, Typography } from "@material-ui/core";
 
@@ -7,6 +7,9 @@ import { compose } from "recompose";
 
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import { useNavigate } from "react-router-dom";
+import { searchArtist } from "../../../redux/actionCreators/artistActionCreators";
+import { connect } from "react-redux";
+import { artistInfo } from "../../../redux/selectors/artistSelectors";
 
 const useStyles = () => ({
     "@global": {
@@ -50,10 +53,14 @@ const useStyles = () => ({
     },
 });
 
-const Similarartist = ({ item, classes }) => {
+const Similarartist = ({ item, classes, searchArtist, getArtist }) => {
     const { name } = item;
     const navigate = useNavigate();
-    useEffect(() => {}, [item]);
+
+    const getArtistQuery = async (name) => {
+        searchArtist(name);
+    };
+
     return (
         <Grid
             key={name}
@@ -68,7 +75,7 @@ const Similarartist = ({ item, classes }) => {
                 variant="subtitle2"
                 className={classes.similarArtistText}
                 onClick={() => {
-                    navigate(`/artist/${name.replace(/ /g, "%20")}`);
+                    getArtistQuery(name);
                 }}
             >
                 {name}
@@ -77,4 +84,15 @@ const Similarartist = ({ item, classes }) => {
     );
 };
 
-export default compose(withStyles(useStyles))(Similarartist);
+const mapStateToProps = (state) => ({
+    getArtist: artistInfo(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    searchArtist: (artist) => dispatch(searchArtist(artist)),
+});
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withStyles(useStyles)
+)(Similarartist);

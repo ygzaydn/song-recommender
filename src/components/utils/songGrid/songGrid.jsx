@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
 
 import { useNavigate } from "react-router";
+
+import { track } from "../../../redux/selectors/trackSelectors";
 
 const useStyles = () => ({
     "@global": {
@@ -52,7 +54,14 @@ const useStyles = () => ({
     },
 });
 
-const Songgrid = ({ classes, item, ind, maxListen, searchTrackByMbid }) => {
+const Songgrid = ({
+    classes,
+    item,
+    ind,
+    maxListen,
+    searchTrackByMbid,
+    getTrack,
+}) => {
     const pageProperty = window.location.href.includes("track/")
         ? "Track"
         : "Artist";
@@ -62,8 +71,13 @@ const Songgrid = ({ classes, item, ind, maxListen, searchTrackByMbid }) => {
 
     const getSong = () => {
         searchTrackByMbid(mbid);
-        navigate(`/track/${mbid}`);
     };
+
+    useEffect(() => {
+        if (getTrack && getTrack.mbid && getTrack.mbid === mbid) {
+            navigate(`/track/${getTrack.mbid}`);
+        }
+    }, [getTrack, navigate, mbid]);
 
     const width =
         pageProperty === "Artist"
@@ -125,12 +139,16 @@ const Songgrid = ({ classes, item, ind, maxListen, searchTrackByMbid }) => {
     );
 };
 
+const mapStateToProps = (state) => ({
+    getTrack: track(state),
+});
+
 const mapDispatchToProps = (dispatch) => ({
     searchTrackByMbid: (mbid) =>
         dispatch(trackActionCreators.searchTrackByMbid(mbid)),
 });
 
 export default compose(
-    connect(null, mapDispatchToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     withStyles(useStyles)
 )(Songgrid);

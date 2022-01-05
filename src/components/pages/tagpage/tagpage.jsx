@@ -7,10 +7,7 @@ import { compose } from "recompose";
 import { connect } from "react-redux";
 
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 
 import * as tagSelectors from "../../../redux/selectors/tagSelectors";
@@ -23,6 +20,7 @@ import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
 import Tagpageheader from "../../utils/tagpageheader/tagpageheader";
 import HitGrid from "../../utils/hitGrid/hitGrid";
 import Loading from "../../utils/loading/loading";
+import Header from "../../utils/header/header";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -69,7 +67,7 @@ const useStyles = () => ({
         height: "25rem",
     },
     artistPageAlbumGrid: {
-        padding: "1.5rem .5rem",
+        padding: "1.5rem ",
         display: "flex",
         flexDirection: "column",
         maxHeight: "30rem",
@@ -114,86 +112,85 @@ const Tagpage = ({
     isLoading,
 }) => {
     const { tagId } = useParams();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (tagState.length === 0) {
             searchTags(tagId);
         }
     }, [searchTags, tagId]);
-    return Object.keys(tagState).length > 3 && !isLoading ? (
-        <Grid container className={classes.artistPageContainer}>
-            <Grid container className={classes.artistPageUpperContainer}>
-                <Grid item xs={12} className={classes.searchpageImageGrid}>
-                    <ArrowBackOutlinedIcon
-                        onClick={() => navigate(-1)}
-                        style={{ padding: "0 2rem" }}
-                    />
-                    <HomeIcon onClick={() => navigate("/")} />
-                </Grid>
-                <Tagpageheader tagState={getTag} />
-            </Grid>
 
-            <Grid container className={classes.artistPageContentContainer}>
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={classes.artistPageLeftGrid}
-                >
-                    <FadeInTitle text="Top songs" />
-                    <Grid item xs={12} className={classes.songListGrid}>
-                        {getTopTrackTags.map((el, ind) => (
-                            <HitGrid
-                                key={el.name}
-                                item={el}
-                                ind={ind}
-                                mode={"tagSong"}
-                            />
-                        ))}
+    return (
+        Object.keys(tagState).length > 3 && (
+            <Grid container className={classes.artistPageContainer}>
+                {isLoading && <Loading />}
+                <Grid container className={classes.artistPageUpperContainer}>
+                    <Header />
+                    <Tagpageheader tagState={getTag} />
+                </Grid>
+
+                <Grid container className={classes.artistPageContentContainer}>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classes.artistPageLeftGrid}
+                    >
+                        <FadeInTitle text="Top songs" />
+                        <Grid item xs={12} className={classes.songListGrid}>
+                            {getTopTrackTags.map((el, ind) => (
+                                <HitGrid
+                                    key={el.name}
+                                    item={el}
+                                    ind={ind}
+                                    mode={"tagSong"}
+                                />
+                            ))}
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classes.artistPageRightGrid}
+                    >
+                        <Grid
+                            item
+                            xs={12}
+                            className={classes.artistPageAlbumGrid}
+                        >
+                            <FadeInTitle text="Top Albums" />
+                            <Grid item xs={12} className={classes.albumGrid}>
+                                {getTopAlbumTags.map((el, ind) => (
+                                    <Albumgrid
+                                        key={el.mbid + ind}
+                                        item={el}
+                                        mode="tag"
+                                    />
+                                ))}
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
                 <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={classes.artistPageRightGrid}
+                    container
+                    style={{ display: "flex", justifyContent: "center" }}
                 >
-                    <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                        <FadeInTitle text="Top Albums" />
-                        <Grid item xs={12} className={classes.albumGrid}>
-                            {getTopAlbumTags.map((el, ind) => (
-                                <Albumgrid
-                                    key={el.mbid + ind}
-                                    item={el}
-                                    mode="tag"
-                                />
+                    <Grid
+                        item
+                        xs={12}
+                        sm={10}
+                        className={classes.artistPageAlbumGrid}
+                    >
+                        <FadeInTitle text="Top Artists" />
+                        <Grid container className={classes.similarArtistGrid}>
+                            {getTopArtistTags.map((el) => (
+                                <Similarartist item={el} key={el.mbid} />
                             ))}
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid
-                container
-                style={{ display: "flex", justifyContent: "center" }}
-            >
-                <Grid
-                    item
-                    xs={12}
-                    sm={10}
-                    className={classes.artistPageAlbumGrid}
-                >
-                    <FadeInTitle text="Top Artists" />
-                    <Grid container className={classes.similarArtistGrid}>
-                        {getTopArtistTags.map((el) => (
-                            <Similarartist item={el} key={el.mbid} />
-                        ))}
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Grid>
-    ) : (
-        <Loading />
+        )
     );
 };
 

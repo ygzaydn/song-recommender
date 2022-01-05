@@ -70,15 +70,13 @@ const Hitgrid = ({
     const navigate = useNavigate();
 
     const getSong = () => {
-        searchTrackByMbid(mbid).then(() => {
-            navigate(`/track/${mbid}}`);
-        });
+        searchTrackByMbid(mbid);
+        navigate(`/track/${mbid}}`);
     };
 
     const getArtist = (mbid, artistName) => {
-        searchArtist(artistName).then(() => {
-            navigate(`/artist/${artistName.replace(/ /g, "%20")}`);
-        });
+        searchArtist(artistName);
+        navigate(`/artist/${artistName.replace(/ /g, "%20")}`);
     };
 
     return (

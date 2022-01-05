@@ -37,7 +37,6 @@ export const doResetArtistState = () => {
 
 export const searchArtist = (name) => (dispatch) => {
     dispatch({ type: Actions.TOGGLE_LOADING });
-    dispatch(doResetArtistState());
     getArtistInfoFromName(name).then((res) => {
         dispatch(doGetRecommendedArtist(res[0]));
         dispatch(doGetTopTracks(res[1]));

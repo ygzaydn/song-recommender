@@ -7,14 +7,11 @@ import { compose } from "recompose";
 import { connect } from "react-redux";
 
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import * as artistSelectors from "../../../redux/selectors/artistSelectors";
 import * as artistActionCreators from "../../../redux/actionCreators/artistActionCreators";
 import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
 
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import HomeIcon from "@mui/icons-material/Home";
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 
 import Albumgrid from "../../utils/albumGrid/albumGrid";
@@ -23,6 +20,7 @@ import Similarartist from "../../utils/similarArtistItem/similarArtist";
 import ArtistpageHeader from "../../utils/artistpageHeader/artistpageHeader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
 import Loading from "../../utils/loading/loading";
+import Header from "../../utils/header/header";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -68,7 +66,7 @@ const useStyles = () => ({
         gridTemplateRows: "auto auto",
     },
     artistPageAlbumGrid: {
-        padding: "0 1.5rem",
+        padding: "1.5rem",
         display: "flex",
         flexDirection: "column",
     },
@@ -101,17 +99,20 @@ const useStyles = () => ({
     },
 });
 
-const Artistpage = ({ classes, artistState, searchArtist, loadingState }) => {
+const Artistpage = ({
+    classes,
+    artistState,
+    searchArtist,
+    loadingState,
+    getArtist,
+}) => {
     const [maxListen, setMaxListen] = useState(0);
-    const [myArtist, setMyArtist] = useState("");
-    const navigate = useNavigate();
     const { artistName } = useParams();
-
     useEffect(() => {
-        if (artistState.length === 0 || myArtist !== artistName) {
+        if ((getArtist && getArtist.name !== artistName) || !getArtist) {
             searchArtist(artistName);
         }
-    }, [artistName, searchArtist, artistState.length, myArtist]);
+    }, [artistName, searchArtist, getArtist, artistState]);
 
     useEffect(() => {
         if (
@@ -121,77 +122,77 @@ const Artistpage = ({ classes, artistState, searchArtist, loadingState }) => {
         ) {
             setMaxListen(artistState.getTopTracks.track[0].playcount);
         }
-        if (artistState.getArtist) {
-            setMyArtist(artistState.getArtist.name);
-        }
     }, [artistState]);
 
-    return !loadingState && Object.keys(artistState).length >= 3 ? (
-        <Grid container className={classes.artistPageContainer}>
-            <Grid container className={classes.artistPageUpperContainer}>
-                <Grid item xs={12} className={classes.searchpageImageGrid}>
-                    <ArrowBackOutlinedIcon
-                        onClick={() => navigate(-1)}
-                        style={{ padding: "0 2rem" }}
-                    />
-                    <HomeIcon onClick={() => navigate("/")} />
+    return (
+        Object.keys(artistState).length >= 3 && (
+            <Grid container className={classes.artistPageContainer}>
+                {loadingState && <Loading />}
+                <Grid container className={classes.artistPageUpperContainer}>
+                    <Header />
+                    <ArtistpageHeader artistState={artistState} />
                 </Grid>
-                <ArtistpageHeader artistState={artistState} />
-            </Grid>
-            <Grid container className={classes.artistPageContentContainer}>
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={classes.artistPageLeftGrid}
-                >
-                    <FadeInTitle text="Best songs" />
+                <Grid container className={classes.artistPageContentContainer}>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classes.artistPageLeftGrid}
+                    >
+                        <FadeInTitle text="Best songs" />
 
-                    <Grid item xs={12} className={classes.songListGrid}>
-                        {artistState.getTopTracks.track
-                            .filter((el, ind) => ind < 8)
-                            .map((el, ind) => (
-                                <Songgrid
-                                    key={el.name}
-                                    item={el}
-                                    ind={ind}
-                                    maxListen={maxListen}
-                                />
-                            ))}
+                        <Grid item xs={12} className={classes.songListGrid}>
+                            {artistState.getTopTracks.track
+                                .filter((el, ind) => ind < 8)
+                                .map((el, ind) => (
+                                    <Songgrid
+                                        key={el.name}
+                                        item={el}
+                                        ind={ind}
+                                        maxListen={maxListen}
+                                    />
+                                ))}
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classes.artistPageRightGrid}
+                    >
+                        <Grid
+                            item
+                            xs={12}
+                            className={classes.artistPageAlbumGrid}
+                        >
+                            <FadeInTitle text="Best albums" />
+                            <Grid item xs={12} className={classes.albumGrid}>
+                                {artistState.getTopAlbums.album
+                                    .filter((el, ind) => ind < 5)
+                                    .map((el) => (
+                                        <Albumgrid item={el} key={el.name} />
+                                    ))}
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={classes.artistPageRightGrid}
-                >
-                    <Grid item xs={12} className={classes.artistPageAlbumGrid}>
-                        <FadeInTitle text="Best albums" />
-                        <Grid item xs={12} className={classes.albumGrid}>
-                            {artistState.getTopAlbums.album
-                                .filter((el, ind) => ind < 5)
-                                .map((el) => (
-                                    <Albumgrid item={el} key={el.name} />
-                                ))}
+
+                <Grid container className={classes.artistPageSimilarContainer}>
+                    <Grid
+                        item
+                        xs={12}
+                        className={classes.artistPageSimilarGrid}
+                    >
+                        <FadeInTitle text="Similar artists" />
+                        <Grid container className={classes.similarArtistGrid}>
+                            {artistState.getArtist.similar.artist.map((el) => (
+                                <Similarartist item={el} key={el.name} />
+                            ))}
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-
-            <Grid container className={classes.artistPageSimilarContainer}>
-                <Grid item xs={12} className={classes.artistPageSimilarGrid}>
-                    <FadeInTitle text="Similar artists" />
-                    <Grid container className={classes.similarArtistGrid}>
-                        {artistState.getArtist.similar.artist.map((el) => (
-                            <Similarartist item={el} key={el.name} />
-                        ))}
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Grid>
-    ) : (
-        <Loading />
+        )
     );
 };
 

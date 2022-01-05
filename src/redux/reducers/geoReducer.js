@@ -12,6 +12,9 @@ const geoReducer = (state = [], action) => {
         case Actions.RESET_GEO_STATE: {
             return GeoActions.applyResetGeoState(state, action);
         }
+        case Actions.SET_GEO_NAME: {
+            return { ...state, name: action.payload };
+        }
         default:
             return state;
     }

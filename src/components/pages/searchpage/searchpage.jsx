@@ -6,7 +6,6 @@ import Background2 from "../../../assets/images/search-2.jpg";
 import Background3 from "../../../assets/images/search-3.jpg";
 import Background4 from "../../../assets/images/search-4.jpg";
 
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 
 import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
@@ -141,36 +140,38 @@ const Searchpage = ({
         }
     }, [goBackHomepage, state]);
 
-    return !loadingState && state ? (
-        <Grid container className={classes.searchpageContainer}>
-            <Grid
-                item
-                xs={12}
-                md={8}
-                className={classes.searchpageImageGrid}
-                style={{
-                    backgroundImage:
-                        state.backgroundId === 0
-                            ? `url(${Background1})`
-                            : state.backgroundId === 1
-                            ? `url(${Background2})`
-                            : state.backgroundId === 2
-                            ? `url(${Background3})`
-                            : `url(${Background4})`,
-                }}
-            >
-                <ArrowBackOutlinedIcon
-                    onClick={() => navigate(-1)}
-                    style={{ padding: "0 2rem" }}
-                />
-                <HomeIcon onClick={() => navigate("/")} />
+    return (
+        state && (
+            <Grid container className={classes.searchpageContainer}>
+                {loadingState && <Loading />}
+                <Grid
+                    item
+                    xs={12}
+                    md={8}
+                    className={classes.searchpageImageGrid}
+                    style={{
+                        backgroundImage:
+                            state.backgroundId === 0
+                                ? `url(${Background1})`
+                                : state.backgroundId === 1
+                                ? `url(${Background2})`
+                                : state.backgroundId === 2
+                                ? `url(${Background3})`
+                                : `url(${Background4})`,
+                    }}
+                >
+                    <HomeIcon onClick={() => navigate("/")} />
+                </Grid>
+                <Grid
+                    item
+                    xs={12}
+                    md={4}
+                    className={classes.searchpageFromGrid}
+                >
+                    <SearchpageForm title={title} properties={properties} />
+                </Grid>
             </Grid>
-            <Grid item xs={12} md={4} className={classes.searchpageFromGrid}>
-                <SearchpageForm title={title} properties={properties} />
-            </Grid>
-        </Grid>
-    ) : (
-        <Loading />
+        )
     );
 };
 

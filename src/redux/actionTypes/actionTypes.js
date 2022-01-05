@@ -5,6 +5,9 @@ export const GET_TRACK = "GET_TRACK";
 export const GET_ARTIST = "GET_ARTIST";
 export const GET_TAG = "GET_TAG";
 
+export const SET_TAG_NAME = "SET_TAG_NAME";
+export const SET_GEO_NAME = "SET_GEO_NAME";
+
 export const GET_TOP_ALBUMS = "GET_TOP_ALBUMS";
 export const GET_TOP_TRACKS = "GET_TOP_TRACKS";
 export const GET_TOP_ALBUM_TAGS = "GET_TOP_ALBUM_TAGS";

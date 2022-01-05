@@ -21,6 +21,9 @@ const tagReducer = (state = [], action) => {
         case Actions.GET_TOP_TAGS: {
             return TagActions.applyGetTopTags(state, action);
         }
+        case Actions.SET_TAG_NAME: {
+            return { ...state, name: action.payload };
+        }
         default:
             return state;
     }
