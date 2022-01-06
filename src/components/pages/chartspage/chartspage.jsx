@@ -91,7 +91,7 @@ const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
                 xs={8}
                 style={{
                     padding: "3rem",
-                    maxWidth: 600,
+                    maxWidth: 1200,
                     margin: "auto",
                     height: "100%",
                 }}
@@ -100,7 +100,7 @@ const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
                     {pageState === "Artist" &&
                         chartState &&
                         chartState.topArtists && (
-                            <Grid container>
+                            <Grid container style={{height:"100%"}}>
                                 <Grid
                                     item
                                     xs={12}
@@ -115,8 +115,9 @@ const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
                                     item
                                     xs={12}
                                     style={{
-                                        maxHeight: "70vh",
+                                        maxHeight: "100%",
                                         overflowY: "scroll",
+                                        paddingBot:"2rem"
                                     }}
                                 >
                                     {chartState.topArtists.map((el) => (

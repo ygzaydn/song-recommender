@@ -15,7 +15,7 @@ import ReplayIcon from "@mui/icons-material/Replay";
 const Homepage = () => {
     return (
         <Grid container style={{ height: "100vh" }}>
-            <video className="main-page-video" autoPlay loop muted>
+            <video className="main-page-video" autoPlay loop muted preload={'auto'}>
                 <source src={HomepageVideo} type="video/mp4" />
             </video>
             <Grid container style={{ padding: "0 2rem" }}>
