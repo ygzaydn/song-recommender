@@ -58,7 +58,7 @@ const Similarartist = ({ item, classes, searchArtist, getArtist }) => {
     const navigate = useNavigate();
 
     const getArtistQuery = async (name) => {
-        searchArtist(name);
+        searchArtist(name, (x) => navigate(x));
     };
 
     return (
@@ -89,7 +89,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    searchArtist: (artist) => dispatch(searchArtist(artist)),
+    searchArtist: (artist, func) => dispatch(searchArtist(artist, func)),
 });
 
 export default compose(

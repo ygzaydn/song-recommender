@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
@@ -70,14 +70,8 @@ const Songgrid = ({
     const navigate = useNavigate();
 
     const getSong = () => {
-        searchTrackByMbid(mbid);
+        searchTrackByMbid(mbid, (x) => navigate(x));
     };
-
-    useEffect(() => {
-        if (getTrack && getTrack.mbid && getTrack.mbid === mbid) {
-            navigate(`/track/${getTrack.mbid}`);
-        }
-    }, [getTrack, navigate, mbid]);
 
     const width =
         pageProperty === "Artist"
@@ -144,8 +138,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    searchTrackByMbid: (mbid) =>
-        dispatch(trackActionCreators.searchTrackByMbid(mbid)),
+    searchTrackByMbid: (mbid, func) =>
+        dispatch(trackActionCreators.searchTrackByMbid(mbid, func)),
 });
 
 export default compose(

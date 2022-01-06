@@ -6,6 +6,28 @@ import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
 
 const useStyles = () => ({
+    "@global": {
+        "@keyframes fromLeft": {
+            "0%": {
+                transform: "translateX(-100%)",
+            },
+            "75%": {
+                transform: "translateX(1%)",
+            },
+            "100%": {
+                transform: "translateX(0%)",
+            },
+        },
+        "@keyframes fadeIn": {
+            "0%": {
+                opacity: 0,
+            },
+            "100%": {
+                opacity: 1,
+            },
+        },
+    },
+
     textStyle: {
         paddingBottom: "1rem",
         opacity: 0,

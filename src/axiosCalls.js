@@ -1,34 +1,5 @@
 import axios from "axios";
 
-export const getArtistInfoFromSearch = async (
-    mbid,
-    dispatcherMethod1,
-    dispatcherMethod2,
-    dispatcherMethod3
-) => {
-    const requestOne = axios.get(
-        `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`
-    );
-    const requestTwo = axios.get(
-        `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`
-    );
-    const requestThree = axios.get(
-        `https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&mbid=${mbid}&api_key=${process.env.REACT_APP_API_KEY}&format=json`
-    );
-    const responses = await axios.all([requestOne, requestTwo, requestThree]);
-    try {
-        const responseOne = responses[0];
-        const responseTwo = responses[1];
-        const responseThree = responses[2];
-        console.log(responses);
-        dispatcherMethod1(responseOne);
-        dispatcherMethod2(responseTwo);
-        dispatcherMethod3(responseThree);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 export const getArtistInfoFromName = async (
     name,
     dispatcherMethod1,
@@ -164,5 +135,23 @@ export const getGeoTopArtists = async (country, dispatcherMethod) => {
         console.log(res);
     } catch (err) {
         console.log(err);
+    }
+};
+
+export const getCharts = async () => {
+    const requestOne = axios.get(
+        `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${process.env.REACT_APP_API_KEY}&format=json`
+    );
+    const requestTwo = axios.get(
+        `https://ws.audioscrobbler.com/2.0/?method=chart.gettoptags&api_key=${process.env.REACT_APP_API_KEY}&format=json`
+    );
+    const requestThree = axios.get(
+        `https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${process.env.REACT_APP_API_KEY}&format=json`
+    );
+    const responses = await axios.all([requestOne, requestTwo, requestThree]);
+    try {
+        return responses;
+    } catch (error) {
+        console.log(error);
     }
 };

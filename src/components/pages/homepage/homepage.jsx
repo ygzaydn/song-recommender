@@ -91,7 +91,7 @@ const Homepage = () => {
                     <HomepageFooterCard
                         icon={<ReplayIcon />}
                         text="Check out weekly charts"
-                        link="/search/tag"
+                        link="/charts"
                     />
                 </Grid>
             </Grid>

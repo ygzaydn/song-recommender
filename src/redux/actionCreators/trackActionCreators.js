@@ -39,12 +39,16 @@ export const searchTrack = (track, artist) => (dispatch) => {
     });
 };
 
-export const searchTrackByMbid = (mbid) => (dispatch) => {
-    dispatch({ type: Actions.TOGGLE_LOADING });
-
-    getTrackFromSearch(mbid).then((res) => {
-        dispatch(doGetRecommendedTrack(res[0]));
-        dispatch(doGetSimilarTrack(res[1]));
+export const searchTrackByMbid =
+    (mbid, func = "") =>
+    (dispatch) => {
         dispatch({ type: Actions.TOGGLE_LOADING });
-    });
-};
+        getTrackFromSearch(mbid).then((res) => {
+            dispatch(doGetRecommendedTrack(res[0]));
+            dispatch(doGetSimilarTrack(res[1]));
+            dispatch({ type: Actions.TOGGLE_LOADING });
+            if (typeof func === "function") {
+                func(`/track/${mbid}`);
+            }
+        });
+    };

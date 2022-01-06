@@ -70,13 +70,11 @@ const Hitgrid = ({
     const navigate = useNavigate();
 
     const getSong = () => {
-        searchTrackByMbid(mbid);
-        navigate(`/track/${mbid}}`);
+        searchTrackByMbid(mbid, (x) => navigate(x));
     };
 
     const getArtist = (mbid, artistName) => {
-        searchArtist(artistName);
-        navigate(`/artist/${artistName.replace(/ /g, "%20")}`);
+        searchArtist(artistName, (x) => navigate(x));
     };
 
     return (
@@ -161,10 +159,10 @@ const Hitgrid = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    searchArtist: (artist) =>
-        dispatch(artistActionCreators.searchArtist(artist)),
-    searchTrackByMbid: (mbid) =>
-        dispatch(trackActionCreators.searchTrackByMbid(mbid)),
+    searchArtist: (artist, func) =>
+        dispatch(artistActionCreators.searchArtist(artist, func)),
+    searchTrackByMbid: (mbid, func) =>
+        dispatch(trackActionCreators.searchTrackByMbid(mbid, func)),
 });
 
 export default compose(

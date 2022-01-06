@@ -35,12 +35,17 @@ export const doResetArtistState = () => {
     };
 };
 
-export const searchArtist = (name) => (dispatch) => {
-    dispatch({ type: Actions.TOGGLE_LOADING });
-    getArtistInfoFromName(name).then((res) => {
-        dispatch(doGetRecommendedArtist(res[0]));
-        dispatch(doGetTopTracks(res[1]));
-        dispatch(doGetTopAlbums(res[2]));
+export const searchArtist =
+    (name, func = "") =>
+    (dispatch) => {
         dispatch({ type: Actions.TOGGLE_LOADING });
-    });
-};
+        getArtistInfoFromName(name).then((res) => {
+            dispatch(doGetRecommendedArtist(res[0]));
+            dispatch(doGetTopTracks(res[1]));
+            dispatch(doGetTopAlbums(res[2]));
+            dispatch({ type: Actions.TOGGLE_LOADING });
+            if (typeof func === "function") {
+                func(`/artist/${name}`);
+            }
+        });
+    };

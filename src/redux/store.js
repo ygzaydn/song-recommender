@@ -6,6 +6,7 @@ import artistReducer from "./reducers/artistReducer";
 import tagReducer from "./reducers/tagReducer";
 import geoReducer from "./reducers/geoReducer";
 import loadingReducer from "./reducers/loadingReducer";
+import chartReducer from "./reducers/chartsReducer";
 
 //store initialization
 const logger = createLogger();
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     tagState: tagReducer,
     geoState: geoReducer,
     loadingState: loadingReducer,
+    chartState: chartReducer,
 });
 export const store = createStore(
     rootReducer,

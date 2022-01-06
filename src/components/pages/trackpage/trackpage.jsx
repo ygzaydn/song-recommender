@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
 import { connect } from "react-redux";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import * as trackActionCreators from "../../../redux/actionCreators/trackActionCreators";
 
@@ -78,24 +78,6 @@ const useStyles = () => ({
     similarArtistGrid: {
         display: "flex",
     },
-    searchpageImageGrid: {
-        padding: "0 0.5rem",
-        "& svg": {
-            fill: "white",
-            stroke: "white",
-            cursor: "pointer",
-            "@media only screen and (min-width: 1000px)": {
-                width: 50,
-                height: 50,
-            },
-            top: "5%",
-            left: "5%",
-            transition: "all .4s",
-            "&:hover": {
-                transform: "scale(1.25)",
-            },
-        },
-    },
 });
 
 const Trackpage = ({
@@ -107,12 +89,13 @@ const Trackpage = ({
     isLoading,
 }) => {
     const { trackMbid } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (trackInfoState.length === 0) {
-            searchTrackByMbid(trackMbid);
+            searchTrackByMbid(trackMbid, (x) => navigate(x));
         }
-    }, [trackInfoState, trackMbid, searchTrackByMbid]);
+    }, []);
 
     return (
         Object.keys(trackInfoState).length > 1 && (
@@ -205,8 +188,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    searchTrackByMbid: (mbid) =>
-        dispatch(trackActionCreators.searchTrackByMbid(mbid)),
+    searchTrackByMbid: (mbid, func) =>
+        dispatch(trackActionCreators.searchTrackByMbid(mbid, func)),
 });
 
 export default compose(

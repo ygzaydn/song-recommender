@@ -8,7 +8,7 @@ import Gif from "../../../assets/videos/Infinity-1s-200px.gif";
 const useStyles = () => ({
     mainGrid: {
         display: "flex",
-        height: "100vh",
+        height: "max(100vh,100%)",
         width: "100vw",
         flexDirection: "column",
         justifyContent: "center",

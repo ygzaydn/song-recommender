@@ -81,24 +81,6 @@ const useStyles = () => ({
     similarArtistGrid: {
         display: "flex",
     },
-    searchpageImageGrid: {
-        padding: "0 0.5rem",
-        "& svg": {
-            fill: "white",
-            stroke: "white",
-            cursor: "pointer",
-            "@media only screen and (min-width: 1000px)": {
-                width: 50,
-                height: 50,
-            },
-            top: "5%",
-            left: "5%",
-            transition: "all .4s",
-            "&:hover": {
-                transform: "scale(1.25)",
-            },
-        },
-    },
 });
 
 const Tagpage = ({
@@ -114,10 +96,10 @@ const Tagpage = ({
     const { tagId } = useParams();
 
     useEffect(() => {
-        if (tagState.length === 0) {
+        if (tagState.length === 0 && tagState.name !== tagId) {
             searchTags(tagId);
         }
-    }, [searchTags, tagId]);
+    }, []);
 
     return (
         Object.keys(tagState).length > 3 && (

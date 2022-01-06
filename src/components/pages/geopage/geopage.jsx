@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -76,24 +76,6 @@ const useStyles = () => ({
     similarArtistGrid: {
         display: "flex",
     },
-    searchpageImageGrid: {
-        padding: "0 0.5rem",
-        "& svg": {
-            fill: "white",
-            stroke: "white",
-            cursor: "pointer",
-            "@media only screen and (min-width: 1000px)": {
-                width: 50,
-                height: 50,
-            },
-            top: "5%",
-            left: "5%",
-            transition: "all .4s",
-            "&:hover": {
-                transform: "scale(1.25)",
-            },
-        },
-    },
 });
 
 const Geopage = ({
@@ -104,18 +86,14 @@ const Geopage = ({
     getGeoTopTracks,
     isLoading,
 }) => {
-    const [countryName, setCountryName] = useState("");
-
     const { countryId } = useParams();
+    const { name } = geoState;
 
     useEffect(() => {
-        if (countryName !== countryId) {
-            setCountryName(countryId);
-        }
-        if (countryId.length > 0 && countryName !== countryId) {
+        if (countryId.length > 0 && name !== countryId) {
             searchGeo(countryId);
         }
-    }, [countryId, countryName, searchGeo]);
+    }, []);
 
     return (
         Object.keys(geoState).length > 1 && (
@@ -123,7 +101,7 @@ const Geopage = ({
                 {isLoading && <Loading />}
                 <Grid container className={classes.artistPageUpperContainer}>
                     <Header />
-                    <GeopageHeader countryName={countryName} />
+                    <GeopageHeader countryName={name} />
                 </Grid>
                 <Grid container className={classes.artistPageContentContainer}>
                     <Grid

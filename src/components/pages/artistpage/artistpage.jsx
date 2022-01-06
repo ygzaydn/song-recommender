@@ -79,24 +79,6 @@ const useStyles = () => ({
     similarArtistGrid: {
         display: "flex",
     },
-    searchpageImageGrid: {
-        padding: "0 0.5rem",
-        "& svg": {
-            fill: "white",
-            stroke: "white",
-            cursor: "pointer",
-            "@media only screen and (min-width: 1000px)": {
-                width: 50,
-                height: 50,
-            },
-            top: "5%",
-            left: "5%",
-            transition: "all .4s",
-            "&:hover": {
-                transform: "scale(1.25)",
-            },
-        },
-    },
 });
 
 const Artistpage = ({
@@ -112,7 +94,7 @@ const Artistpage = ({
         if ((getArtist && getArtist.name !== artistName) || !getArtist) {
             searchArtist(artistName);
         }
-    }, [artistName, searchArtist, getArtist, artistState]);
+    }, []);
 
     useEffect(() => {
         if (
