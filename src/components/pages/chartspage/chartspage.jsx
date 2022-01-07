@@ -7,14 +7,13 @@ import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 
-import { CircleMenu, CircleMenuItem } from "react-circular-menu";
-
-import AlbumIcon from "@mui/icons-material/Album";
-import TagIcon from "@mui/icons-material/Tag";
-import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import { getChartsThunk } from "../../../redux/actionCreators/chartActionCreators";
 import Loading from "../../utils/loading/loading";
-import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
+
+import ChartsBestArtist from "../../utils/charts/chartsBestArtist";
+import ChartsBestTag from "../../utils/charts/chartsBestTag";
+import ChartsBestTrack from "../../utils/charts/chartsBestTrack";
+import CircleMenuCustomized from "../../utils/circleMenu/circlemenu";
 
 const useStyles = () => ({
     chartspageContainer: {
@@ -22,7 +21,7 @@ const useStyles = () => ({
         width: "100vw",
     },
     chartspageBackground: {
-        background: "lightblue",
+        background: "rgb(255, 253, 105)",
         clipPath: "polygon(0% 0%, 50% 0%, 60% 100%, 0% 100%)",
         position: "absolute",
         zIndex: 0,
@@ -33,131 +32,176 @@ const useStyles = () => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        maxHeight: "35vh",
     },
     contentGrid: {
         position: "relative",
         zIndex: 10,
         padding: "2rem",
-        borderRadius: 20,
+        borderTopLeftRadius: 80,
+        borderBottomRightRadius: 80,
         border: "solid 0.2px black",
         height: "100%",
         width: "100%",
         overflow: "hidden",
     },
+    leftMainGrid: {
+        padding: "3rem",
+        maxWidth: 1000,
+        margin: "auto",
+        height: "100%",
+    },
+    rightMainGridTitle: {
+        padding: "1rem",
+        textAlign: "center",
+        paddingTop: "5rem",
+    },
+    rightMainGrid: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        "& h6": {
+            fontSize: "2.5rem !important",
+            color: "black",
+        },
+    },
+
+    "@global": {
+        "@keyframes fromLeft": {
+            "0%": {
+                transform: "translateX(-100%)",
+            },
+            "75%": {
+                transform: "translateX(1%)",
+            },
+            "100%": {
+                transform: "translateX(0%)",
+            },
+        },
+        "@keyframes fadeIn": {
+            "0%": {
+                opacity: 0,
+            },
+            "100%": {
+                opacity: 1,
+            },
+        },
+    },
+
+    textStyle: {
+        paddingBottom: "1rem",
+        opacity: 0,
+        animationName: "fadeIn",
+        animationDuration: "3s",
+        animationFillMode: "forwards",
+    },
 });
 const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
-    const [pageState, setPageState] = useState("Artist");
+    const [pageState, setPageState] = useState("Artists");
+
     useEffect(() => {
         getCharts();
     }, []);
+
+    const changeState = (state) => {
+        setPageState(state);
+    };
 
     return (
         <Grid container className={classes.chartspageContainer}>
             <Grid item xs={12} className={classes.chartspageBackground} />
             {isLoading && <Loading />}
-            <Grid item xs={4} className={classes.circleMenuGrid}>
-                <Grid item xs={6}>
-                    <CircleMenu
-                        startAngle={-90}
-                        rotationAngle={180}
-                        itemSize={3}
-                        radius={9}
-                        rotationAngleInclusive={true}
+            <Grid item xs={5} className={classes.rightMainGrid}>
+                <Grid item xs={12} className={classes.circleMenuGrid}>
+                    <CircleMenuCustomized
+                        state={pageState}
+                        changeState={(x) => changeState(x)}
+                    />
+                </Grid>
+                <Grid item xs={12} className={classes.rightMainGridTitle}>
+                    <Typography
+                        variant="subtitle1"
+                        color="primary"
+                        className={classes.textStyle}
                     >
-                        <CircleMenuItem
-                            onClick={() => setPageState("Artist")}
-                            tooltip="Top Artists"
-                            tooltipPlacement="right"
-                        >
-                            <AlbumIcon />
-                        </CircleMenuItem>
-                        <CircleMenuItem
-                            onClick={() => setPageState("Tag")}
-                            tooltip="Top Tags"
-                        >
-                            <TagIcon />
-                        </CircleMenuItem>
-                        <CircleMenuItem
-                            onClick={() => setPageState("Track")}
-                            tooltip="Top Tracks"
-                        >
-                            <TrackChangesIcon />
-                        </CircleMenuItem>
-                    </CircleMenu>
+                        TOP <br />{" "}
+                        <strong style={{ fontSize: "5rem" }}>
+                            {pageState.toUpperCase()}
+                        </strong>
+                    </Typography>
                 </Grid>
             </Grid>
-            <Grid
-                item
-                xs={8}
-                style={{
-                    padding: "3rem",
-                    maxWidth: 1200,
-                    margin: "auto",
-                    height: "100%",
-                }}
-            >
+            <Grid item xs={7} className={classes.leftMainGrid}>
                 <Grid item xs={12} className={classes.contentGrid}>
-                    {pageState === "Artist" &&
+                    {pageState === "Artists" &&
                         chartState &&
                         chartState.topArtists && (
-                            <Grid container style={{height:"100%"}}>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    style={{
-                                        borderBottom: "0.2px solid lightgray",
-                                        padding: "1rem 0",
-                                    }}
-                                >
-                                    <FadeInTitle text="Best Artists" />
-                                </Grid>
+                            <Grid container style={{ height: "100%" }}>
                                 <Grid
                                     item
                                     xs={12}
                                     style={{
                                         maxHeight: "100%",
                                         overflowY: "scroll",
-                                        paddingBot:"2rem"
+                                        paddingBot: "2rem",
+                                        overFlowX: "hidden",
                                     }}
                                 >
-                                    {chartState.topArtists.map((el) => (
-                                        <Grid
-                                            container
+                                    {chartState.topArtists.map((el, ind) => (
+                                        <ChartsBestArtist
+                                            item={el}
                                             key={
-                                                el.mbid + el.name + el.listeners
+                                                el.name + el.mbid + el.listeners
                                             }
-                                            style={{
-                                                borderBottom:
-                                                    "0.2px solid lightgray",
-                                                padding: "1rem 0",
-                                            }}
-                                        >
-                                            <Grid item xs={6}>
-                                                <Typography color="primary">
-                                                    {el.name}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid
-                                                item
-                                                xs={6}
-                                                style={{ display: "flex" }}
-                                            >
-                                                <Typography color="primary">
-                                                    Listeners: <br />
-                                                    {el.listeners}
-                                                </Typography>
-                                                <Typography color="primary">
-                                                    Playcount: <br />
-                                                    {el.playcount}
-                                                </Typography>
-                                            </Grid>
-
-                                            <Grid item xs={12}>
-                                                <Typography color="primary">
-                                                    {el.url}
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
+                                            ind={ind}
+                                        />
+                                    ))}
+                                </Grid>
+                            </Grid>
+                        )}
+                    {pageState === "Tags" && chartState && chartState.topTags && (
+                        <Grid container style={{ height: "100%" }}>
+                            <Grid
+                                item
+                                xs={12}
+                                style={{
+                                    maxHeight: "100%",
+                                    overflowY: "scroll",
+                                    paddingBot: "2rem",
+                                    overFlowX: "hidden",
+                                }}
+                            >
+                                {chartState.topTags.map((el, ind) => (
+                                    <ChartsBestTag
+                                        item={el}
+                                        key={el.name + el.reach}
+                                        ind={ind}
+                                    />
+                                ))}
+                            </Grid>
+                        </Grid>
+                    )}
+                    {pageState === "Tracks" &&
+                        chartState &&
+                        chartState.topTracks && (
+                            <Grid container style={{ height: "100%" }}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    style={{
+                                        maxHeight: "100%",
+                                        overflowY: "scroll",
+                                        paddingBot: "2rem",
+                                        overFlowX: "hidden",
+                                    }}
+                                >
+                                    {chartState.topTracks.map((el, ind) => (
+                                        <ChartsBestTrack
+                                            item={el}
+                                            key={el.name + el.reach}
+                                            ind={ind}
+                                        />
                                     ))}
                                 </Grid>
                             </Grid>

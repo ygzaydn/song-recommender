@@ -10,7 +10,7 @@ export const getChartsThunk = () => (dispatch) => {
         });
         dispatch({
             type: Actions.CHART_GET_TOP_TAGS,
-            payload: res[1].data.tags,
+            payload: res[1].data.tags.tag,
         });
         dispatch({
             type: Actions.CHART_GET_TOP_TRACKS,

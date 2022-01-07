@@ -45,18 +45,23 @@ export const doResetTagState = () => {
     };
 };
 
-export const searchTag = (tag) => (dispatch) =>
-    new Promise((res, rej) => {
-        dispatch({ type: Actions.TOGGLE_LOADING });
-        getTagInfoFromName(tag).then((res) => {
-            dispatch(doResetArtistState());
-            dispatch(doResetGeoState());
-            dispatch(doResetTrackState());
-            dispatch(doGetTag(res[0]));
-            dispatch(doGetTopAlbumTags(res[1]));
-            dispatch(doGetTopArtistTags(res[2]));
-            dispatch(doGetTopTrackTags(res[3]));
-            dispatch({ type: Actions.SET_TAG_NAME, payload: tag });
+export const searchTag =
+    (tag, func = "") =>
+    (dispatch) =>
+        new Promise((res, rej) => {
             dispatch({ type: Actions.TOGGLE_LOADING });
+            getTagInfoFromName(tag).then((res) => {
+                dispatch(doResetArtistState());
+                dispatch(doResetGeoState());
+                dispatch(doResetTrackState());
+                dispatch(doGetTag(res[0]));
+                dispatch(doGetTopAlbumTags(res[1]));
+                dispatch(doGetTopArtistTags(res[2]));
+                dispatch(doGetTopTrackTags(res[3]));
+                dispatch({ type: Actions.SET_TAG_NAME, payload: tag });
+                dispatch({ type: Actions.TOGGLE_LOADING });
+                if (typeof func === "function") {
+                    func(`/tag/${tag}`);
+                }
+            });
         });
-    });

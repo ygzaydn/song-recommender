@@ -13,15 +13,15 @@ import { useNavigate } from "react-router-dom";
 
 const useStyles = () => ({
     searchpageImageGrid: {
-        padding: "0 5opx",
+        padding: "0 25px",
         "& svg": {
             fill: "white",
             stroke: "white",
             cursor: "pointer",
-            "@media only screen and (min-width: 1000px)": {
-                width: 50,
-                height: 50,
-            },
+
+            width: 50,
+            height: 50,
+
             top: "5%",
             left: "5%",
             transition: "all .4s",
