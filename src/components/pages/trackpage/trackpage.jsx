@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 import { compose } from "recompose";
@@ -117,32 +117,19 @@ const Trackpage = ({
                     <Trackpageheader trackState={track} />
                 </Grid>
                 <Grid container className={classes.artistPageContentContainer}>
-                    <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        className={classes.artistPageLeftGrid}
-                    >
-                        <FadeInTitle text="Similar songs" />
-                        <Grid item xs={12} className={classes.songListGrid}>
-                            {similarTracks
-                                .filter((el, ind) => ind < 8)
-                                .map((el, ind) => (
-                                    <Songgrid
-                                        key={el.name}
-                                        item={el}
-                                        ind={ind}
-                                        maxListen={1}
-                                    />
-                                ))}
-                        </Grid>
-                    </Grid>
-                    <Grid
+                <Grid
                         item
                         xs={12}
                         sm={6}
                         className={classes.artistPageRightGrid}
                     >
+                        <Grid
+                            item
+                            xs={12}
+                            className={classes.artistPageAlbumGrid}
+                        >
+                            <Typography variant="subtitle2">{trackInfoState.getTrack.wiki.summary.split("<a")[0]}</Typography>
+                        </Grid>
                         <Grid
                             item
                             xs={12}
@@ -177,6 +164,27 @@ const Trackpage = ({
                             </Grid>
                         </Grid>
                     </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classes.artistPageLeftGrid}
+                    >
+                        <FadeInTitle text="Similar songs" />
+                        <Grid item xs={12} className={classes.songListGrid}>
+                            {similarTracks
+                                .filter((el, ind) => ind < 8)
+                                .map((el, ind) => (
+                                    <Songgrid
+                                        key={el.name}
+                                        item={el}
+                                        ind={ind}
+                                        maxListen={1}
+                                    />
+                                ))}
+                        </Grid>
+                    </Grid>
+                    
                 </Grid>
             </Grid>
         )

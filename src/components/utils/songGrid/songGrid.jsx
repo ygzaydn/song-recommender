@@ -68,7 +68,7 @@ const useStyles = () => ({
   iconGrid: {
     position: "relative",
     display: "flex",
-    "& svg": { margin: "0 1rem", fill: "black" },
+    "& svg": { margin: "0 .5rem 0 0", fill: "black" },
   },
 });
 
@@ -89,7 +89,12 @@ const Songgrid = ({
   const [expand, setExpand] = React.useState(false);
   const toggleAcordion = () => {
     setExpand((prev) => !prev);
-    queryYoutubeLink();
+    if(!link){
+        queryYoutubeLink();
+    }
+    else {
+        setLink(null)
+    }
   };
 
   const { name, playcount, match, mbid } = item;
@@ -125,7 +130,6 @@ const Songgrid = ({
           key={name}
           className={classes.songBarGrid}
           style={{
-            padding: "1%",
             animationDelay: `${parseInt(ind) * 50}ms`,
           }}
         >
@@ -181,8 +185,9 @@ const Songgrid = ({
               height="300"
               width="100%"
               title={`${name}`}
-              src={`https://www.youtube.com/embed/${link}`}
+              src={`https://www.youtube.com/embed/${link}?autoplay=1`}
               frameBorder="0"
+              allow='autoplay'
             ></iframe>
           )}
         </Grid>
