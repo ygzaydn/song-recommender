@@ -15,9 +15,6 @@ const CircleMenuCustomized = ({ state, changeState }) => {
             itemSize={3}
             radius={9}
             rotationAngleInclusive={true}
-            onMenuToggle={() => {
-                console.log("asd");
-            }}
         >
             <CircleMenuItem
                 onClick={() => changeState("Artists")}

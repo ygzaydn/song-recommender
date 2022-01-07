@@ -23,6 +23,7 @@ const useStyles = () => ({
         textDecoration: "underline",
         cursor: "pointer",
         textAlign: "start",
+        transition: "all .2s",
 
         "&:hover": {
             cursor: "pointer",
