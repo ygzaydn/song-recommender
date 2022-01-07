@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 import { compose } from "recompose";
@@ -57,8 +57,8 @@ const useStyles = () => ({
         animationFillMode: "forwards",
     },
     songListGrid: {
-        height: "25rem",
-        overflow: "hidden",
+        height: "35rem",
+        overflow: "auto",
     },
     albumGrid: {
         display: "grid",
@@ -88,10 +88,10 @@ const Artistpage = ({
     searchArtist,
     loadingState,
     getArtist,
-    error,
 }) => {
     const [maxListen, setMaxListen] = useState(0);
     const { artistName } = useParams();
+    
     useEffect(() => {
         if ((getArtist && getArtist.name !== artistName) || !getArtist) {
             searchArtist(artistName);
@@ -102,12 +102,14 @@ const Artistpage = ({
         if (
             artistState.length > 0 &&
             artistState.getTopTracks &&
-            artistState.getTopTracks.track.length > 0
+            artistState.getTopTracks.track.length > 0 
+            
         ) {
             setMaxListen(artistState.getTopTracks.track[0].playcount);
         }
     }, [artistState]);
 
+  
     return (
         Object.keys(artistState).length >= 3 && (
             <Grid container className={classes.artistPageContainer}>
@@ -117,12 +119,16 @@ const Artistpage = ({
                     <ArtistpageHeader artistState={artistState} />
                 </Grid>
                 <Grid container className={classes.artistPageContentContainer}>
-                    <Grid
+
+
+                <Grid
                         item
                         xs={12}
                         sm={6}
-                        className={classes.artistPageLeftGrid}
+                        className={classes.artistPageSummaryGrid}
                     >
+                        <Typography variant="subtitle2" style={{paddingBottom:"3rem"}}>{getArtist.bio.summary.split('<a')[0]}</Typography>
+
                         <FadeInTitle text="Best songs" />
 
                         <Grid item xs={12} className={classes.songListGrid}>
@@ -138,6 +144,7 @@ const Artistpage = ({
                                 ))}
                         </Grid>
                     </Grid>
+                  
                     <Grid
                         item
                         xs={12}
@@ -198,3 +205,5 @@ export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withStyles(useStyles)
 )(Artistpage);
+
+

@@ -58,8 +58,8 @@ const useStyles = () => ({
         animationFillMode: "forwards",
     },
     songListGrid: {
-        height: "25rem",
-        overflow: "hidden",
+        height: "35rem",
+        overflow: "auto",
     },
     albumGrid: {
         display: "grid",

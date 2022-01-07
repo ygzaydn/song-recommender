@@ -56,7 +56,7 @@ const useStyles = () => ({
     },
     songListGrid: {
         height: "35rem",
-        overflowY: "scroll",
+        overflowY: "auto",
         overflowX: "hidden",
     },
     albumGrid: {
