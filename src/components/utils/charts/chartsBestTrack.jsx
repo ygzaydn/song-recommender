@@ -70,7 +70,7 @@ const ChartBestTrack = ({
             className={classes.container}
             style={{ animationDelay: `${ind * 50}ms` }}
         >
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
                 <Typography variant="h6">
                     <strong
                         className={classes.text}
@@ -91,7 +91,7 @@ const ChartBestTrack = ({
                     {artist.name}
                 </Typography>
             </Grid>
-            <Grid item xs={6} className={classes.statsGrid}>
+            <Grid item xs={12} md={6} className={classes.statsGrid}>
                 <Typography variant="subtitle1">
                     <strong>Listeners:</strong>
                     <br />

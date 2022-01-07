@@ -50,18 +50,34 @@ export const searchTag =
     (dispatch) =>
         new Promise((res, rej) => {
             dispatch({ type: Actions.TOGGLE_LOADING });
-            getTagInfoFromName(tag).then((res) => {
-                dispatch(doResetArtistState());
-                dispatch(doResetGeoState());
-                dispatch(doResetTrackState());
-                dispatch(doGetTag(res[0]));
-                dispatch(doGetTopAlbumTags(res[1]));
-                dispatch(doGetTopArtistTags(res[2]));
-                dispatch(doGetTopTrackTags(res[3]));
-                dispatch({ type: Actions.SET_TAG_NAME, payload: tag });
-                dispatch({ type: Actions.TOGGLE_LOADING });
-                if (typeof func === "function") {
-                    func(`/tag/${tag}`);
-                }
-            });
+            getTagInfoFromName(tag)
+                .then((res) => {
+                    dispatch(doResetArtistState());
+                    dispatch(doResetGeoState());
+                    dispatch(doResetTrackState());
+                    if (
+                        res[0].data.error ||
+                        res[1].data.error ||
+                        res[2].data.error ||
+                        res[3].data.error
+                    ) {
+                        dispatch({ type: Actions.APPLY_ERROR });
+                        throw new Error("err");
+                    } else {
+                        dispatch(doGetTag(res[0]));
+                        dispatch(doGetTopAlbumTags(res[1]));
+                        dispatch(doGetTopArtistTags(res[2]));
+                        dispatch(doGetTopTrackTags(res[3]));
+                    }
+
+                    dispatch({ type: Actions.CLEAR_ERROR });
+                    dispatch({ type: Actions.SET_TAG_NAME, payload: tag });
+                    dispatch({ type: Actions.TOGGLE_LOADING });
+                    if (typeof func === "function") {
+                        func(`/tag/${tag}`);
+                    }
+                })
+                .catch((err) => {
+                    dispatch({ type: Actions.APPLY_ERROR });
+                });
         });

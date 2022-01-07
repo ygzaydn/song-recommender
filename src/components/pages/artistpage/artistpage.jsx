@@ -30,6 +30,7 @@ const useStyles = () => ({
         flexDirection: "column",
         alignItems: "center",
         minHeight: "100vh",
+        position: "relative",
     },
     artistPageContentContainer: {
         maxWidth: "1250px",
@@ -87,6 +88,7 @@ const Artistpage = ({
     searchArtist,
     loadingState,
     getArtist,
+    error,
 }) => {
     const [maxListen, setMaxListen] = useState(0);
     const { artistName } = useParams();
@@ -184,6 +186,7 @@ const mapStateToProps = (state) => ({
     getTopAlbums: artistSelectors.artistTopAlbums(state),
     getArtist: artistSelectors.artistInfo(state),
     loadingState: loadingSelectors.loadingState(state),
+    error: (state) => state.loadingState.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({

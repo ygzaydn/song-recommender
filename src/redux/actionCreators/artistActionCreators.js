@@ -39,13 +39,28 @@ export const searchArtist =
     (name, func = "") =>
     (dispatch) => {
         dispatch({ type: Actions.TOGGLE_LOADING });
-        getArtistInfoFromName(name).then((res) => {
-            dispatch(doGetRecommendedArtist(res[0]));
-            dispatch(doGetTopTracks(res[1]));
-            dispatch(doGetTopAlbums(res[2]));
-            dispatch({ type: Actions.TOGGLE_LOADING });
-            if (typeof func === "function") {
-                func(`/artist/${name}`);
-            }
-        });
+        getArtistInfoFromName(name)
+            .then((res) => {
+                if (
+                    res[0].data.error ||
+                    res[1].data.error ||
+                    res[2].data.error
+                ) {
+                    dispatch({ type: Actions.APPLY_ERROR });
+                    throw new Error("err");
+                } else {
+                    dispatch(doGetRecommendedArtist(res[0]));
+                    dispatch(doGetTopTracks(res[1]));
+                    dispatch(doGetTopAlbums(res[2]));
+                    dispatch({ type: Actions.TOGGLE_LOADING });
+                    dispatch({ type: Actions.CLEAR_ERROR });
+                }
+
+                if (typeof func === "function") {
+                    func(`/artist/${name}`);
+                }
+            })
+            .catch((err) => {
+                dispatch({ type: Actions.APPLY_ERROR });
+            });
     };

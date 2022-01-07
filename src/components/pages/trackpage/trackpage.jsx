@@ -31,6 +31,7 @@ const useStyles = () => ({
         flexDirection: "column",
         alignItems: "center",
         minHeight: "100vh",
+        position: "relative",
     },
     artistPageContentContainer: {
         maxWidth: "1250px",
@@ -87,6 +88,7 @@ const Trackpage = ({
     trackInfoState,
     searchTrackByMbid,
     isLoading,
+    error,
 }) => {
     const { trackMbid } = useParams();
     const navigate = useNavigate();
@@ -98,7 +100,8 @@ const Trackpage = ({
     }, []);
 
     return (
-        Object.keys(trackInfoState).length > 1 && (
+        Object.keys(trackInfoState).length > 1 &&
+        !error && (
             <Grid container className={classes.artistPageContainer}>
                 {isLoading && <Loading />}
                 <Grid
@@ -185,6 +188,7 @@ const mapStateToProps = (state) => ({
     similarTracks: trackSelectors.similarTracks(state),
     trackInfoState: trackSelectors.trackState(state),
     isLoading: loadingSelectors.loadingState(state),
+    error: state.loadingState.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({

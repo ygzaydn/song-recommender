@@ -53,7 +53,7 @@ const useStyles = () => ({
 });
 
 const ChartBestArtist = ({ item, classes, ind, searchAnArtist }) => {
-    const { mbid, name, listeners, playcount, url } = item;
+    const { mbid, name, listeners, playcount } = item;
     const navigate = useNavigate();
 
     return (
@@ -63,7 +63,7 @@ const ChartBestArtist = ({ item, classes, ind, searchAnArtist }) => {
             className={classes.container}
             style={{ animationDelay: `${ind * 50}ms` }}
         >
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6} style={{ margin: "auto" }}>
                 <Typography variant="h6">
                     <strong
                         className={classes.text}
@@ -72,15 +72,8 @@ const ChartBestArtist = ({ item, classes, ind, searchAnArtist }) => {
                         {name}
                     </strong>
                 </Typography>
-                <Typography
-                    variant="subtitle2"
-                    onClick={() => (window.location.href = url)}
-                    className={classes.url}
-                >
-                    {url}
-                </Typography>
             </Grid>
-            <Grid item xs={6} className={classes.statsGrid}>
+            <Grid item xs={12} md={6} className={classes.statsGrid}>
                 <Typography variant="subtitle1">
                     <strong>Listeners:</strong>
                     <br />

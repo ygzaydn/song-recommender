@@ -4,25 +4,28 @@ import { Grid, Typography, Chip } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import { compose } from "recompose";
+import { searchTag } from "../../../redux/actionCreators/tagActionCreators";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router";
 
 const useStyles = () => ({
     artistPageUpperGridTitle: {
         marginBottom: "0.5rem",
-        fontSize: "min(10vw,3.5rem)",
+        fontSize: "3.5rem",
+        textAlign: "center",
+        fontSizeAdjust: "0.5",
     },
     artistPageUpperContentGrid: {
         maxWidth: "900px",
         padding: "0 2%",
-        display: "flex",
         alignItems: "center",
     },
     artistPageUpperGridBio: {
         color: "lightGray",
         textDecoration: "underline",
         cursor: "pointer",
-        paddingLeft: "2rem",
+        textAlign: "center",
         transition: "all .5s",
-        display: "inline-block",
         "&:hover": {
             cursor: "pointer",
             textDecoration: "none",
@@ -44,31 +47,36 @@ const useStyles = () => ({
         borderRadius: 0,
         fontSize: "1rem",
         maxWidth: "100%",
-        backgroundColor: "transparent",
         color: "gray",
         "&:hover": {
             backgroundColor: "#3f51b5 !important",
             color: "white !important",
-            borderRadius: 5,
         },
+    },
+    tags: {
+        textAlign: "end",
+        padding: "2rem 0.7rem",
     },
 });
 
-const TrackpageHeader = ({ trackState, classes }) => {
+const TrackpageHeader = ({ trackState, classes, searchATag }) => {
     const routeToBio = () => {
         window.open(trackState.wiki);
     };
-
+    const navigate = useNavigate();
     return (
         <Grid item xs={12} className={classes.artistPageUpperContentGrid}>
-            <Grid item xs={8}>
-                <Typography
-                    color="primary"
-                    variant="h2"
-                    className={classes.artistPageUpperGridTitle}
-                >
-                    {trackState.name.toUpperCase()}
-                </Typography>
+            <Grid item xs={12}>
+                <Grid item xs={12}>
+                    <Typography
+                        color="primary"
+                        variant="h2"
+                        className={classes.artistPageUpperGridTitle}
+                    >
+                        {trackState.name.toUpperCase()}
+                    </Typography>
+                </Grid>
+
                 <Grid item xs={12}>
                     <Typography
                         variant="subtitle2"
@@ -80,44 +88,58 @@ const TrackpageHeader = ({ trackState, classes }) => {
                         Click for more info
                     </Typography>
                 </Grid>
-                <Typography
-                    variant="subtitle2"
-                    className={classes.artistPageUpperGridStats}
-                >
-                    Listeners:
-                    <br />
-                    <strong style={{ color: "white" }}>
-                        {trackState.listeners}
-                    </strong>
-                    <br />
-                </Typography>
-                <Typography
-                    variant="subtitle2"
-                    className={classes.artistPageUpperGridStats}
-                >
-                    Play count:
-                    <br />
-                    <strong style={{ color: "white" }}>
-                        {trackState.playcount}
-                    </strong>
-                    <br />
-                </Typography>
-            </Grid>
-            <Grid item xs={4}>
-                {trackState.toptags.tag.map((el) => (
-                    <Chip
-                        color="primary"
-                        label={el.name}
-                        key={el.name}
-                        size="small"
-                        variant="outlined"
-                        onClick={() => window.open(el.url)}
-                        className={classes.artistPageUpperGridTags}
-                    />
-                ))}
+                <Grid container>
+                    <Grid item xs={12} md={8} style={{ display: "flex" }}>
+                        <Typography
+                            variant="subtitle2"
+                            className={classes.artistPageUpperGridStats}
+                        >
+                            Listeners:
+                            <br />
+                            <strong style={{ color: "white" }}>
+                                {trackState.listeners}
+                            </strong>
+                            <br />
+                        </Typography>
+                        <Typography
+                            variant="subtitle2"
+                            className={classes.artistPageUpperGridStats}
+                        >
+                            Play count:
+                            <br />
+                            <strong style={{ color: "white" }}>
+                                {trackState.playcount}
+                            </strong>
+                            <br />
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={12} md={4} className={classes.tags}>
+                        {trackState.toptags.tag.map((el) => (
+                            <Chip
+                                color="primary"
+                                label={el.name}
+                                key={el.name}
+                                size="small"
+                                variant="outlined"
+                                onClick={() =>
+                                    searchATag(el.name, (x) => navigate(x))
+                                }
+                                className={classes.artistPageUpperGridTags}
+                            />
+                        ))}
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     );
 };
 
-export default compose(withStyles(useStyles))(TrackpageHeader);
+const mapDispatchToProps = (dispatch) => ({
+    searchATag: (tag, func) => dispatch(searchTag(tag, func)),
+});
+
+export default compose(
+    withStyles(useStyles),
+    connect(null, mapDispatchToProps)
+)(TrackpageHeader);

@@ -30,6 +30,8 @@ const useStyles = () => ({
         flexDirection: "column",
         alignItems: "center",
         minHeight: "100vh",
+        position: "relative",
+        transition: "all .2s",
     },
     artistPageContentContainer: {
         maxWidth: "1250px",

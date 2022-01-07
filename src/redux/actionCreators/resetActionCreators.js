@@ -12,6 +12,7 @@ export const resetActions = (op) => (dispatch) => {
         dispatch(doResetArtistState());
         dispatch(doResetGeoState());
         dispatch({ type: Actions.TOGGLE_LOADING });
+        dispatch({ type: Actions.CLEAR_ERROR });
     });
 
     return func.then(() => op());

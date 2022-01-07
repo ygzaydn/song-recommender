@@ -14,25 +14,37 @@ import ChartsBestArtist from "../../utils/charts/chartsBestArtist";
 import ChartsBestTag from "../../utils/charts/chartsBestTag";
 import ChartsBestTrack from "../../utils/charts/chartsBestTrack";
 import CircleMenuCustomized from "../../utils/circleMenu/circlemenu";
+import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
+
+import BackgroundImage from "../../../assets/images/searchboxbackground.jpg";
 
 const useStyles = () => ({
     chartspageContainer: {
-        height: "100vh",
+        minHeight: "100vh",
         width: "100vw",
+        position: "relative",
     },
     chartspageBackground: {
-        background: "rgb(255, 253, 105)",
+        backgroundImage: `linear-gradient(#fffc69d2, #fffc69d2), url(${BackgroundImage})`,
         clipPath: "polygon(0% 0%, 50% 0%, 60% 100%, 0% 100%)",
         position: "absolute",
-        zIndex: 0,
-        height: "100vh",
-        width: "100vw",
+        zIndex: -1,
+        minHeight: "100vh",
+        width: "100%",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
     },
     circleMenuGrid: {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         maxHeight: "35vh",
+        padding: "2.5rem",
+        "@media only screen and (max-width:1000px)": {
+            maxHeight: "5vh",
+            zIndex: 80,
+            transform: "scale(0.5)",
+        },
     },
     contentGrid: {
         position: "relative",
@@ -41,20 +53,29 @@ const useStyles = () => ({
         borderTopLeftRadius: 80,
         borderBottomRightRadius: 80,
         border: "solid 0.2px black",
-        height: "100%",
+        height: "75vh",
         width: "100%",
         overflow: "hidden",
     },
     leftMainGrid: {
-        padding: "3rem",
+        padding: "0.5rem 1.5rem",
         maxWidth: 1000,
         margin: "auto",
-        height: "100%",
     },
     rightMainGridTitle: {
         padding: "1rem",
         textAlign: "center",
-        paddingTop: "5rem",
+        display: "none",
+        "@media only screen and (max-width:1000px)": {
+            display: "block",
+        },
+    },
+    leftMainGridTitle: {
+        padding: "1rem",
+        textAlign: "center",
+        "@media only screen and (max-width:1000px)": {
+            display: "none",
+        },
     },
     rightMainGrid: {
         display: "flex",
@@ -112,14 +133,14 @@ const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
         <Grid container className={classes.chartspageContainer}>
             <Grid item xs={12} className={classes.chartspageBackground} />
             {isLoading && <Loading />}
-            <Grid item xs={5} className={classes.rightMainGrid}>
+            <Grid item xs={12} md={5} className={classes.rightMainGrid}>
                 <Grid item xs={12} className={classes.circleMenuGrid}>
                     <CircleMenuCustomized
                         state={pageState}
                         changeState={(x) => changeState(x)}
                     />
                 </Grid>
-                <Grid item xs={12} className={classes.rightMainGridTitle}>
+                <Grid item xs={12} className={classes.leftMainGridTitle}>
                     <Typography
                         variant="subtitle1"
                         color="primary"
@@ -132,7 +153,13 @@ const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid item xs={7} className={classes.leftMainGrid}>
+            <Grid item xs={12} md={7} className={classes.leftMainGrid}>
+                <Grid item xs={12} className={classes.rightMainGridTitle}>
+                    <FadeInTitle
+                        text={`Top ${pageState}`.toUpperCase()}
+                        size="big"
+                    />
+                </Grid>
                 <Grid item xs={12} className={classes.contentGrid}>
                     {pageState === "Artists" &&
                         chartState &&

@@ -32,23 +32,44 @@ export const doResetTrackState = () => {
 
 export const searchTrack = (track, artist) => (dispatch) => {
     dispatch({ type: Actions.TOGGLE_LOADING });
-    getTrackFromSearchwithNameandArtist(track, artist).then((res) => {
-        dispatch(doGetRecommendedTrack(res[0]));
-        dispatch(doGetSimilarTrack(res[1]));
-        dispatch({ type: Actions.TOGGLE_LOADING });
-    });
+    getTrackFromSearchwithNameandArtist(track, artist)
+        .then((res) => {
+            if (res[0].data.error || res[1].data.error) {
+                dispatch({ type: Actions.APPLY_ERROR });
+                throw new Error("err");
+            } else {
+                dispatch(doGetRecommendedTrack(res[0]));
+                dispatch(doGetSimilarTrack(res[1]));
+            }
+            dispatch({ type: Actions.CLEAR_ERROR });
+            dispatch({ type: Actions.TOGGLE_LOADING });
+        })
+        .catch((err) => {
+            dispatch({ type: Actions.APPLY_ERROR });
+        });
 };
 
 export const searchTrackByMbid =
     (mbid, func = "") =>
     (dispatch) => {
         dispatch({ type: Actions.TOGGLE_LOADING });
-        getTrackFromSearch(mbid).then((res) => {
-            dispatch(doGetRecommendedTrack(res[0]));
-            dispatch(doGetSimilarTrack(res[1]));
-            dispatch({ type: Actions.TOGGLE_LOADING });
-            if (typeof func === "function") {
-                func(`/track/${mbid}`);
-            }
-        });
+        getTrackFromSearch(mbid)
+            .then((res) => {
+                if (res[0].data.error || res[1].data.error) {
+                    dispatch({ type: Actions.APPLY_ERROR });
+                    throw new Error("err");
+                } else {
+                    dispatch(doGetRecommendedTrack(res[0]));
+                    dispatch(doGetSimilarTrack(res[1]));
+                }
+
+                dispatch({ type: Actions.CLEAR_ERROR });
+                dispatch({ type: Actions.TOGGLE_LOADING });
+                if (typeof func === "function") {
+                    func(`/track/${mbid}`);
+                }
+            })
+            .catch((err) => {
+                dispatch({ type: Actions.APPLY_ERROR });
+            });
     };
