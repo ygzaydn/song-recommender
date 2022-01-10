@@ -117,7 +117,7 @@ const Trackpage = ({
                     <Trackpageheader trackState={track} />
                 </Grid>
                 <Grid container className={classes.artistPageContentContainer}>
-                <Grid
+                    <Grid
                         item
                         xs={12}
                         sm={6}
@@ -128,7 +128,13 @@ const Trackpage = ({
                             xs={12}
                             className={classes.artistPageAlbumGrid}
                         >
-                            <Typography variant="subtitle2">{trackInfoState.getTrack.wiki.summary.split("<a")[0]}</Typography>
+                            <Typography variant="subtitle2">
+                                {
+                                    trackInfoState.getTrack.wiki.summary.split(
+                                        "<a"
+                                    )[0]
+                                }
+                            </Typography>
                         </Grid>
                         <Grid
                             item
@@ -142,6 +148,7 @@ const Trackpage = ({
                                         name: track.album.title,
                                         image: track.album.image,
                                         url: track.album.url,
+                                        mbid: track.album.mbid,
                                     }}
                                     key={track.album.name}
                                 />
@@ -184,7 +191,6 @@ const Trackpage = ({
                                 ))}
                         </Grid>
                     </Grid>
-                    
                 </Grid>
             </Grid>
         )

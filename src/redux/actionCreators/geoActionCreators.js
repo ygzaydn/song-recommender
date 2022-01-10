@@ -25,15 +25,14 @@ export const searchGeo = (country) => (dispatch) => {
         .then((res) => {
             if (res[0].data.error || res[1].data.error) {
                 dispatch({ type: Actions.APPLY_ERROR });
-                throw new Error("err");
             } else {
                 dispatch(doGetGeoTopTracks(res[0]));
                 dispatch(doGetGeoTopArtists(res[1]));
                 dispatch({ type: Actions.SET_GEO_NAME, payload: country });
+                dispatch({ type: Actions.CLEAR_ERROR });
             }
 
             dispatch({ type: Actions.TOGGLE_LOADING });
-            dispatch({ type: Actions.CLEAR_ERROR });
         })
         .catch((err) => {
             dispatch({ type: Actions.APPLY_ERROR });

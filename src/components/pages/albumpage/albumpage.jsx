@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
 import { compose } from "recompose";
@@ -8,17 +8,17 @@ import { connect } from "react-redux";
 
 import { useParams } from "react-router-dom";
 
-import * as geoSelectors from "../../../redux/selectors/geoSelectors";
-import * as geoActionCreators from "../../../redux/actionCreators/geoActionCreators";
 import * as loadingSelectors from "../../../redux/selectors/loadingSelectors";
 
 import ResultBackground from "../../../assets/images/resultbackground.jpg";
 
-import GeopageHeader from "../../utils/geopageheader/geopageheader";
+import Songgrid from "../../utils/songGrid/songGrid";
+import AlbumpageHeader from "../../utils/albumpageHeader/albumpageHeader";
 import FadeInTitle from "../../utils/fadeInTitle/fadeInTitle";
-import HitGrid from "../../utils/hitGrid/hitGrid";
 import Loading from "../../utils/loading/loading";
 import Header from "../../utils/header/header";
+
+import { searchAlbum } from "../../../redux/actionCreators/albumActionCreators";
 
 const useStyles = () => ({
     artistPageContainer: {
@@ -56,12 +56,13 @@ const useStyles = () => ({
     },
     songListGrid: {
         height: "35rem",
-        overflowY: "auto",
-        overflowX: "hidden",
+        overflow: "auto",
     },
     albumGrid: {
         display: "grid",
         padding: "0 1.5rem",
+        gridTemplateColumns: "auto auto",
+        gridTemplateRows: "auto auto",
     },
     artistPageAlbumGrid: {
         padding: "1.5rem",
@@ -77,75 +78,84 @@ const useStyles = () => ({
     similarArtistGrid: {
         display: "flex",
     },
+    leftGrid: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        paddingTop: "2rem",
+        "& img": {
+            "@media only screen and (min-width:1000px)": {
+                position: "relative",
+                bottom: "20%",
+            },
+            borderRadius: 20,
+            border: "0.5px solid lightgray",
+        },
+
+        "& h6": {
+            "@media only screen and (min-width:1000px)": {
+                position: "relative",
+                bottom: "15%",
+            },
+            padding: "2rem",
+        },
+    },
 });
 
-const Geopage = ({
-    classes,
-    geoState,
-    searchGeo,
-    getGeoTopArtists,
-    getGeoTopTracks,
-    isLoading,
-}) => {
-    const { countryId } = useParams();
-    const { name } = geoState;
+const Artistpage = ({ classes, albumState, searchAlbum, loadingState }) => {
+    const { albumMbid } = useParams();
 
     useEffect(() => {
-        if (countryId.length > 0 && name !== countryId) {
-            searchGeo(countryId);
+        if (!albumState.album) {
+            searchAlbum(albumMbid);
         }
     }, []);
-
     return (
-        Object.keys(geoState).length >= 3 && (
+        Object.keys(albumState).length >= 1 &&
+        albumState.album &&
+        Object.keys(albumState.album).length >= 1 && (
             <Grid container className={classes.artistPageContainer}>
-                {isLoading && <Loading />}
+                {loadingState && <Loading />}
                 <Grid container className={classes.artistPageUpperContainer}>
                     <Header />
-                    <GeopageHeader countryName={name} />
+                    <AlbumpageHeader albumState={albumState.album} />
                 </Grid>
                 <Grid container className={classes.artistPageContentContainer}>
                     <Grid
                         item
                         xs={12}
                         sm={6}
-                        className={classes.artistPageLeftGrid}
-                        style={{ padding: "2%" }}
+                        className={classes.artistPageSummaryGrid}
                     >
-                        <FadeInTitle text="Hit songs" />
+                        <FadeInTitle text="Best songs" />
+
                         <Grid item xs={12} className={classes.songListGrid}>
-                            {getGeoTopTracks
-                                .filter((el, ind) => ind < 25)
-                                .map((el, ind) => (
-                                    <HitGrid
-                                        key={el.name}
-                                        item={el}
-                                        ind={ind}
-                                        maxListen={1}
-                                    />
-                                ))}
+                            {albumState.album.tracks.track.map((el, ind) => (
+                                <Songgrid
+                                    key={el.name}
+                                    item={el}
+                                    ind={ind}
+                                    mode={"album"}
+                                />
+                            ))}
                         </Grid>
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        className={classes.artistPageLeftGrid}
-                        style={{ padding: "2%" }}
-                    >
-                        <FadeInTitle text="Hit bands" />
-                        <Grid item xs={12} className={classes.songListGrid}>
-                            {getGeoTopArtists
-                                .filter((el, ind) => ind < 25)
-                                .map((el, ind) => (
-                                    <HitGrid
-                                        key={el.name}
-                                        item={el}
-                                        ind={ind}
-                                        mode="artist"
-                                    />
-                                ))}
-                        </Grid>
+
+                    <Grid item xs={12} sm={6} className={classes.leftGrid}>
+                        <img
+                            src={
+                                albumState.album.image &&
+                                albumState.album.image[5]["#text"]
+                            }
+                            alt={"cover"}
+                        />
+                        <Typography
+                            variant="subtitle2"
+                            style={{ paddingBottom: "3rem" }}
+                        >
+                            {albumState.album.wiki.summary.split("<a")[0]}
+                        </Typography>
                     </Grid>
                 </Grid>
             </Grid>
@@ -154,17 +164,15 @@ const Geopage = ({
 };
 
 const mapStateToProps = (state) => ({
-    geoState: geoSelectors.geoState(state),
-    getGeoTopArtists: geoSelectors.geoTopArtists(state),
-    getGeoTopTracks: geoSelectors.geoTopTracks(state),
-    isLoading: loadingSelectors.loadingState(state),
+    albumState: state.albumState,
+    loadingState: loadingSelectors.loadingState(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    searchGeo: (geo) => dispatch(geoActionCreators.searchGeo(geo)),
+    searchAlbum: (mbid) => dispatch(searchAlbum(mbid)),
 });
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withStyles(useStyles)
-)(Geopage);
+)(Artistpage);

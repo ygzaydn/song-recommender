@@ -59,16 +59,12 @@ export const getTrackFromSearchwithNameandArtist = async (track, artist) => {
     }
 };
 
-export const searchTrackByNameAndArtist = async (
-    trackName,
-    trackArtist,
-    dispatcherMethod
-) => {
+export const searchTrackByNameAndArtist = async (trackName, trackArtist) => {
     const res = await axios.get(
-        `https://ws.audioscrobbler.com/2.0/?method=track.getSimilar&track=${trackName}&artist=${trackArtist}&autocorrect=1&api_key=${process.env.REACT_APP_API_KEY}&format=json`
+        `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&track=${trackName}&artist=${trackArtist}&autocorrect=1&api_key=${process.env.REACT_APP_API_KEY}&format=json`
     );
     try {
-        dispatcherMethod(res);
+        return res;
     } catch (error) {
         console.log(error);
     }
@@ -154,4 +150,26 @@ export const getCharts = async () => {
     } catch (error) {
         console.log(error);
     }
+};
+
+export const getAlbumByMbid = async (mbid) => {
+    const call = await axios.get(
+        `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${process.env.REACT_APP_API_KEY}&mbid=${mbid}&format=json`
+    );
+    try {
+        return call;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const queryYoutubeLink = async (stateFunc, songName, artistName) => {
+    await axios
+        .get(
+            `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${songName} - ${artistName}&key=AIzaSyDw42F5UkRgcoXrvweBhzxDZoNICAdT7YQ`
+        )
+        .then((res) => {
+            stateFunc(res.data.items[0].id.videoId);
+        })
+        .catch((err) => console.log(err));
 };

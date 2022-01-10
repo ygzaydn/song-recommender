@@ -2,6 +2,7 @@ import * as Actions from "../actionTypes/actionTypes";
 import {
     getTrackFromSearchwithNameandArtist,
     getTrackFromSearch,
+    searchTrackByNameAndArtist,
 } from "../../axiosCalls";
 
 export const doGetRecommendedTrack = (track) => {
@@ -72,4 +73,32 @@ export const searchTrackByMbid =
             .catch((err) => {
                 dispatch({ type: Actions.APPLY_ERROR });
             });
+    };
+
+export const searchTrackByMbidOnAlbumPage =
+    (name, artist, func = "") =>
+    (dispatch) => {
+        dispatch({ type: Actions.TOGGLE_LOADING });
+        searchTrackByNameAndArtist(name, artist).then((res) => {
+            const mbid = res.data.track.mbid;
+            getTrackFromSearch(mbid)
+                .then((res) => {
+                    if (res[0].data.error || res[1].data.error) {
+                        dispatch({ type: Actions.APPLY_ERROR });
+                        throw new Error("err");
+                    } else {
+                        dispatch(doGetRecommendedTrack(res[0]));
+                        dispatch(doGetSimilarTrack(res[1]));
+                    }
+
+                    dispatch({ type: Actions.CLEAR_ERROR });
+                    dispatch({ type: Actions.TOGGLE_LOADING });
+                    if (typeof func === "function") {
+                        func(`/track/${mbid}`);
+                    }
+                })
+                .catch((err) => {
+                    dispatch({ type: Actions.APPLY_ERROR });
+                });
+        });
     };

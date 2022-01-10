@@ -11,6 +11,7 @@ import Trackpage from "./components/pages/trackpage/trackpage";
 import Geopage from "./components/pages/geopage/geopage";
 import Tagpage from "./components/pages/tagpage/tagpage";
 import Chartspage from "./components/pages/chartspage/chartspage";
+import Albumpage from "./components/pages/albumpage/albumpage";
 
 import ErrorBoundary from "./components/pages/errorpage/errorBoundary";
 
@@ -49,6 +50,11 @@ const App = () => {
                         exact
                         path="/track/:trackMbid"
                         element={<Trackpage />}
+                    />
+                    <Route
+                        exact
+                        path="/album/:albumMbid"
+                        element={<Albumpage />}
                     />
                     <Route exact path="/geo/:countryId" element={<Geopage />} />
                     <Route exact path="/tag/:tagId" element={<Tagpage />} />

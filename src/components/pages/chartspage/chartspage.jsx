@@ -49,7 +49,7 @@ const useStyles = () => ({
     contentGrid: {
         position: "relative",
         zIndex: 10,
-        padding: "2rem",
+        padding: "1rem",
         borderTopLeftRadius: 80,
         borderBottomRightRadius: 80,
         border: "solid 0.2px black",
