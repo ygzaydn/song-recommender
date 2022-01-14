@@ -22,15 +22,10 @@ const useStyles = () => ({
     },
     artistPageUpperGridBio: {
         color: "lightGray",
-        textDecoration: "underline",
         cursor: "pointer",
         textAlign: "center",
         transition: "all .5s",
-        "&:hover": {
-            cursor: "pointer",
-            textDecoration: "none",
-            paddingLeft: "1rem",
-        },
+        
     },
     artistPageUpperGridStats: {
         display: "inline-block",

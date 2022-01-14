@@ -13,48 +13,43 @@ const useStyles = () => ({
                 opacity: 1,
             },
         },
+
+        
     },
 
     homepagecardGrid: {
         maxWidth: "350px",
         padding: "2rem 1.5rem",
-        border: "2px solid #3f51b5",
-        borderRadius: "20px",
-        transition: "all .4s",
+        borderRadius: "10px",
+        
         position: "relative",
-        opacity: 0,
         textAlign: "center",
-
-        animationName: "fadeIn",
-        animationDuration: "2s",
-        animationDelay: "2.5s",
-        "animation-fill-mode": "forwards",
-
+        transition: "all 1.5s",
+        backgroundPosition:"100% 100%",
         justifyContent: "space-evenly",
         alignItems: "center",
-        backgroundColor: "#3f51b5",
+        backgroundImage: "linear-gradient(105deg, white 0%, white 50%, #3f51b5 50% ,#3f51b5 100%)",
+        backgroundSize: "400% 400%",
 
         "&:hover": {
-            border: "2px solid white",
             cursor: "pointer",
-            backgroundColor: "white",
-
+            backgroundPosition:"0% 0%",
             "& svg": {
                 color: "black",
             },
             "& h6": {
                 color: "black",
             },
-            "&:active": {
-                transform: "translateY(0.1px)",
-            },
+           
         },
 
         "& svg": {
+            transition: "all 1.5s",
             color: "white",
             height: "100%",
         },
         "& h6": {
+            transition: "all 1.5s",
             color: "white",
             fontSize: "min(5vw, 1.25rem)",
         },

@@ -60,9 +60,7 @@ const useStyles = () => ({
 });
 
 const TrackpageHeader = ({ trackState, classes, searchATag }) => {
-    const routeToBio = () => {
-        window.open(trackState.wiki);
-    };
+ 
     const navigate = useNavigate();
     return (
         <Grid item xs={12} className={classes.artistPageUpperContentGrid}>
@@ -77,17 +75,7 @@ const TrackpageHeader = ({ trackState, classes, searchATag }) => {
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12}>
-                    <Typography
-                        variant="subtitle2"
-                        className={classes.artistPageUpperGridBio}
-                        onClick={() => {
-                            routeToBio();
-                        }}
-                    >
-                        Click for more info
-                    </Typography>
-                </Grid>
+                
                 <Grid container>
                     <Grid item xs={12} md={8} style={{ display: "flex" }}>
                         <Typography
