@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { Grid, Typography } from "@material-ui/core";
 
@@ -29,7 +29,7 @@ const useStyles = () => ({
         clipPath: "polygon(0% 0%, 50% 0%, 60% 100%, 0% 100%)",
         position: "absolute",
         zIndex: -1,
-        minHeight: "100vh",
+        height: "100%",
         width: "100%",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -42,8 +42,9 @@ const useStyles = () => ({
         padding: "2.5rem",
         "@media only screen and (max-width:1000px)": {
             maxHeight: "5vh",
+            maxWidth: "100%",
             zIndex: 80,
-            transform: "scale(0.5)",
+            transform: "scale(0.75)",
         },
     },
     contentGrid: {
@@ -56,6 +57,11 @@ const useStyles = () => ({
         height: "75vh",
         width: "100%",
         overflow: "hidden",
+        "@media only screen and (max-width:1000px)": {
+            borderTopLeftRadius: 20,
+            borderBottomRightRadius: 20,
+            height: "60vh",
+        },
     },
     leftMainGrid: {
         padding: "0.5rem 1.5rem",
@@ -120,6 +126,7 @@ const useStyles = () => ({
 });
 const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
     const [pageState, setPageState] = useState("Artists");
+    const ref = useRef("");
 
     useEffect(() => {
         getCharts();
@@ -127,6 +134,8 @@ const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
 
     const changeState = (state) => {
         setPageState(state);
+        console.log(document.getElementById("x").focus());
+        window.setTimeout(() => document.getElementById("x").focus(), 1);
     };
 
     return (
@@ -134,7 +143,7 @@ const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
             <Grid item xs={12} className={classes.chartspageBackground} />
             {isLoading && <Loading />}
             <Grid item xs={12} md={5} className={classes.rightMainGrid}>
-                <Grid item xs={12} className={classes.circleMenuGrid}>
+                <Grid item xs={12} className={classes.circleMenuGrid} ref={ref}>
                     <CircleMenuCustomized
                         state={pageState}
                         changeState={(x) => changeState(x)}
@@ -145,6 +154,7 @@ const Chartspage = ({ classes, chartState, getCharts, isLoading }) => {
                         variant="subtitle1"
                         color="primary"
                         className={classes.textStyle}
+                        id="x"
                     >
                         TOP <br />{" "}
                         <strong style={{ fontSize: "5rem" }}>

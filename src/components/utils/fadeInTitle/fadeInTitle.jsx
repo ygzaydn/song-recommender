@@ -37,9 +37,14 @@ const useStyles = () => ({
     },
 });
 
-const FadeInTitle = ({ text, classes }) => {
+const FadeInTitle = ({ text, classes, size }) => {
     return (
-        <Typography variant="h6" color="primary" className={classes.textStyle}>
+        <Typography
+            variant="h6"
+            color="primary"
+            className={classes.textStyle}
+            style={size === "big" && { fontSize: "10vw" }}
+        >
             {text}
         </Typography>
     );

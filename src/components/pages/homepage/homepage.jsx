@@ -15,13 +15,19 @@ import ReplayIcon from "@mui/icons-material/Replay";
 const Homepage = () => {
     return (
         <Grid container style={{ height: "100vh" }}>
-            <video className="main-page-video" autoPlay loop muted preload={'auto'}>
+            <video
+                className="main-page-video"
+                autoPlay
+                loop
+                muted
+                preload={"auto"}
+            >
                 <source src={HomepageVideo} type="video/mp4" />
             </video>
             <Grid container style={{ padding: "0 2rem" }}>
                 <Grid
                     container
-                    style={{ alignSelf: "flex-end", height: "78vh" }}
+                    style={{ alignSelf: "flex-end", minHeight: "100%" }}
                 >
                     <Grid
                         item
@@ -36,21 +42,44 @@ const Homepage = () => {
                             style={{
                                 fontSize: "min(15vw, 3rem)",
                                 padding: "2rem 0",
+                                textAlign: "center",
+                                maxWidth: "600px",
                             }}
                         >
-                            Find the best&nbsp;
-                            <strong style={{ color: "lightgray" }}>
-                                music
-                            </strong>
-                            &nbsp;for your taste
+                            You bring the passion, we bring the music.
                         </Typography>
+                        <Typography
+                            variant="subtitle1"
+                            className="main-page-h3-text"
+                            style={{
+                                color: "white",
+                                textAlign: "start",
+                                maxWidth: "600px",
+                            }}
+                        >
+                            Song recommender app helps you to give different
+                            songs based on your search. <br /> Use the menu to
+                            find music for you.
+                        </Typography>
+                        <Grid
+                            container
+                            className="container-bottom"
+                            style={{
+                                height: "max(200px, 5rem)",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                alignSelf: "flex-end",
+                            }}
+                        >
+                            <HomepageFooterCard
+                                icon={<ReplayIcon />}
+                                text="Check out weekly charts"
+                                link="/charts"
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid
-                        item
-                        md={6}
-                        sm={12}
-                        className="main-page-grid-sm-12-md-6 main-page-grid"
-                    >
+                    <Grid item md={6} sm={12} className="main-page-grid">
                         <HomepageCard
                             icon={<MusicVideoIcon />}
                             text="Find similar artists"
@@ -76,23 +105,6 @@ const Homepage = () => {
                             link="/search/tag"
                         />
                     </Grid>
-                </Grid>
-                <Grid
-                    container
-                    className="container-bottom"
-                    style={{
-                        height: "max(200px, 5rem)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        alignSelf: "flex-end",
-                    }}
-                >
-                    <HomepageFooterCard
-                        icon={<ReplayIcon />}
-                        text="Check out weekly charts"
-                        link="/charts"
-                    />
                 </Grid>
             </Grid>
         </Grid>

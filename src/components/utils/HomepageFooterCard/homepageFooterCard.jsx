@@ -16,24 +16,29 @@ const useStyles = () => ({
     },
 
     homepagecardGrid: {
-        maxWidth: "400px",
+        maxWidth: "350px",
         padding: "2rem 1.5rem",
-        border: "2px solid white",
+        border: "2px solid #3f51b5",
         borderRadius: "20px",
-        transition: "all 1s",
+        transition: "all .4s",
         position: "relative",
         opacity: 0,
         textAlign: "center",
+
         animationName: "fadeIn",
         animationDuration: "2s",
         animationDelay: "2.5s",
         "animation-fill-mode": "forwards",
+
         justifyContent: "space-evenly",
         alignItems: "center",
+        backgroundColor: "#3f51b5",
+
         "&:hover": {
+            border: "2px solid white",
             cursor: "pointer",
             backgroundColor: "white",
-            transition: "all .2s",
+
             "& svg": {
                 color: "black",
             },
@@ -44,6 +49,7 @@ const useStyles = () => ({
                 transform: "translateY(0.1px)",
             },
         },
+
         "& svg": {
             color: "white",
             height: "100%",
@@ -58,11 +64,7 @@ const useStyles = () => ({
 const HomepageCard = ({ classes, icon, text, link }) => {
     const navigate = useNavigate();
     const clickCard = () => {
-        navigate(`${link}`, {
-            state: {
-                backgroundId: Math.floor(Math.random() * 10) % 4,
-            },
-        });
+        navigate(`${link}`);
     };
     return (
         <Grid
