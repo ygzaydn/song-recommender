@@ -43,7 +43,7 @@ const FadeInTitle = ({ text, classes, size }) => {
             variant="h6"
             color="primary"
             className={classes.textStyle}
-            style={size === "big" && { fontSize: "10vw" }}
+            style={size === "big" ? { fontSize: "10vw" } : {}}
         >
             {text}
         </Typography>
